@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import '../app/style/herosection.css';
 
 @custom-variant dark (&:is(.dark *));
 
