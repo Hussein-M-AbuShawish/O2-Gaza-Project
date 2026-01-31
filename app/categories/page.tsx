@@ -3,22 +3,65 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ShoppingBasket } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { useCart } from "@/context/cart-context";
 
 const categories = [
-  { id: "shawarma", name: "الشاورما", icon: "🌯", color: "from-orange-500/20 to-red-500/20" },
-  { id: "italian", name: "الإيطالي", icon: "🍕", color: "from-yellow-500/20 to-orange-500/20" },
-  { id: "sandwiches", name: "السندويشات الغربية", icon: "🍔", color: "from-amber-500/20 to-yellow-500/20" },
-  { id: "easternSweets", name: "الحلويات الشرقية", icon: "🍯", color: "from-pink-500/20 to-red-500/20" },
-  { id: "westernSweets", name: "الكيك والحلويات الغربية", icon: "🍰", color: "from-purple-500/20 to-pink-500/20" },
-  { id: "barSweets", name: "حلويات البار", icon: "🍩", color: "from-rose-500/20 to-purple-500/20" },
-  { id: "drinks", name: "المشروبات", icon: "🥤", color: "from-blue-500/20 to-cyan-500/20" },
-  { id: "salads", name: "السلطات", icon: "🥗", color: "from-green-500/20 to-emerald-500/20" },
+  {
+    id: "shawarma",
+    name: "الشاورما",
+    icon: "🌯",
+    color: "from-orange-500/20 to-red-500/20",
+  },
+  {
+    id: "italian",
+    name: "الإيطالي",
+    icon: "🍕",
+    color: "from-yellow-500/20 to-orange-500/20",
+  },
+  {
+    id: "sandwiches",
+    name: "السندويشات الغربية",
+    icon: "🍔",
+    color: "from-amber-500/20 to-yellow-500/20",
+  },
+  {
+    id: "easternSweets",
+    name: "الحلويات الشرقية",
+    icon: "🍯",
+    color: "from-pink-500/20 to-red-500/20",
+  },
+  {
+    id: "westernSweets",
+    name: "الكيك والحلويات الغربية",
+    icon: "🍰",
+    color: "from-purple-500/20 to-pink-500/20",
+  },
+  {
+    id: "barSweets",
+    name: "حلويات البار",
+    icon: "🍩",
+    color: "from-rose-500/20 to-purple-500/20",
+  },
+  {
+    id: "drinks",
+    name: "المشروبات",
+    icon: "🥤",
+    color: "from-blue-500/20 to-cyan-500/20",
+  },
+  {
+    id: "salads",
+    name: "السلطات",
+    icon: "🥗",
+    color: "from-green-500/20 to-emerald-500/20",
+  },
 ];
 
 export default function CategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { cartTotal } = useCart();
 
   return (
     <main className="min-h-screen bg-background">
@@ -70,11 +113,15 @@ export default function CategoriesPage() {
                   >
                     {/* Background animated elements */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-primary transition-opacity duration-300" />
-                    
+
                     {/* Content */}
                     <div className="relative z-10 text-center">
                       <motion.div
-                        animate={selectedCategory === category.id ? { scale: 1.1 } : { scale: 1 }}
+                        animate={
+                          selectedCategory === category.id
+                            ? { scale: 1.1 }
+                            : { scale: 1 }
+                        }
                         transition={{ duration: 0.3 }}
                         className="text-5xl md:text-6xl mb-4"
                       >
@@ -97,6 +144,19 @@ export default function CategoriesPage() {
           </motion.div>
         </div>
       </div>
+
+      {/* Cart Button */}
+      {cartTotal > 0 && (
+        <Link href="/category/shawarma">
+          <button className="fixed bottom-5 left-5 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-[0_5px_20px_rgba(226,0,4,0.5)] z-[1500] transition-transform active:scale-95">
+            <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
+            <span className="absolute -top-0.5 -right-0.5 w-6 h-6 bg-white text-primary rounded-full text-xs font-black flex items-center justify-center">
+              {cartTotal}
+            </span>
+          </button>
+        </Link>
+      )}
+
       <Footer />
     </main>
   );

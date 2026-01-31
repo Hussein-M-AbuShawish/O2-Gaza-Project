@@ -26,6 +26,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { useCart } from "@/context/cart-context";
 
 // ================= CONFIGURATION =================
 const CONFIG = {
@@ -42,6 +43,8 @@ const CONFIG = {
       { name: "غزة - النصر", price: 7 },
     ],
     middle: [
+      { name: "فوري", price: 0 },
+
       { name: "النصيرات", price: 10 },
       { name: "البريج", price: 15 },
       { name: "سوارحة الشرقية", price: 15 },
@@ -241,30 +244,30 @@ const menuData: Record<string, MenuCategory> = {
       { name: "سرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
       { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
       { name: "وربات", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "كلاج", pricePerKg: 30, image: "/menu/sweets/3.jpg" },
+      { name: "كلاج", pricePerKg: 30, image: "/menu/sweets/3.1.jpg" },
       { name: "عش البلبل", pricePerKg: 35, image: "/menu/sweets/7.jpg" },
       { name: "سنيورة", pricePerKg: 35, image: "/menu/sweets/8.jpg" },
       { name: "كلّ وشكر", pricePerKg: 35, image: "/menu/sweets/5.jpg" },
-      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/11.jpg" },
+      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/17.jpeg" },
       {
         name: "بسبوسة نوتيلا",
         pricePerKg: 40,
-        image: "/menu/sweets/5K7A6205.jpg",
+        image: "/menu/sweets/18.jpeg",
       },
       { name: "بقلاوة عين جمل", pricePerKg: 55, image: "/menu/sweets/41.jpg" },
       { name: "بقلاوة لوز", pricePerKg: 48, image: "/menu/sweets/9.jpg" },
       { name: "بقلاوة حلبي", pricePerKg: 100, image: "/menu/sweets/10.jpg" },
       {
-        name: "أساور لوز",
+        name: "أساور ",
         pricePerKg: 48,
-        image:
-          "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+        image: "/menu/sweets/19.jpg",
       },
       {
         name: "أساور كاجو",
         pricePerKg: 48,
         image:
           "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+        active: false,
       },
       { name: "نابلسية", pricePerKg: 50, image: "/menu/sweets/23.jpg" },
       { name: "كاسات مكسرات", pricePerKg: 80, image: "/menu/sweets/24.jpg" },
@@ -273,7 +276,7 @@ const menuData: Record<string, MenuCategory> = {
         pricePerKg: 100,
         image:
           "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
-        delivery: false,
+        active: false,
       },
       {
         name: "بلورية حلبي",
@@ -457,12 +460,10 @@ function ProductCard({
   item,
   index,
   onClick,
-  byWeight,
 }: {
   item: MenuItem;
   index: number;
   onClick: () => void;
-  byWeight?: boolean;
 }) {
   const displayPrice = item.pricePerKg
     ? `${item.pricePerKg} ₪/كغ`
@@ -646,11 +647,10 @@ function ProductModal({
                   <button
                     key={w}
                     onClick={() => handleWeightPreset(w)}
-                    className={`py-2 px-3 border-2 border-primary rounded-lg font-semibold transition-colors ${
-                      weight === w && !priceInput
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-transparent text-white"
-                    }`}
+                    className={`py-2 px-3 border-2 border-primary rounded-lg font-semibold transition-colors ${weight === w && !priceInput
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-transparent text-white"
+                      }`}
                   >
                     {w} كغ
                   </button>
@@ -663,7 +663,7 @@ function ProductModal({
             <div className="flex items-center justify-center gap-4 mb-4">
               <button
                 onClick={() =>
-                  isByWeight ? adjustWeight(-1) : setQty(Math.max(1, qty - 1))
+                  isByWeight ? adjustWeight(-0.25) : setQty(Math.max(1, qty - 1))
                 }
                 className="w-11 h-11 rounded-xl border-2 border-primary bg-transparent text-white flex items-center justify-center transition-all active:bg-primary active:scale-90"
               >
@@ -673,7 +673,9 @@ function ProductModal({
                 {isByWeight ? `${weight.toFixed(2)} كغ` : qty}
               </span>
               <button
-                onClick={() => (isByWeight ? adjustWeight(1) : setQty(qty + 1))}
+                onClick={() =>
+                  isByWeight ? adjustWeight(0.25) : setQty(qty + 1)
+                }
                 className="w-11 h-11 rounded-xl border-2 border-primary bg-transparent text-white flex items-center justify-center transition-all active:bg-primary active:scale-90"
               >
                 <Plus className="w-5 h-5" />
@@ -1161,8 +1163,10 @@ export default function CategoryPage() {
   const params = useParams();
   const categoryId = params.id as string;
 
+  // استخدام Context
+  const { cart, cartTotal, addToCart, updateQty, clearCart } = useCart();
+
   const [selectedProduct, setSelectedProduct] = useState<MenuItem | null>(null);
-  const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCustomerFormOpen, setIsCustomerFormOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -1179,16 +1183,11 @@ export default function CategoryPage() {
   const categoryData = menuData[categoryId];
   const isByWeight = categoryData?.byWeight || false;
 
-  const cartTotal = useMemo(
-    () => cart.reduce((acc, item) => acc + item.qty, 0),
-    [cart]
-  );
-
   const getWhatsAppNumber = useCallback(() => {
     if (
       currentProvince &&
       CONFIG.whatsappNumbers[
-        currentProvince as keyof typeof CONFIG.whatsappNumbers
+      currentProvince as keyof typeof CONFIG.whatsappNumbers
       ]
     ) {
       return CONFIG.whatsappNumbers[
@@ -1217,46 +1216,31 @@ export default function CategoryPage() {
 
       const itemKey = isByWeight ? `${product.name}-${weight}` : product.name;
 
-      setCart((prev) => {
-        const existing = prev.find((i) => i.key === itemKey);
-        if (existing) {
-          showToast(`تم تحديث ${product.name} في السلة`);
-          return prev.map((i) =>
-            i.key === itemKey ? { ...i, qty: i.qty + qty } : i
-          );
-        }
-        showToast(`تم إضافة ${product.name} إلى السلة`);
-        return [
-          ...prev,
-          {
-            key: itemKey,
-            name: product.name,
-            price: isByWeight ? price : product.price!,
-            unitPrice: isByWeight ? product.pricePerKg! : product.price!,
-            qty: isByWeight ? 1 : qty,
-            weight: isByWeight ? weight : null,
-            isByWeight,
-          },
-        ];
+      addToCart({
+        key: itemKey,
+        name: product.name,
+        price: isByWeight ? price : product.price!,
+        unitPrice: isByWeight ? product.pricePerKg! : product.price!,
+        qty: isByWeight ? 1 : qty,
+        weight: isByWeight ? weight : null,
+        isByWeight,
       });
+
+      showToast(`تم إضافة ${product.name} إلى السلة`);
     },
-    [showToast]
+    [showToast, addToCart]
   );
 
-  const handleUpdateCartQty = useCallback((index: number, change: number) => {
-    setCart((prev) => {
-      const newCart = [...prev];
-      newCart[index].qty += change;
-      if (newCart[index].qty <= 0) {
-        newCart.splice(index, 1);
-      }
-      return newCart;
-    });
-  }, []);
+  const handleUpdateCartQty = useCallback(
+    (index: number, change: number) => {
+      updateQty(index, change);
+    },
+    [updateQty]
+  );
 
   const handleClearCart = useCallback(() => {
-    setCart([]);
-  }, []);
+    clearCart();
+  }, [clearCart]);
 
   const handleCheckout = useCallback(() => {
     if (cart.length === 0) {
@@ -1332,7 +1316,7 @@ export default function CategoryPage() {
     );
 
     // Reset state
-    setCart([]);
+    clearCart();
     setSelectedLocation(null);
     setCurrentProvince("");
     setCustomerInfo({ name: "", phone: "", address: "" });
@@ -1343,6 +1327,7 @@ export default function CategoryPage() {
     currentProvince,
     selectedLocation,
     getWhatsAppNumber,
+    clearCart,
   ]);
 
   if (!categoryData) {
@@ -1410,15 +1395,16 @@ export default function CategoryPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
           >
-            {categoryData.items.map((item, index) => (
-              <ProductCard
-                key={item.name}
-                item={item}
-                index={index}
-                onClick={() => setSelectedProduct(item)}
-                byWeight={isByWeight}
-              />
-            ))}
+            {categoryData.items
+              .filter((item) => item.active !== false)
+              .map((item, index) => (
+                <ProductCard
+                  key={item.name}
+                  item={item}
+                  index={index}
+                  onClick={() => setSelectedProduct(item)}
+                />
+              ))}
           </motion.div>
         </div>
       </div>
