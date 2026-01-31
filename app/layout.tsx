@@ -2,7 +2,8 @@ import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Tajawal, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { CartProvider } from "@/context/cart-context";
+import { BranchProvider } from '@/lib/branch-context'
+import { CartProvider } from "@/lib/cart-context"
 import './globals.css'
 
 const _tajawal = Tajawal({
@@ -46,10 +47,12 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body className={`font-sans antialiased`}>
-        <CartProvider>{children}
-          <Analytics />
-        </CartProvider>
-
+        <BranchProvider>
+          <CartProvider>
+            {children}
+            <Analytics />
+          </CartProvider>
+        </BranchProvider>
       </body>
     </html>
   )

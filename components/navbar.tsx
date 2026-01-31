@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 const navLinks = [
   { href: "/about", label: "من نحن" },
   { href: "/services", label: "أنشطتنا" },
-  { href: "/categories", label: "المنيو" },
+  { href: "/select-branch", label: "اطلب الان" },
   { href: "#reviews", label: "آراء العملاء" },
   { href: "#gallery", label: "معرض الصور" },
   { href: "#contact", label: "تواصل معنا" },
@@ -33,11 +33,10 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-lg"
-            : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-lg"
+          : "bg-transparent"
+          }`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -71,7 +70,7 @@ export function Navbar() {
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Link
-                  href="https://dainty-dragon-98cefd.netlify.app/"
+                  href="/select-branch"
                   target="_blank"
                 >
                   اطلب الآن
@@ -143,7 +142,7 @@ export function Navbar() {
                   size="lg"
                 >
                   <Link
-                    href="https://dainty-dragon-98cefd.netlify.app/"
+                    href="/select-branch"
                     target="_blank"
                   >
                     اطلب الآن
