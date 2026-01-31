@@ -83,7 +83,7 @@ export function MenuSection() {
                   />
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                  
+
                   {/* Content */}
                   <div className="absolute inset-0 flex flex-col justify-end p-4">
                     <h3 className="text-foreground font-bold text-lg mb-1 transform translate-y-2 group-hover:translate-y-0 transition-transform">
