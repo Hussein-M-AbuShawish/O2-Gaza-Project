@@ -26,6 +26,7 @@ const CATEGORY_DISPLAY = [
   { id: "barSweets", name: "حلويات البار", image: barSweets, emoji: "🍫" },
   { id: "drinks", name: "المشروبات", image: drinks, emoji: "🥤" },
   { id: "salads", name: "السلطات", image: salads, emoji: "🥗" },
+  { id: "gelato", name: "الجيلاتو", image: salads, emoji: "🍰" },
 ];
 
 export default function CategoriesPage() {
