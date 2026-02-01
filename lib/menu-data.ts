@@ -204,7 +204,7 @@ const gazaMenu: MenuData = {
     byWeight: true,
     items: withDefaultActive([
       { name: "نمورة", pricePerKg: 15, image: "/menu/sweets/25.jpeg" },
-      { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/15.jpeg" },
+      { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/81.jpeg" },
       { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg" },
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
       { name: "نابلسية", pricePerKg: 60, image: "/menu/sweets/23.jpg" },

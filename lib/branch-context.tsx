@@ -22,7 +22,7 @@ export const BRANCHES: Record<string, Branch> = {
         id: "gaza",
         name: "O2 - غزة",
         phone: "972595201049",
-        address: "شارع الشهداء، مدينة غزة",
+        address: "شارع النصر، مدينة غزة",
         region: "محافظة غزة",
     },
     middle: {
