@@ -8,10 +8,9 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/about", label: "من نحن" },
-  { href: "#services", label: "أنشطتنا" },
+  { href: "/services", label: "أنشطتنا" },
   { href: "/select-branch", label: "اطلب الان" },
   { href: "#reviews", label: "آراء العملاء" },
-  // { href: "#gallery", label: "معرض الصور" },
   { href: "#contact", label: "تواصل معنا" },
 ];
 

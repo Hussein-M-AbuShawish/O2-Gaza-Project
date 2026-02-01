@@ -7,6 +7,7 @@ import { ReviewsSection } from "@/components/reviews-section";
 // import { GallerySection } from "@/components/gallery-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
+import Branches from "@/components/branches-section";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <Branches/>
       <ReviewsSection />
       {/* <StatsSection /> */}
       {/* <GallerySection /> */}
