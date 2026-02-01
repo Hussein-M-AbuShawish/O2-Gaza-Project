@@ -30,7 +30,7 @@ import { Footer } from "@/components/footer";
 import { useBranch } from "@/lib/branch-context";
 import { useCart } from "@/lib/cart-context";
 import { useRouter } from "next/navigation";
-import { getMenuByBranch } from "@/lib/menu-data";
+import { getMenuByBranch, filterActiveProducts } from "@/lib/menu-data";
 
 // ================= CONFIGURATION =================
 const CONFIG = {
@@ -1109,7 +1109,9 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
 
   // Get menu data for the current branch - each branch has independent menu
   const branchMenu = getMenuByBranch(defaultBranch);
-  const categoryData = branchMenu[categoryId];
+  const categoryDataRaw = branchMenu[categoryId];
+  // Filter out inactive products (active === false)
+  const categoryData = categoryDataRaw ? filterActiveProducts(categoryDataRaw) : undefined;
   const isByWeight = categoryData?.byWeight || false;
 
   const handleChangeBranch = useCallback(() => {
@@ -1307,7 +1309,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
               {categoryData.title}
             </h1>
             <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-              اختر من مجموعة متنوعة من المنتجات الطازجة والمميزة
+              اختر من مجموعة متنوعة من المنتجات ال��ازجة والمميزة
             </p>
           </motion.div>
 
@@ -1316,7 +1318,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6"
           >
             {categoryData.items.map((item, index) => (
               <ProductCard

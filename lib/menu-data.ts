@@ -440,3 +440,38 @@ export function getCategoryByBranch(
   const menu = getMenuByBranch(branch);
   return menu[categoryId] || null;
 }
+
+/**
+ * Filter out inactive products from a menu category
+ * @param category - Menu category to filter
+ * @returns Menu category with only active products
+ */
+export function filterActiveProducts(category: MenuCategory): MenuCategory {
+  return {
+    ...category,
+    items: category.items.filter(item => item.active !== false),
+  };
+}
+
+/**
+ * Filter out inactive products from all categories in a branch menu
+ * @param menu - Menu data to filter
+ * @returns Menu data with only active products
+ */
+export function filterActiveMenu(menu: MenuData): MenuData {
+  const filtered: MenuData = {};
+  for (const [categoryId, category] of Object.entries(menu)) {
+    filtered[categoryId] = filterActiveProducts(category);
+  }
+  return filtered;
+}
+
+/**
+ * Get active menu data for a specific branch
+ * @param branch - Branch ID
+ * @returns Active menu data for the specified branch (products with active !== false)
+ */
+export function getActiveMenuByBranch(branch: string): MenuData {
+  const menu = getMenuByBranch(branch);
+  return filterActiveMenu(menu);
+}
