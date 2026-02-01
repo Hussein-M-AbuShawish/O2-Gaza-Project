@@ -46,7 +46,7 @@ export function AboutSection() {
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p>
-                مرحباً بكم في مطعم أوتو غزة، حيث نجمع بين الأصالة والحداثة في كل طبق نقدمه. منذ تأسيسنا، التزمنا بتقديم أفضل تجربة طعام لعملائنا الكرام.
+                مرحباً بكم في أوتو غزة، حيث نجمع بين الأصالة والحداثة في كل طبق نقدمه. منذ تأسيسنا، التزمنا بتقديم أفضل تجربة طعام لعملائنا الكرام.
               </p>
               <p>
                 نستخدم أجود المكونات الطازجة ونحضر أطباقنا بعناية فائقة لنضمن لكم مذاقاً استثنائياً في كل مرة تزوروننا فيها.
@@ -58,16 +58,18 @@ export function AboutSection() {
             
             {/* Stats mini */}
             <div className="flex gap-8 mt-8 pt-8 border-t border-border/50">
-              <div>
-                <div className="text-3xl font-bold text-primary">+10</div>
-                <div className="text-sm text-muted-foreground">سنوات خبرة</div>
+              <div className="flex flex-col items-center">
+                <div className="text-3xl font-bold text-primary">2</div>
+                <div className="text-sm text-muted-foreground">فروع لمطعمنا</div>
               </div>
-              <div>
+
+              <div className="flex flex-col items-center">
                 <div className="text-3xl font-bold text-primary">+50</div>
-                <div className="text-sm text-muted-foreground">طبق مميز</div>
+                <div className="text-sm text-muted-foreground">صنف مميز</div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-primary">+1000</div>
+
+              <div className="flex flex-col items-center">
+                <div className="text-3xl font-bold text-primary">+5000</div>
                 <div className="text-sm text-muted-foreground">عميل سعيد</div>
               </div>
             </div>
