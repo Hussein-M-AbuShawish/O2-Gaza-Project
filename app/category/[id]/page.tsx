@@ -617,15 +617,7 @@ function ProductModal({
                 <ShoppingBasket className="w-5 h-5" />
                 أضف إلى السلة
               </button>
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3.5 rounded-xl bg-[#25d366] text-white font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                اطلب الآن
-              </a>
+
             </>
           )}
         </div>
@@ -1180,10 +1172,10 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
     // التحقق من وقت العمل (من 10 صباحاً حتى 12 ليلاً)
     const now = new Date();
     const currentHour = now.getHours();
-    
+
     // وقت العمل من 10 صباحاً (10) حتى 6 مساءً (18)
     if (currentHour >= 10 && currentHour < 24) {
-      
+
     } else {
       showToast(
         "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 12:00 ليلاً."
@@ -1307,7 +1299,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             <Link href="/categories">
               <Button
                 variant="outline"
-                className="text-foreground border-border hover:bg-muted gap-2 bg-transparent"
+                className="text-foreground bg-primary border-border hover:text-amber-50 hover:bg-primary/90 gap-2  "
               >
                 <ChevronLeft className="w-4 h-4" />
                 الأقسام
