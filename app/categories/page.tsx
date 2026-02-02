@@ -16,20 +16,20 @@ import italian from "@/public/menu/italian/35.jpg";
 import sandwiches from "@/public/menu/western/43.jpg";
 import easternSweets from "@/public/menu/sweets/23.jpg";
 import bar from "@/public/menu/bar/16.jpg";
-import westernSweets from "@/public/menu/Cake/11.2.jpg";
-import drinks from "@/public/menu/drinks/13.jpg";
+import westernSweets from "@/public/menu/Cake/38.jpg";
+import drinks from "@/public/menu/drinks/8.jpg";
 import salads from "@/public/menu/salad/20.jpeg";
 import gelato from "@/public/menu/Gelato/72.jpeg";
 
 const CATEGORY_DISPLAY = [
   { id: "shawarma", name: "الشاورما", image: shawarma },
   { id: "italian", name: "الإيطالي", image: italian },
-  { id: "sandwiches", name: "السندويشات", image: sandwiches },
+  { id: "sandwiches", name: "الوجبات الغربية", image: sandwiches },
   { id: "easternSweets", name: "الحلويات الشرقية", image: easternSweets },
   { id: "westernSweets", name: "الكيك والحلويات", image: westernSweets },
   { id: "barSweets", name: "حلويات البار", image: bar },
   { id: "drinks", name: "المشروبات", image: drinks },
-  { id: "salads", name: "السلطات", image: salads },
+  { id: "salads", name: "المقبلات", image: salads },
   { id: "gelato", name: "الجيلاتو", image: gelato },
 ];
 

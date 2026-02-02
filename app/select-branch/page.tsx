@@ -95,7 +95,7 @@ export default function SelectBranchPage() {
                                                         {branch.name}
                                                     </h2>
                                                     <p className="text-sm text-muted-foreground">
-                                                        {branch.region}
+                                                        {branch.address}
                                                     </p>
                                                 </div>
                                             </div>
@@ -104,22 +104,11 @@ export default function SelectBranchPage() {
                                             <div className="space-y-3 mb-8">
                                                 <motion.div
                                                     whileHover={{ x: -4 }}
-                                                    className="flex items-start gap-3"
-                                                >
-                                                    <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                                                    <span className="text-sm text-foreground">
-                                                        {branch.address}
-                                                    </span>
-                                                </motion.div>
-
-                                                <motion.div
-                                                    whileHover={{ x: -4 }}
                                                     className="flex items-center gap-3"
                                                 >
                                                     <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                                                     <span className="text-sm text-foreground">
-                                                       10:00 صباحا – 12:00 منتصف الليل
-                                                    </span>
+                                                        10:00 صباحا – 10:00 ليلاً                                                         </span>
                                                 </motion.div>
                                             </div>
 

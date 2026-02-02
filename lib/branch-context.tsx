@@ -22,14 +22,14 @@ export const BRANCHES: Record<string, Branch> = {
         id: "gaza",
         name: "O2 - غزة",
         phone: "972595201049",
-        address: "شارع النصر، مدينة غزة",
+        address: "شارع النصر",
         region: "محافظة غزة",
     },
     middle: {
         id: "middle",
         name: "O2 - الوسطى",
         phone: "972597111811",
-        address: "الشارع الرئيسي، النصيرات",
+        address: "النصيرات - شارع أبو صرار",
         region: "محافظة الوسطى",
     },
 };

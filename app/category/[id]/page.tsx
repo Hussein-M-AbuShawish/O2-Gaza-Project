@@ -1259,7 +1259,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
     const currentHour = now.getHours();
 
     // وقت العمل من 10 صباحاً (10) حتى 6 مساءً (18)
-    if (currentHour >= 10 && currentHour < 24) {
+    if (currentHour >= 10 && currentHour < 22) {
 
     } else {
       showToast(

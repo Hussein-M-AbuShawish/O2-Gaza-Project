@@ -11,7 +11,7 @@ const services = [
   },
   {
     icon: ShoppingBag,
-    title: "طلبات سفري",
+    title: "طلبات فوري",
     description: "احصل على طلبك جاهزاً للاستلام من المطعم مباشرة بكل سرعة وسهولة",
   },
   {
@@ -85,7 +85,7 @@ export function ServicesSection() {
               <div className="relative h-full p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5">
                 {/* Glass effect overlay */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                
+
                 <div className="relative">
                   {/* Icon */}
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
