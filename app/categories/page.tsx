@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ChevronRight } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { useBranch } from "@/lib/branch-context";
 import { getMenuByBranch } from "@/lib/menu-data";
 
 import shawarma from "@/public/menu/shawarma/13.jpg";
@@ -34,8 +34,10 @@ const CATEGORY_DISPLAY = [
 ];
 
 export default function CategoriesPage() {
-  const { selectedBranch } = useBranch();
-  const branchMenu = getMenuByBranch(selectedBranch || "gaza");
+  const searchParams = useSearchParams();
+  const branch = searchParams.get("branch") || localStorage.getItem("branch") || "gaza"; // fallback
+
+  const branchMenu = getMenuByBranch(branch);
 
   const categories = useMemo(
     () => CATEGORY_DISPLAY.filter((c) => branchMenu[c.id as keyof typeof branchMenu]),
@@ -81,7 +83,7 @@ export default function CategoriesPage() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#dc2626]"></span>
             </span>
             <span className="text-xs font-bold tracking-widest uppercase text-zinc-400">
-              قائمة {selectedBranch === "middle" ? "فرع الوسطى" : "فرع غزة"}
+              قائمة {branch === "middle" ? "فرع الوسطى" : "فرع غزة"}
             </span>
           </motion.div>
 

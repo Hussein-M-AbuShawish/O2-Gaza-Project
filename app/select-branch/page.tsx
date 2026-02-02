@@ -6,6 +6,9 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MapPin, Phone, Clock, Utensils } from "lucide-react";
 import { useBranch, BRANCHES } from "@/lib/branch-context";
+import { useEffect } from "react";
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,9 +30,23 @@ const itemVariants = {
     },
 };
 
+export function BranchProvider({ children }) {
+    const { setSelectedBranch } = useBranch();
+
+    useEffect(() => {
+        const savedBranch = localStorage.getItem("branch");
+        if (savedBranch) {
+            setSelectedBranch(savedBranch);
+        }
+    }, [setSelectedBranch]);
+
+    return children;
+}
+
 export default function SelectBranchPage() {
     const { setSelectedBranch } = useBranch();
     const branchList = Object.values(BRANCHES);
+    const router = useRouter();
 
     return (
         <main className="min-h-screen bg-background">
@@ -67,7 +84,11 @@ export default function SelectBranchPage() {
                                     <motion.div
                                         whileHover={{ y: -12, scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        onClick={() => setSelectedBranch(branch.id)}
+                                        onClick={() => {
+                                            setSelectedBranch(branch.id);
+                                            localStorage.setItem("branch", branch.id); // حفظ الفرع
+                                            router.push(`/categories?branch=${branch.id}`);
+                                        }}
                                         className="relative h-full rounded-2xl overflow-hidden bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer group"
                                     >
                                         {/* Background accent line */}

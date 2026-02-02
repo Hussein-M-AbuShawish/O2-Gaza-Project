@@ -239,7 +239,7 @@ const gazaMenu: MenuData = {
       {
         name: "بلورية حلبي",
         pricePerKg: 130,
-        image: "/menu/sweets/84.jpeg"
+        image: "/menu/sweets/84.jpeg",
       },
       { name: "دولمة حلبي", pricePerKg: 130, image: "/menu/sweets/27.jpg" },
     ]),
@@ -250,7 +250,11 @@ const gazaMenu: MenuData = {
       { name: "قالب كيك صغير", price: 60, image: "/menu/cake/9.jpg" },
       { name: "قالب كيك كبير", price: 80, image: "/menu/cake/10.jpg" },
       { name: "قالب كيك اسبيسشل صغير", price: 80, image: "/menu/cake/38.jpg" },
-      { name: "قالب كيك اسبيسشل كبير", price: 100, image: "/menu/cake/88.jpeg" },
+      {
+        name: "قالب كيك اسبيسشل كبير",
+        price: 100,
+        image: "/menu/cake/88.jpeg",
+      },
       { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg" },
       { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg" },
       {
@@ -394,8 +398,6 @@ const gazaMenu: MenuData = {
       { name: "آيس كافي", price: 10, image: "/menu/drinks/10.jpg" },
       { name: "ميلك شيك", price: 15, image: "/menu/drinks/8.jpg" },
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
-      { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg", active: false },
-      { name: "براد", price: 5, image: "/menu/drinks/15.jpg", active: false },
       { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "كابتشينو", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "اسبريسو سينجل", price: 5, image: "/menu/drinks/6.jpg" },
@@ -451,7 +453,14 @@ const middleMenu: MenuData = {
   easternSweets: gazaMenu.easternSweets,
   westernSweets: gazaMenu.westernSweets,
   barSweets: gazaMenu.barSweets,
-  drinks: gazaMenu.drinks,
+  drinks: {
+    ...gazaMenu.drinks,
+    items: withDefaultActive([
+      { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg", active: true },
+      { name: "براد", price: 5, image: "/menu/drinks/15.jpg", active: true },
+      ...gazaMenu.drinks.items,
+    ]),
+  },
   salads: gazaMenu.salads,
 };
 
