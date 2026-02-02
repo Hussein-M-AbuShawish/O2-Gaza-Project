@@ -1169,6 +1169,20 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
   }, [clearCart]);
 
   const handleCheckout = useCallback(() => {
+    // التحقق من وقت العمل (من 10 صباحاً حتى 12 ليلاً)
+    const now = new Date();
+    const currentHour = now.getHours();
+    
+    // وقت العمل من 10 صباحاً (10) حتى 6 مساءً (18)
+    if (currentHour >= 10 && currentHour < 24) {
+      
+    } else {
+      showToast(
+        "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 12:00 ليلاً."
+      );
+      return;
+    }
+
     if (cart.length === 0) {
       showToast("السلة فارغة");
       return;
