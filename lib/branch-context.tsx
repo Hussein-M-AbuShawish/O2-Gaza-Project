@@ -72,7 +72,7 @@ export function BranchProvider({ children }: { children: ReactNode }) {
 }
 
 export function useBranch() {
-    const context = useContext(BranchContext);
+    const context = useContext(BranchContext)
     if (context === undefined) {
         throw new Error("useBranch must be used within BranchProvider");
     }

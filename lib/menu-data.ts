@@ -95,8 +95,8 @@ const gazaMenu: MenuData = {
         desc: "شاورما - بطاطا - صوص بيكانتي - جبنة - زيتون اسود",
         image: "/menu/shawarma/19.jpg",
       },
-      { name: "صحن شاورما كبير", price: 30, image: "/menu/shawarma/14.jpg" },
-      { name: "صحن شاورما صغير", price: 20, image: "/menu/shawarma/13.jpg" },
+      { name: "صحن شاورما", price: 30, image: "/menu/shawarma/14.jpg" },
+      { name: "صحن شاورما", price: 20, image: "/menu/shawarma/13.jpg" },
     ]),
   },
   italian: {
@@ -127,7 +127,7 @@ const gazaMenu: MenuData = {
         image: "/menu/italian/34.jpg",
       },
       {
-        name: "بيتزا",
+        name: "بيتزا خضار",
         price: 15,
         desc: "خضار - ذرة - زيتون",
         image: "/menu/italian/32.jpg",
@@ -151,10 +151,9 @@ const gazaMenu: MenuData = {
         image: "/menu/italian/1.jpg",
       },
       {
-        name: "صوص إضافي",
+        name: "صوص رانش",
         price: 3,
-        image:
-          "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?w=800&q=80",
+        image: "/menu/italian/7.jpeg",
       },
     ]),
   },
@@ -235,14 +234,14 @@ const gazaMenu: MenuData = {
         pricePerKg: 100,
         image:
           "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
-        active: false,
+        // active: false,
       },
       {
         name: "بلورية حلبي",
         pricePerKg: 130,
         image:
           "https://images.unsplash.com/photo-1571167530149-c6f274f6db8f?w=800&q=80",
-        active: false,
+        // active: false,
       },
       { name: "دولمة حلبي", pricePerKg: 130, image: "/menu/sweets/27.jpg" },
     ]),
@@ -288,7 +287,12 @@ const gazaMenu: MenuData = {
   barSweets: {
     title: "حلويات البار",
     items: withDefaultActive([
-      { name: "كريب شوكولاتة", price: 15, image: "/menu/bar/16.jpg" },
+      {
+        name: "كريب شوكولاتة",
+        price: 15,
+        image: "/menu/bar/16.jpg",
+        active: false,
+      },
       {
         name: "كريب (نوتيلا / بيستاشيو / لوتس)",
         price: 25,
@@ -297,12 +301,17 @@ const gazaMenu: MenuData = {
       { name: "كريب دبي", price: 30, image: "/menu/bar/14.jpg" },
       {
         name: "بان كيك",
-        price: 30,
+        price: 25,
         desc: "نوتيلا / بيستاشيو / لوتس",
         image: "/menu/bar/13.jpg",
       },
       { name: "رينجز", price: 25, image: "/menu/bar/56.jpg" },
-      { name: "لقيمات شوكولاتة", price: 15, image: "/menu/bar/15.jpg" },
+      {
+        name: "لقيمات شوكولاتة",
+        price: 15,
+        image: "/menu/bar/15.jpg",
+        active: false,
+      },
       {
         name: "لقيمات (نوتيلا / بيستاشيو / لوتس)",
         price: 25,
@@ -313,6 +322,7 @@ const gazaMenu: MenuData = {
         price: 15,
         image:
           "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
+        active: false,
       },
       { name: "مولتن كيك", price: 20, image: "/menu/bar/37.jpg" },
       { name: "هوت كيك", price: 20, image: "/menu/bar/59.jpg" },
@@ -377,8 +387,8 @@ const gazaMenu: MenuData = {
   drinks: {
     title: "المشروبات",
     items: withDefaultActive([
-       { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg" },
-      { name: "عصير أناناس", price: 12, image: "/menu/drinks/2.jpg" },
+      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg" },
+      { name: "عصير أناناس", price: 10, image: "/menu/drinks/2.jpg" },
       { name: "ليمون ونعنع", price: 10, image: "/menu/drinks/3.jpg" },
       { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
       { name: "شوكو بارد", price: 10, image: "/menu/drinks/7.jpg" },
@@ -386,8 +396,8 @@ const gazaMenu: MenuData = {
       { name: "آيس كافي", price: 10, image: "/menu/drinks/10.jpg" },
       { name: "ميلك شيك", price: 15, image: "/menu/drinks/8.jpg" },
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
-      { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg" },
-      { name: "براد", price: 5, image: "/menu/drinks/15.jpg" },
+      { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg", active: false },
+      { name: "براد", price: 5, image: "/menu/drinks/15.jpg", active: false },
       { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "كابتشينو", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "اسبريسو سينجل", price: 5, image: "/menu/drinks/6.jpg" },

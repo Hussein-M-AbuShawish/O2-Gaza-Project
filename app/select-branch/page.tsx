@@ -47,7 +47,7 @@ export default function SelectBranchPage() {
                             ابدأ من هنا
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
-                            اختر الفرع المفضل
+                            اختر الفرع الأقرب
                         </h1>
                         <p className="text-muted-foreground text-lg max-w-2xl mx-auto text-pretty">
                             اختر من أحد فروعنا واستمتع بأفضل الأطباق المتنوعة
@@ -111,25 +111,14 @@ export default function SelectBranchPage() {
                                                         {branch.address}
                                                     </span>
                                                 </motion.div>
-                                                <motion.div
-                                                    whileHover={{ x: -4 }}
-                                                    className="flex items-center gap-3"
-                                                >
-                                                    <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                                                    <a
-                                                        href={`tel:+${branch.phone}`}
-                                                        className="text-sm text-primary hover:text-primary/80 font-semibold transition-colors"
-                                                    >
-                                                        +{branch.phone}
-                                                    </a>
-                                                </motion.div>
+
                                                 <motion.div
                                                     whileHover={{ x: -4 }}
                                                     className="flex items-center gap-3"
                                                 >
                                                     <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                                                     <span className="text-sm text-foreground">
-                                                        10:00 - 23:00
+                                                       10:00 صباحا – 12:00 منتصف الليل
                                                     </span>
                                                 </motion.div>
                                             </div>
