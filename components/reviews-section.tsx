@@ -1,74 +1,65 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ThumbsUp, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Star, Quote } from "lucide-react";
 
 const reviews = [
   {
     id: 1,
     name: "أحمد محمد",
+    role: "عميل مميز",
     rating: 5,
     text: "من أفضل المطاعم التي زرتها! الطعام لذيذ جداً والخدمة ممتازة. أنصح الجميع بتجربة البرجر المميز.",
-    date: "قبل أسبوع",
-    likes: 24,
+    avatar: "أ",
   },
   {
     id: 2,
     name: "سارة أحمد",
+    role: "عميلة دائمة",
     rating: 5,
     text: "أجواء رائعة وطعام شهي. الشاورما هنا لا تُضاهى! سأعود بالتأكيد مرة أخرى.",
-    date: "قبل أسبوعين",
-    likes: 18,
+    avatar: "س",
   },
   {
     id: 3,
     name: "محمود علي",
+    role: "زائر",
     rating: 4,
     text: "تجربة مميزة مع العائلة. الأطفال أحبوا البيتزا والحلويات. الأسعار معقولة والجودة عالية.",
-    date: "قبل شهر",
-    likes: 31,
+    avatar: "م",
   },
   {
     id: 4,
     name: "فاطمة حسن",
+    role: "عميلة توصيل",
     rating: 5,
     text: "خدمة التوصيل سريعة والطعام وصل ساخناً وطازجاً. أفضل مطعم للطلبات الخارجية.",
-    date: "قبل 3 أيام",
-    likes: 12,
+    avatar: "ف",
   },
   {
     id: 5,
     name: "يوسف خالد",
+    role: "عميل مميز",
     rating: 5,
-    text: "المشاوي هنا استثنائية! اللحم طري ومتبل بشكل مثالي. تجربة لا تُنسى.",
-    date: "قبل 5 أيام",
-    likes: 27,
+    text: "الايطالي هنا رهيييب! اللحم فخم ومتبل بشكل مثالي. تجربة لا تُنسى.",
+    avatar: "ي",
   },
 ];
 
 export function ReviewsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [likes, setLikes] = useState<Record<number, number>>(
-    reviews.reduce((acc, review) => ({ ...acc, [review.id]: review.likes }), {})
-  );
-  const [liked, setLiked] = useState<Record<number, boolean>>({});
+  const [isPaused, setIsPaused] = useState(false);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % reviews.length);
-  };
+  }, []);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
-  };
-
-  const handleLike = (id: number) => {
-    if (!liked[id]) {
-      setLikes((prev) => ({ ...prev, [id]: prev[id] + 1 }));
-      setLiked((prev) => ({ ...prev, [id]: true }));
-    }
-  };
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(nextSlide, 4000);
+    return () => clearInterval(interval);
+  }, [isPaused, nextSlide]);
 
   const visibleReviews = [
     reviews[(currentIndex - 1 + reviews.length) % reviews.length],
@@ -77,7 +68,7 @@ export function ReviewsSection() {
   ];
 
   return (
-    <section id="reviews" className="py-20 md:py-32">
+    <section id="reviews" className="py-20 md:py-32 overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -99,46 +90,64 @@ export function ReviewsSection() {
         </motion.div>
 
         {/* Reviews Carousel */}
-        <div className="relative max-w-5xl mx-auto">
-          {/* Navigation Buttons */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-card/80 backdrop-blur-sm border-border hover:bg-card hidden md:flex"
-            onClick={prevSlide}
-          >
-            <ChevronRight className="w-5 h-5" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-card/80 backdrop-blur-sm border-border hover:bg-card hidden md:flex"
-            onClick={nextSlide}
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </Button>
-
+        <div
+          className="relative max-w-6xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           {/* Reviews */}
-          <div className="overflow-hidden px-4 md:px-16">
-            <div className="flex gap-6 justify-center">
+          <div className="overflow-hidden px-4">
+            <div className="flex gap-6 justify-center items-stretch">
               <AnimatePresence mode="popLayout">
                 {visibleReviews.map((review, index) => (
                   <motion.div
-                    key={`${review.id}-${index}`}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    key={`${review.id}-${currentIndex}-${index}`}
+                    initial={{ opacity: 0, x: 100, scale: 0.8 }}
                     animate={{
-                      opacity: index === 1 ? 1 : 0.5,
-                      scale: index === 1 ? 1 : 0.9,
+                      opacity: index === 1 ? 1 : 0.4,
+                      scale: index === 1 ? 1 : 0.85,
+                      x: 0,
                     }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.3 }}
-                    className={`flex-shrink-0 w-full md:w-[350px] ${
+                    exit={{ opacity: 0, x: -100, scale: 0.8 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className={`flex-shrink-0 w-full md:w-[380px] ${
                       index !== 1 ? "hidden md:block" : ""
                     }`}
                   >
-                    <div className="relative p-6 rounded-2xl bg-card border border-border/50 h-full">
+                    <div
+                      className={`relative p-8 rounded-3xl h-full transition-all duration-300 ${
+                        index === 1
+                          ? "bg-gradient-to-br from-primary/10 via-card to-card border-2 border-primary/30 shadow-2xl shadow-primary/10"
+                          : "bg-card border border-border/30"
+                      }`}
+                    >
                       {/* Quote icon */}
-                      <Quote className="absolute top-4 left-4 w-8 h-8 text-primary/20" />
+                      <Quote
+                        className={`absolute top-6 left-6 w-10 h-10 ${
+                          index === 1 ? "text-primary/30" : "text-primary/10"
+                        }`}
+                      />
+
+                      {/* Avatar and Info */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <div
+                          className={`w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold ${
+                            index === 1
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-primary/20 text-primary"
+                          }`}
+                        >
+                          {review.avatar}
+                        </div>
+                        <div>
+                          <p className="font-bold text-foreground text-lg">
+                            {review.name}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {review.role}
+                          </p>
+                        </div>
+                      </div>
 
                       {/* Rating */}
                       <div className="flex gap-1 mb-4">
@@ -147,37 +156,23 @@ export function ReviewsSection() {
                             key={i}
                             className={`w-5 h-5 ${
                               i < review.rating
-                                ? "text-primary fill-primary"
-                                : "text-muted-foreground"
+                                ? "text-amber-400 fill-amber-400"
+                                : "text-muted-foreground/30"
                             }`}
                           />
                         ))}
                       </div>
 
                       {/* Review text */}
-                      <p className="text-foreground mb-6 leading-relaxed">
-                        {review.text}
+                      <p
+                        className={`leading-relaxed text-lg ${
+                          index === 1
+                            ? "text-foreground"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        "{review.text}"
                       </p>
-
-                      {/* Footer */}
-                      <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                        <div>
-                          <p className="font-bold text-foreground">{review.name}</p>
-                          <p className="text-sm text-muted-foreground">{review.date}</p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => handleLike(review.id)}
-                          className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors ${
-                            liked[review.id]
-                              ? "bg-primary/20 text-primary"
-                              : "bg-secondary text-muted-foreground hover:text-foreground"
-                          }`}
-                        >
-                          <ThumbsUp className="w-4 h-4" />
-                          <span className="text-sm">{likes[review.id]}</span>
-                        </button>
-                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -186,30 +181,20 @@ export function ReviewsSection() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-3 mt-10">
             {reviews.map((_, index) => (
               <button
                 key={index}
                 type="button"
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
+                className={`h-2.5 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? "bg-primary w-6"
-                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    ? "bg-primary w-8"
+                    : "bg-muted-foreground/20 w-2.5 hover:bg-muted-foreground/40"
                 }`}
                 aria-label={`Go to review ${index + 1}`}
               />
             ))}
-          </div>
-
-          {/* Mobile Navigation */}
-          <div className="flex justify-center gap-4 mt-6 md:hidden">
-            <Button variant="outline" size="icon" onClick={prevSlide}>
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-            <Button variant="outline" size="icon" onClick={nextSlide}>
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
           </div>
         </div>
       </div>
