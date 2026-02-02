@@ -234,8 +234,7 @@ const gazaMenu: MenuData = {
         name: "بورما حلبي",
         pricePerKg: 100,
         image:
-          "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800&q=80",
-        // active: false,
+          "/menu/sweets/78.jpeg",
       },
       {
         name: "بلورية حلبي",
