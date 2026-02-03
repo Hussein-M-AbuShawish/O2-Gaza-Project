@@ -1376,11 +1376,12 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 md:mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="sticky top-[64px] md:top-[80px] z-[1000] bg-background/80 backdrop-blur-lg   py-3 mb-6"
           >
+
             <Link href="/categories">
               <Button
                 variant="outline"
