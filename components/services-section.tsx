@@ -47,7 +47,7 @@ const itemVariants = {
 
 export function ServicesSection() {
   return (
-    <section id="services" className="py-20 md:py-32">
+    <section id="services" className="py-20 md:py-32 overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div

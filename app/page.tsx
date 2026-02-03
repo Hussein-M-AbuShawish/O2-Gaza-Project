@@ -11,7 +11,7 @@ import Branches from "@/components/branches-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       <HeroSection />
       <AboutSection />
