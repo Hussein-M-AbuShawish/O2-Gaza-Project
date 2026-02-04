@@ -207,34 +207,34 @@ const gazaMenu: MenuData = {
       { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/82.jpeg" },
       { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg" },
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
-      { name: "نابلسية", pricePerKg: 60, image: "/menu/sweets/23.jpg" },
-      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/11.jpg" },
-      { name: "معكوفة لوز", pricePerKg: 35, image: "/menu/sweets/6.jpg" },
       { name: "كول واشكر", pricePerKg: 30, image: "/menu/sweets/5.jpg" },
       { name: "سنيورة", pricePerKg: 30, image: "/menu/sweets/8.jpg" },
-      { name: "سرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "وربات", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
+      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/11.jpg" },
       {
         name: "بسبوسة نوتيلا",
         pricePerKg: 40,
         image: "/menu/sweets/18.jpeg",
       },
-      { name: "بقلاوة عين جمل", pricePerKg: 55, image: "/menu/sweets/41.jpg" },
       { name: "بقلاوة لوز", pricePerKg: 48, image: "/menu/sweets/9.jpg" },
-      { name: "بقلاوة حلبي", pricePerKg: 100, image: "/menu/sweets/10.jpg" },
+      { name: "نابلسية", pricePerKg: 60, image: "/menu/sweets/23.jpg" },
+      { name: "معكوفة لوز", pricePerKg: 35, image: "/menu/sweets/6.jpg" },
       {
         name: "أساور لوز",
         pricePerKg: 48,
 
         image: "/menu/sweets/19.jpeg",
       },
+      { name: "سرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
+      { name: "وربات", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
+      { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
+
+      { name: "بقلاوة عين جمل", pricePerKg: 55, image: "/menu/sweets/41.jpg" },
+      { name: "بقلاوة حلبي", pricePerKg: 100, image: "/menu/sweets/10.jpg" },
       { name: "كاسات مكسرات", pricePerKg: 80, image: "/menu/sweets/24.jpg" },
       {
         name: "بورما حلبي",
         pricePerKg: 100,
-        image:
-          "/menu/sweets/78.jpeg",
+        image: "/menu/sweets/78.jpeg",
       },
       {
         name: "بلورية حلبي",
@@ -255,13 +255,14 @@ const gazaMenu: MenuData = {
         price: 100,
         image: "/menu/cake/88.jpeg",
       },
-      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg" },
-      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg" },
       {
         name: "قطع كيك كلاسيكي",
         price: 5,
         image: "/menu/cake/5.jpg",
       },
+      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg" },
+      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg" },
+
       {
         name: "قطع كيك سبيشل",
         price: 10,
@@ -274,14 +275,15 @@ const gazaMenu: MenuData = {
         desc: "لوتس - نوتيلا - بيستاشيو",
         image: "/menu/cake/28.jpg",
       },
+      { name: "كرانش بار", price: 15, image: "/menu/cake/23.jpg" },
+
       {
         name: "موس",
         price: 15,
         desc: "كيندر- لوتس - نوتيلا - بيستاشيو",
         image: "/menu/cake/4.jpg",
       },
-      { name: "تشيس كيك", price: 15, image: "/menu/cake/7.jpg" },
-      { name: "كرانش بار", price: 15, image: "/menu/cake/23.jpg" },
+      { name: "تشيز كيك", price: 15, image: "/menu/cake/7.jpg" },
       { name: "قالب نص بلاطة", price: 150, image: "/menu/cake/8.1.jpg" },
     ]),
   },
@@ -300,18 +302,6 @@ const gazaMenu: MenuData = {
         image: "/menu/bar/64.jpg",
       },
       { name: "كريب دبي", price: 30, image: "/menu/bar/14.jpg" },
-      {
-        name: "بان كيك",
-        price: 25,
-        desc: "نوتيلا / بيستاشيو / لوتس",
-        image: "/menu/bar/67.jpeg",
-      },
-      {
-        name: "ميني بان كيك",
-        price: 25,
-        image: "/menu/bar/13.jpg",
-        desc: "نوتيلا / بيستاشيو / لوتس",
-      },
       { name: "رينجز", price: 25, image: "/menu/bar/56.jpg" },
       {
         name: "لقيمات شوكولاتة",
@@ -325,11 +315,22 @@ const gazaMenu: MenuData = {
         image: "/menu/bar/55.jpg",
       },
       {
+        name: "بان كيك",
+        price: 25,
+        desc: "نوتيلا / بيستاشيو / لوتس",
+        image: "/menu/bar/67.jpeg",
+      },
+      {
+        name: "ميني بان كيك",
+        price: 25,
+        image: "/menu/bar/13.jpg",
+        desc: "نوتيلا / بيستاشيو / لوتس",
+      },
+      {
         name: "بان كيك شوكولاتة",
         price: 15,
         image:
           "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
-        active: false,
       },
       { name: "مولتن كيك", price: 20, image: "/menu/bar/37.jpg" },
       { name: "هوت كيك", price: 20, image: "/menu/bar/38.jpg" },
@@ -395,7 +396,12 @@ const gazaMenu: MenuData = {
       { name: "شوكو بارد", price: 10, image: "/menu/drinks/7.jpg" },
       { name: "ايس موكا", price: 10, image: "/menu/drinks/5.jpg" },
       { name: "آيس كافي", price: 10, image: "/menu/drinks/10.jpg" },
-      { name: "ميلك شيك", price: 15, image: "/menu/drinks/8.jpg", desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري" },
+      {
+        name: "ميلك شيك",
+        price: 15,
+        image: "/menu/drinks/8.jpg",
+        desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري",
+      },
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
       { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "كابتشينو", price: 5, image: "/menu/drinks/9.jpg" },
@@ -501,7 +507,12 @@ const middleMenu: MenuData = {
   drinks: {
     ...gazaMenu.drinks,
     items: withDefaultActive([
-      { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg", active: true },
+      {
+        name: "آيس كريم",
+        price: 10,
+        image: "/menu/drinks/14.jpg",
+        active: true,
+      },
       { name: "براد", price: 5, image: "/menu/drinks/15.jpg", active: true },
       ...gazaMenu.drinks.items,
     ]),
