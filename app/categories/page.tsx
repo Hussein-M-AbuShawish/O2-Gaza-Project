@@ -46,6 +46,8 @@ const CATEGORY_DISPLAY = [
   { id: "drinks", name: "المشروبات", image: drinks },
 
   { id: "salads", name: "السلطات", image: salads },
+  { id: "gelato", name: "جيلاتو", image: shawarma },
+
 
 ];
 

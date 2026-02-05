@@ -314,11 +314,16 @@ const gazaMenu: MenuData = {
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
       { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg" },
       { name: "براد", price: 5, image: "/menu/drinks/15.jpg" },
-      { name: "نسكافيه", price: 7, image: "/menu/drinks/9.jpg" },
-      { name: "شاي", price: 5, image: "/menu/drinks/11.jpg" },
+      { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
+      { name: "كابتشينو", price: 5, image: "/menu/drinks/9.jpg" },
+      { name: "اسبريسو سينجل", price: 5, image: "/menu/drinks/6.jpg" },
+      { name: "اسبريسو دبل", price: 10, image: "/menu/drinks/6.jpg" },
+      { name: " قهوة تركي سينجل", price: 5, image: "/menu/drinks/6.jpg" },
+      { name: "قهوة تركي دبل", price: 10, image: "/menu/drinks/6.jpg" },
+      { name: "شاي", price: 3, image: "/menu/drinks/11.jpg" },
       { name: "بلو", price: 4, image: "/menu/drinks/17.jpg" },
-      { name: "كوكا كولا", price: 4, image: "/menu/drinks/18.jpg" },
-      { name: "سبرايت", price: 4, image: "/menu/drinks/19.jpg" },
+      { name: "كوكا كولا", price: 5, image: "/menu/drinks/18.jpg" },
+      { name: "سبرايت", price: 5, image: "/menu/drinks/19.jpg" },
       { name: "مياه معدنية 200 ملم", price: 1, image: "/menu/drinks/12.jpg" },
       { name: "مياه معدنية 500 ملم", price: 2, image: "/menu/drinks/13.jpg" },
     ],
@@ -329,8 +334,7 @@ const gazaMenu: MenuData = {
       {
         name: "سلطة كبيرة",
         price: 10,
-        image:
-          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+        image: "/menu/salad/1.jpeg",
       },
       {
         name: "سلطة صغيرة",
@@ -351,6 +355,10 @@ const gazaMenu: MenuData = {
           "https://images.unsplash.com/photo-1639024471283-03518883512d?w=800&q=80",
       },
     ],
+  },
+  gelato: {
+    title: "السلطات",
+    items: [],
   },
 };
 
