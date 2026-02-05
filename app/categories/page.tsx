@@ -116,17 +116,18 @@ export default function CategoriesPage() {
       <Navbar />
 
       {/* Cart Button */}
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="fixed bottom-8 left-8 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
-      >
-        <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
-        {cartTotal > 0 && (
+      {cart.length > 0 && (
+        <button
+          onClick={() => setIsCartOpen(true)}
+          className="fixed bottom-6 left-6 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
+        >
+          <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
           <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
             {cartTotal}
           </span>
-        )}
-      </button>
+        </button>
+      )}
+
 
       {/* Cart Modal */}
       <AnimatePresence>
@@ -235,6 +236,20 @@ export default function CategoriesPage() {
             </motion.div>
           ))}
         </motion.div>
+        <div className="mt-10 flex justify-center">
+          {cart.length > 0 && (
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="fixed bottom-6 left-6 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
+            >
+              <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
+              <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
+                {cartTotal}
+              </span>
+            </button>
+          )}
+
+        </div>
       </section>
 
       <Footer />

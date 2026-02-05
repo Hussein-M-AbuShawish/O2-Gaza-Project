@@ -1395,7 +1395,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="pt-32 pb-20 text-center">
           <p className="text-xl text-muted-foreground">القسم غير موجود</p>
           <Link href="/categories">
-            <Button className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90 gap-2 bg-transparent">
+            <Button className="fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]">
               <ChevronLeft className="w-4 h-4" />
               الأقسام
             </Button>
@@ -1422,7 +1422,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             <Link href="/categories">
               <Button
                 variant="outline"
-                className="text-foreground bg-primary border-primary hover:text-amber-50 hover:bg-primary/90 gap-2  "
+                className="text-foreground bg-primary border-primary hover:text-amber-50 hover:bg-primary/90 gap-2 fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]"
               >
                 <ChevronLeft className="w-4 h-4" />
                 الأقسام
@@ -1467,35 +1467,38 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
           </motion.div>
           {/* Cart Button under categories */}
           <div className="mt-10 flex justify-center">
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl transition-all"
-            >
-              <ShoppingBasket className="w-6 h-6" />
-              اذهب الى اتمام الطلب
-
-              {cartTotal > 0 && (
-                <span className="bg-white text-primary px-2 py-0.5 rounded-full text-sm font-extrabold">
+            {cart.length > 0 && (
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="fixed bottom-6 left-6 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
+              >
+                <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
+                <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
                   {cartTotal}
                 </span>
-              )}
-            </button>
+              </button>
+            )}
+
           </div>
 
         </div>
       </div>
       {/* Cart Button */}
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="fixed bottom-6 left-6 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
-      >
-        <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
-        {cartTotal > 0 && (
-          <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
-            {cartTotal}
-          </span>
-        )}
-      </button>
+      {cart.length > 0 && (
+        <div className="mt-10 flex justify-center">
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl transition-all"
+          >
+            <ShoppingBasket className="w-6 h-6" />
+            اذهب الى اتمام الطلب
+            <span className="bg-white text-primary px-2 py-0.5 rounded-full text-sm font-extrabold">
+              {cartTotal}
+            </span>
+          </button>
+        </div>
+      )}
+
 
       {/* Product Modal */}
       <AnimatePresence>
