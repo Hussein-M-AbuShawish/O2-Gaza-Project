@@ -15,7 +15,7 @@ const TileLayerLoader = dynamic(
   { ssr: false }
 );
 // ملاحظة: لتبسيط الاستخدام في Next.js، يفضل تعريف المكون بالأسفل بشكل منفصل
-const Map = dynamic(() => import("./Map"), { 
+const Map = dynamic(() => import("./Map"), {
   ssr: false,
   loading: () => <div className="h-full w-full bg-muted animate-pulse flex items-center justify-center">جاري تحميل الخريطة...</div>
 });
@@ -24,8 +24,8 @@ const branches = [
   {
     name: "فرع غزة",
     address: "شارع النصر، مدينة غزة",
-    phone: "+972 59 711 1811",
-    phoneHref: "tel:+972597111811",
+    phone: "+972 59 900 0400",
+    phoneHref: "tel:+972599000400",
   },
   {
     name: "فرع الوسطى",
@@ -97,7 +97,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-           <div className="p-6 md:p-8 rounded-2xl bg-card border border-border/50">
+            <div className="p-6 md:p-8 rounded-2xl bg-card border border-border/50">
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                   <MessageCircle className="w-6 h-6 text-primary" />
@@ -219,11 +219,11 @@ export function ContactSection() {
               </div>
             </motion.div>
 
-            
+
             {/* استدعاء المكون الديناميكي للخريطة */}
-              <div className="h-[250px] rounded-xl overflow-hidden border relative z-0">
-                <Map />
-              </div>
+            <div className="h-[250px] rounded-xl overflow-hidden border relative z-0">
+              <Map />
+            </div>
           </motion.div>
         </div>
       </div>
