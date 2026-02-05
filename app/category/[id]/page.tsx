@@ -1413,15 +1413,16 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]"
+            className="sticky top-[64px] md:top-[80px] z-[1000] py-3 mb-6"
           >
+
             <Link href="/categories">
               <Button
-                variant="default"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 shadow-lg border border-primary-foreground/20 rounded-full px-6"
+                variant="outline"
+                className="text-foreground bg-primary border-primary hover:text-amber-50 hover:bg-primary/90 gap-2  "
               >
                 <ChevronLeft className="w-4 h-4" />
                 الأقسام
@@ -1464,6 +1465,23 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
               />
             ))}
           </motion.div>
+          {/* Cart Button under categories */}
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl transition-all"
+            >
+              <ShoppingBasket className="w-6 h-6" />
+              اذهب الى اتمام الطلب
+
+              {cartTotal > 0 && (
+                <span className="bg-white text-primary px-2 py-0.5 rounded-full text-sm font-extrabold">
+                  {cartTotal}
+                </span>
+              )}
+            </button>
+          </div>
+
         </div>
       </div>
       {/* Cart Button */}
