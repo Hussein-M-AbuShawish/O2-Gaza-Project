@@ -1305,42 +1305,61 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
     const fullAddress = `${provinceName} - ${selectedLocation.name} - ${customerInfo.address}`;
     const targetNumber = getWhatsAppNumber();
 
-    let msg = "🍽️ *طلب جديد من O2 Restaurant*\n━━━━━━━━━━━━━━\n\n";
-    msg += `👤 *بيانات العميل:*\n`;
-    msg += `• الاسم: ${customerInfo.name}\n`;
-    msg += `• الهاتف: ${customerInfo.phone}\n`;
-    msg += `• العنوان: ${fullAddress}\n\n`;
-    msg += "📋 *تفاصيل الطلب:*\n";
-    msg += "┌────────────────────────┐\n";
+    // Helper function for padding to create a table-like look
+    const pad = (text: string, length: number) => {
+      const s = String(text);
+      const spaces = length - s.length;
+      return s + (spaces > 0 ? " ".repeat(spaces) : "");
+    };
+
+    let msg = "🧾 *فاتورة طلب — O2 Restaurant*\n\n";
+    msg += "────────────────────────\n\n";
+
+    msg += "👤 *بيانات العميل*\n";
+    msg += `الاسم: ${customerInfo.name}\n`;
+    msg += `الهاتف: ${customerInfo.phone}\n`;
+    msg += `العنوان: ${fullAddress}\n\n`;
+
+    msg += "────────────────────────\n\n";
+
+    msg += "🍽️ *تفاصيل الطلب*\n";
+    msg += "```\n";
+    msg += "المنتج             الكمية   السعر   المجموع\n";
+    msg += "-------------------------------------------\n";
 
     cart.forEach((i) => {
       const itemTotal = i.price * i.qty;
       itemsTotal += itemTotal;
+
       const displayName = i.isByWeight
-        ? `${i.name} (${i.weight?.toFixed(2)} كغ)`
+        ? `${i.name} (${i.weight?.toFixed(2)}ك)`
         : i.name;
-      const unitPriceDisplay = i.isByWeight
-        ? `${i.unitPrice} ₪/كغ`
-        : `${i.unitPrice} ₪`;
-      msg += `│ ${displayName}\n`;
-      msg += `│   الكمية: ${i.qty} | السعر: ${unitPriceDisplay}\n`;
-      msg += `│   المبلغ: ${itemTotal.toFixed(1)} ₪\n`;
-      msg += `├────────────────────────┤\n`;
+
+      const nameCol = pad(displayName.substring(0, 18), 18);
+      const qtyCol = pad(String(i.qty), 8);
+      const priceCol = pad(i.unitPrice + "₪", 8);
+      const totalCol = pad(itemTotal.toFixed(0) + "₪", 8);
+
+      msg += `${nameCol}${qtyCol}${priceCol}${totalCol}\n`;
     });
 
-    msg += `│ 🚚 رسوم التوصيل: ${selectedLocation.price} ₪\n`;
-    msg += `└────────────────────────┘\n\n`;
+    msg += "-------------------------------------------\n";
+    msg += `رسوم التوصيل                  ${selectedLocation.price}₪\n`;
+    msg += "-------------------------------------------\n";
+    msg += `الإجمالي                     ${(itemsTotal + selectedLocation.price).toFixed(0)}₪\n`;
+    msg += "```\n\n";
 
     if (orderNotes) {
-      msg += `📝 *ملاحظات الطلب:*\n${orderNotes}\n\n`;
+      msg += `📝 *ملاحظات*\n${orderNotes}\n\n`;
     }
 
-    msg += `━━━━━━━━━━━━━━\n`;
-    msg += `💵 *إجمالي الفاتورة: ${(itemsTotal + selectedLocation.price).toFixed(1)} ₪*`;
+    msg += "────────────────────────\n";
+    msg += "شكراً لطلبكم من O2 Restaurant";
 
     window.open(
       `https://wa.me/${targetNumber}?text=${encodeURIComponent(msg)}`
     );
+
 
     // Reset state
     setCustomerInfo({ name: "", phone: "", address: "" });
