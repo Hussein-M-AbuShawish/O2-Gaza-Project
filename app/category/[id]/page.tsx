@@ -63,6 +63,8 @@ const CONFIG = {
       { name: "دوار ابو شرخ", price: 15 },
     ],
     middle: [
+
+      { name: "فوري", price: 0 },
       { name: "النصيرات", price: 10 },
       { name: "البريج", price: 15 },
       { name: "سوارحة الشرقية", price: 15 },
@@ -950,13 +952,13 @@ function CustomerFormModal({
               <option value="">-- اختر المنطقة --</option>
               {locations.map((loc) => (
                 <option key={loc.name} value={loc.name}>
-                  {loc.name} - رسوم التوصيل: {loc.price} ₪
+                  {loc.name} - : {loc.price} ₪
                 </option>
               ))}
             </select>
             {selectedLocation && (
               <div className="mt-2 p-3 bg-primary/10 border-2 border-primary rounded-xl text-center font-bold text-primary">
-                رسوم التوصيل: {selectedLocation.price} ₪
+                : {selectedLocation.price} ₪
               </div>
             )}
           </div>
