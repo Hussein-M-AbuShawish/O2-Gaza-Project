@@ -24,27 +24,6 @@ import { getMenuByBranch } from "@/lib/menu-data";
 
 // ✅ استخدم المسار النصي مباشرة
 const CATEGORY_DISPLAY = [
-<<<<<<< HEAD
-
-  { id: "shawarma", name: "الشاورما", image: shawarma },
-
-  { id: "italian", name: "الإيطالي", image: italian },
-
-  { id: "sandwiches", name: "السندويشات", image: sandwiches },
-
-  { id: "easternSweets", name: "الحلويات الشرقية", image: easternSweets },
-
-  { id: "westernSweets", name: "الكيك والحلويات", image: westernSweets },
-
-  { id: "barSweets", name: "حلويات البار", image: barSweets },
-
-  { id: "drinks", name: "المشروبات", image: drinks },
-
-  { id: "salads", name: "السلطات", image: salads },
-  { id: "gelato", name: "جيلاتو", image: shawarma },
-
-
-=======
   { id: "shawarma", name: "الشاورما", image: "/menu/shawarma/53.jpg" },
   { id: "italian", name: "الإيطالي", image: "/menu/italian/35.jpg" },
   { id: "sandwiches", name: "الوجبات الغربية", image: "/menu/western/43.jpg" },
@@ -54,7 +33,6 @@ const CATEGORY_DISPLAY = [
   { id: "drinks", name: "المشروبات", image: "/menu/drinks/1.jpg" },
   { id: "salads", name: "المقبلات", image: "/menu/salad/20.jpeg" },
   { id: "gelato", name: "الجيلاتو", image: "/menu/Gelato/72.jpeg" },
->>>>>>> 3f246986a29d75ad1239a360e9a809c8962989c2
 ];
 
 export default function CategoriesPage() {

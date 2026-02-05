@@ -403,11 +403,6 @@ const gazaMenu: MenuData = {
         desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري",
       },
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
-<<<<<<< HEAD
-      { name: "آيس كريم", price: 10, image: "/menu/drinks/14.jpg" },
-      { name: "براد", price: 5, image: "/menu/drinks/15.jpg" },
-=======
->>>>>>> 3f246986a29d75ad1239a360e9a809c8962989c2
       { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "كابتشينو", price: 5, image: "/menu/drinks/9.jpg" },
       { name: "اسبريسو سينجل", price: 5, image: "/menu/drinks/6.jpg" },
@@ -426,11 +421,6 @@ const gazaMenu: MenuData = {
     title: "السلطات",
     items: withDefaultActive([
       {
-<<<<<<< HEAD
-        name: "سلطة كبيرة",
-        price: 10,
-        image: "/menu/salad/1.jpeg",
-=======
         name: "سلطات مشكلة",
         image: "/menu/salad/1.jpeg",
         variants: [
@@ -438,7 +428,6 @@ const gazaMenu: MenuData = {
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
->>>>>>> 3f246986a29d75ad1239a360e9a809c8962989c2
       },
       {
         name: "ذرة مايونيز ",
@@ -504,10 +493,6 @@ const gazaMenu: MenuData = {
         ],
       },
     ]),
-  },
-  gelato: {
-    title: "السلطات",
-    items: [],
   },
 };
 
