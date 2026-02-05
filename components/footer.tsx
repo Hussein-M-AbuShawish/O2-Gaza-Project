@@ -149,7 +149,7 @@ export function Footer() {
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex justify-between">
                 <span>جميع أيام الاسبوع</span>
-                <span>10:00 ص - 12:00 م</span>
+                <span>10:00 ص - 10:00 م</span>
               </li>
             </ul>
           </motion.div>

@@ -78,6 +78,7 @@ interface MenuItem {
   name: string;
   price?: number;
   pricePerKg?: number;
+  variants?: { name: string; price: number }[];
   desc?: string;
   image: string;
   delivery?: boolean;
@@ -403,28 +404,76 @@ const menuData: Record<string, MenuCategory> = {
     title: "السلطات",
     items: [
       {
-        name: "سلطة كبيرة",
-        price: 10,
-        image:
-          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+        name: "سلطات مشكلة",
+        image: "/menu/salad/1.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
       {
-        name: "سلطة صغيرة",
-        price: 5,
-        image:
-          "https://images.unsplash.com/photo-1639024471283-03518883512d?w=800&q=80",
+        name: "ذرة مايونيز ",
+        image: "/menu/salad/5.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
       {
-        name: "بطاطا كبيرة",
-        price: 10,
-        image:
-          "https://images.unsplash.com/photo-1598679253544-2c97992403ea?w=800&q=80",
+        name: "بيكانتي ",
+        image: "/menu/salad/1.jpeg",
+        desc: "ذرة مايونيز / بيكانتي / تركية / ثومية",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
       {
-        name: "بطاطا صغيرة",
-        price: 5,
-        image:
-          "https://images.unsplash.com/photo-1639024471283-03518883512d?w=800&q=80",
+        name: "تركية",
+        image: "/menu/salad/4.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "ثومية",
+        image: "/menu/salad/2.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "ملفوف",
+        image: "/menu/salad/3.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "كول سلو",
+        image: "/menu/salad/6.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "بطاطا",
+        image: "/menu/salad/20.jpeg",
+        variants: [
+          { name: "كبير", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
     ],
   },
@@ -478,13 +527,19 @@ function ProductModal({
   const [qty, setQty] = useState(1);
   const [weight, setWeight] = useState(1);
   const [priceInput, setPriceInput] = useState("");
+  const [selectedVariant, setSelectedVariant] = useState(
+    product?.variants ? product.variants[0] : null
+  );
 
   const calculatedPrice = useMemo(() => {
     if (isByWeight && product?.pricePerKg) {
       return weight * product.pricePerKg;
     }
+    if (selectedVariant) {
+      return selectedVariant.price * qty;
+    }
     return (product?.price || 0) * qty;
-  }, [isByWeight, product, weight, qty]);
+  }, [isByWeight, product, weight, qty, selectedVariant]);
 
   const canDeliver = product?.delivery !== false;
 
@@ -512,13 +567,24 @@ function ProductModal({
     if (isByWeight && weight > 0) {
       return `أريد طلب: ${product.name} - وزن ${weight.toFixed(2)} كغ (السعر ${calculatedPrice.toFixed(1)} شيكل)`;
     }
-    return `أريد طلب: ${product.name} × ${qty}`;
-  }, [product, isByWeight, weight, qty, calculatedPrice]);
+    const variantStr = selectedVariant ? ` (${selectedVariant.name})` : "";
+    return `أريد طلب: ${product.name}${variantStr} × ${qty}`;
+  }, [product, isByWeight, weight, qty, calculatedPrice, selectedVariant]);
 
   const handleAddToCart = () => {
     if (!product || !canDeliver) return;
     if (isByWeight && (calculatedPrice <= 0 || weight <= 0)) return;
-    onAddToCart(product, qty, weight, calculatedPrice, isByWeight);
+
+    let finalProduct = product;
+    if (selectedVariant) {
+      finalProduct = {
+        ...product,
+        name: `${product.name} - ${selectedVariant.name}`,
+        price: selectedVariant.price,
+      };
+    }
+
+    onAddToCart(finalProduct, qty, weight, calculatedPrice, isByWeight);
     onClose();
   };
 
@@ -604,6 +670,25 @@ function ProductModal({
             </div>
           )}
 
+          {product.variants && (
+            <div className="bg-primary/10 border-2 border-primary rounded-xl p-4 mb-4">
+              <label className="block text-right mb-2 font-bold text-sm">
+                🏷️ اختر النوع / الحجم
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {product.variants.map((v) => (
+                  <button
+                    key={v.name}
+                    onClick={() => setSelectedVariant(v)}
+                    className={`py-2 px-1 border-2 border-primary rounded-lg font-semibold transition-colors text-xs md:text-sm ${selectedVariant?.name === v.name ? "bg-primary text-primary-foreground" : "bg-transparent text-white"}`}
+                  >
+                    {v.name} ({v.price} ₪)
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {canDeliver && (
             <div className="flex items-center justify-center gap-4 mb-4">
               <button
@@ -633,15 +718,7 @@ function ProductModal({
                 <ShoppingBasket className="w-5 h-5" />
                 أضف إلى السلة
               </button>
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3.5 rounded-xl bg-[#25d366] text-white font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                اطلب الآن
-              </a>
+
             </>
           )}
         </div>
@@ -765,6 +842,7 @@ function CustomerFormModal({
   onSubmit,
   deliveryLocations,
   branch,
+  initialData,
 }: {
   onClose: () => void;
   onBack: () => void;
@@ -777,12 +855,19 @@ function CustomerFormModal({
   }) => void;
   deliveryLocations: typeof CONFIG.deliveryLocations;
   branch: string;
+  initialData?: {
+    name: string;
+    phone: string;
+    address: string;
+    location: DeliveryLocation | null;
+    notes: string;
+  };
 }) {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [locationName, setLocationName] = useState<string>("");
-  const [notes, setNotes] = useState("");
+  const [name, setName] = useState(initialData?.name || "");
+  const [phone, setPhone] = useState(initialData?.phone || "");
+  const [address, setAddress] = useState(initialData?.address || "");
+  const [locationName, setLocationName] = useState<string>(initialData?.location?.name || "");
+  const [notes, setNotes] = useState(initialData?.notes || "");
 
   const locations = deliveryLocations[branch as keyof typeof deliveryLocations] || [];
   const selectedLocation = locations.find((l) => l.name === locationName);
@@ -1185,6 +1270,20 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
   }, [clearCart]);
 
   const handleCheckout = useCallback(() => {
+    // التحقق من وقت العمل (من 10 صباحاً حتى 12 ليلاً)
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    // وقت العمل من 10 صباحاً (10) حتى 6 مساءً (18)
+    if (currentHour >= 10 && currentHour < 22) {
+
+    } else {
+      showToast(
+        "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 12:00 ليلاً."
+      );
+      return;
+    }
+
     if (cart.length === 0) {
       showToast("السلة فارغة");
       return;
@@ -1293,15 +1392,16 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 md:mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="sticky top-[64px] md:top-[80px] z-[1000] py-3 mb-6"
           >
+
             <Link href="/categories">
               <Button
                 variant="outline"
-                className="text-foreground border-border hover:bg-muted gap-2 bg-transparent"
+                className="text-foreground bg-primary border-primary hover:text-amber-50 hover:bg-primary/90 gap-2  "
               >
                 <ChevronLeft className="w-4 h-4" />
                 الأقسام
@@ -1397,6 +1497,13 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             onSubmit={handleCustomerSubmit}
             deliveryLocations={CONFIG.deliveryLocations}
             branch={defaultBranch}
+            initialData={{
+              name: customerInfo.name,
+              phone: customerInfo.phone,
+              address: customerInfo.address,
+              location: selectedLocation,
+              notes: orderNotes,
+            }}
           />
         )}
       </AnimatePresence>

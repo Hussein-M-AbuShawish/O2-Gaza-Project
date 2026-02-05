@@ -7,14 +7,16 @@ import { ReviewsSection } from "@/components/reviews-section";
 // import { GallerySection } from "@/components/gallery-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
+import Branches from "@/components/branches-section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <Branches/>
       <ReviewsSection />
       {/* <StatsSection /> */}
       {/* <GallerySection /> */}

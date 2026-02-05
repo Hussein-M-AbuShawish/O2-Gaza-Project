@@ -75,7 +75,7 @@ const socialLinks = [
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-20 md:py-32 bg-secondary/30">
+    <section id="contact" className="py-20 md:py-32 bg-secondary/30 overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div

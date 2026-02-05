@@ -44,17 +44,37 @@ const Column = ({ images, animationClass }: { images: string[], animationClass: 
 const HeroSection: React.FC = () => {
   return (
     <section id="hero" className="relative h-screen overflow-hidden bg-black">
-      {/* Restored 5 Columns Density */}
-      <div className="absolute inset-0 z-0 opacity-60 md:opacity-75 flex gap-6 px-6 mask-fade-edges transform scale-110">
-        <div className="hidden lg:block flex-1"><Column images={HERO_IMAGES.slice(0, 3)} animationClass="animate-scroll-up" /></div>
-        <div className="flex-1"><Column images={HERO_IMAGES.slice(3, 6)} animationClass="animate-scroll-down" /></div>
-        <div className="flex-1 hidden sm:block mt-32"><Column images={HERO_IMAGES.slice(6, 9)} animationClass="animate-scroll-up-slow" /></div>
-        <div className="flex-1 mt-16"><Column images={HERO_IMAGES.slice(9, 12)} animationClass="animate-scroll-down-slow" /></div>
-        <div className="hidden xl:block flex-1"><Column images={HERO_IMAGES.slice(0, 3)} animationClass="animate-scroll-up" /></div>
+      {/* Dynamic Background Grid */}
+      <div className="absolute inset-0 z-0 opacity-50 md:opacity-70 flex gap-4 md:gap-6 px-4 md:px-6 mask-fade-edges transform scale-110">
+        {/* Laptop: Col 1 | Mobile: Hidden */}
+        <div className="hidden lg:block flex-1">
+          <Column images={HERO_IMAGES.slice(0, 3)} animationClass="animate-scroll-up" />
+        </div>
+        
+        {/* Mobile: Col 1 (Down) | Laptop: Col 2 (Down) */}
+        <div className="flex-1">
+          <Column images={HERO_IMAGES.slice(3, 6)} animationClass="animate-scroll-down" />
+        </div>
+        
+        {/* Laptop: Col 3 | Mobile: Hidden */}
+        <div className="hidden lg:block flex-1 mt-32">
+          <Column images={HERO_IMAGES.slice(6, 9)} animationClass="animate-scroll-up-slow" />
+        </div>
+        
+        {/* Mobile: Col 2 (Up) | Laptop: Col 4 (Up) */}
+        <div className="flex-1 mt-16 md:mt-24">
+          <Column images={HERO_IMAGES.slice(9, 12)} animationClass="animate-scroll-up" />
+        </div>
+        
+        {/* Laptop: Col 5 | Mobile: Hidden */}
+        <div className="hidden xl:block flex-1">
+          <Column images={HERO_IMAGES.slice(0, 3)} animationClass="animate-scroll-down" />
+        </div>
       </div>
 
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
-      <div className="absolute inset-0 z-10 backdrop-blur-[1px]"></div>
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/70 via-transparent to-black/85"></div>
+      {/* Lightened Blur */}
+      <div className="absolute inset-0 z-10 backdrop-blur-[0.5px]"></div>
 
       {/* Hero Content */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6">
@@ -63,15 +83,15 @@ const HeroSection: React.FC = () => {
             <span className='tracking-normal'>Gaza</span>
             <div className="o2-logo-red"><span>2</span>0</div>
           </h1>
-          <p className="text-white/80 text-lg md:text-xl font-medium tracking-widest max-w-xl mx-auto mt-10 drop-shadow-md">
-            نكهة تتنفس الحياة في كل طبق.
+          <p className="text-white text-lg md:text-xl font-medium tracking-widest max-w-xl mx-auto mt-10 drop-shadow-md ">
+            نفس من الهدوء ولقمة من السعادة
           </p>
         </div>
 
         <div className="mt-14 animate-[pinterestReveal_1.2s_ease-out]">
           <a href="/select-branch" className="group relative inline-flex items-center justify-center px-14 py-5 rounded-2xl bg-red-600 text-white text-xl font-bold transition-all hover:bg-red-700 hover:scale-105 active:scale-95 shadow-2xl shadow-red-600/30 overflow-hidden">
             <span className="relative z-10 flex items-center gap-3">
-              اكتشف القائمة
+                اطلب من المنيو
               <svg className="w-5 h-5 transform transition-transform group-hover:translate-x-[-6px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" />
               </svg>

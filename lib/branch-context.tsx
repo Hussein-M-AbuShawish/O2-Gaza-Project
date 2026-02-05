@@ -22,14 +22,14 @@ export const BRANCHES: Record<string, Branch> = {
         id: "gaza",
         name: "O2 - غزة",
         phone: "972595201049",
-        address: "شارع الشهداء، مدينة غزة",
+        address: "شارع النصر",
         region: "محافظة غزة",
     },
     middle: {
         id: "middle",
         name: "O2 - الوسطى",
         phone: "972597111811",
-        address: "الشارع الرئيسي، النصيرات",
+        address: "النصيرات - شارع أبو صرار",
         region: "محافظة الوسطى",
     },
 };
@@ -72,7 +72,7 @@ export function BranchProvider({ children }: { children: ReactNode }) {
 }
 
 export function useBranch() {
-    const context = useContext(BranchContext);
+    const context = useContext(BranchContext)
     if (context === undefined) {
         throw new Error("useBranch must be used within BranchProvider");
     }
