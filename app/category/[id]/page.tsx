@@ -1413,16 +1413,15 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
-            className="sticky top-[64px] md:top-[80px] z-[1000] py-3 mb-6"
+            className="fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]"
           >
-
             <Link href="/categories">
               <Button
-                variant="outline"
-                className="text-foreground bg-primary border-primary hover:text-amber-50 hover:bg-primary/90 gap-2  "
+                variant="default"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 shadow-lg border border-primary-foreground/20 rounded-full px-6"
               >
                 <ChevronLeft className="w-4 h-4" />
                 الأقسام
