@@ -1,28 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronRight, ShoppingBasket, Minus, Plus, Trash2, MessageCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { getMenuByBranch } from "@/lib/menu-data";
+import { useCart } from "@/lib/cart-context";
 
-// ❌ لا تستورد الصور هكذا (سيكسر البناء على Vercel)
-// import shawarma from "@/public/menu/shawarma/53.jpg";
-// import italian from "@/public/menu/italian/35.jpg";
-// import sandwiches from "@/public/menu/western/43.jpg";
-// import easternSweets from "@/public/menu/sweets/23.jpg";
-// import bar from "@/public/menu/bar/16.jpg";
-// import westernSweets from "@/public/menu/Cake/11.2.jpg";
-// import drinks from "@/public/menu/drinks/13.jpg";
-// import salads from "@/public/menu/salad/20.jpeg";
-// import gelato from "@/public/menu/Gelato/72.jpeg";
-
-// ✅ استخدم المسار النصي مباشرة
 const CATEGORY_DISPLAY = [
   { id: "shawarma", name: "الشاورما", image: "/menu/shawarma/53.jpg" },
   { id: "italian", name: "الإيطالي", image: "/menu/italian/35.jpg" },
@@ -31,9 +19,71 @@ const CATEGORY_DISPLAY = [
   { id: "westernSweets", name: "الكيك والحلويات", image: "/menu/Cake/38.jpg" },
   { id: "barSweets", name: "حلويات البار", image: "/menu/bar/14.jpg" },
   { id: "drinks", name: "المشروبات", image: "/menu/drinks/1.jpg" },
-  { id: "salads", name: "المقبلات", image: "/menu/salad/20.jpeg" },
+  { id: "salads", name: "السلطات والمقبلات", image: "/menu/salad/20.jpeg" },
   { id: "gelato", name: "الجيلاتو", image: "/menu/Gelato/72.jpeg" },
 ];
+
+// Minimal Cart Modal
+function CartModal({ cart, onClose, onUpdateQty, onClear }: {
+  cart: any[];
+  onClose: () => void;
+  onUpdateQty: (index: number, change: number) => void;
+  onClear: () => void;
+}) {
+  const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/90 z-[2100] flex items-center justify-center p-3"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-card rounded-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}
+      >
+        <h2 className="text-xl font-bold mb-5 pb-3 border-b-2 border-primary">سلة الطلبات</h2>
+        {cart.length === 0 ? (
+          <p className="text-center text-muted-foreground py-8">السلة فارغة</p>
+        ) : (
+          <div className="space-y-3">
+            {cart.map((item, idx) => (
+              <div key={item.key} className="flex justify-between items-center bg-white/5 p-3 rounded-xl gap-3">
+                <div className="flex-1 text-right text-sm">
+                  <b>{item.name}</b>
+                  <div className="text-muted-foreground text-xs">السعر: {item.price.toFixed(1)}₪</div>
+                  <div className="text-primary font-bold">الإجمالي: {(item.price * item.qty).toFixed(1)}₪</div>
+                </div>
+                <div className="flex items-center gap-2 bg-black/30 p-1 rounded-lg">
+                  <button onClick={() => onUpdateQty(idx, -1)} className="w-7 h-7 rounded bg-primary text-white flex items-center justify-center">
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="font-bold w-5 text-center text-sm">{item.qty}</span>
+                  <button onClick={() => onUpdateQty(idx, 1)} className="w-7 h-7 rounded bg-primary text-white flex items-center justify-center">
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="text-xl font-extrabold text-primary text-center my-5 p-4 bg-primary/10 rounded-xl">
+          المجموع: {total.toFixed(1)} ₪
+        </div>
+        <button onClick={onClear} className="w-full py-3.5 rounded-xl bg-secondary text-secondary-foreground font-bold mb-3 flex items-center justify-center gap-2">
+          <Trash2 className="w-5 h-5" /> إفراغ السلة
+        </button>
+        <button onClick={onClose} className="w-full py-2.5 text-muted-foreground hover:text-foreground transition-colors">
+          إغلاق
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function CategoriesPage() {
   const searchParams = useSearchParams();
@@ -41,25 +91,22 @@ export default function CategoriesPage() {
     searchParams.get("branch") ||
     (typeof window !== "undefined" ? localStorage.getItem("branch") : null) ||
     "gaza";
-
   const branchMenu = getMenuByBranch(branch);
-
   const categories = useMemo(
     () => CATEGORY_DISPLAY.filter((c) => branchMenu[c.id as keyof typeof branchMenu]),
     [branchMenu]
   );
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
-  };
+  // Cart logic
+  const { cart, updateQty, clearCart } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartTotal = cart.reduce((acc, item) => acc + item.qty, 0);
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  const handleUpdateCartQty = (index: number, change: number) => {
+    const item = cart[index];
+    if (item) {
+      updateQty(item.key, item.qty + change);
+    }
   };
 
   if (!categories.length) return null;
@@ -68,13 +115,38 @@ export default function CategoriesPage() {
     <main className="min-h-screen bg-[#050505] text-white selection:bg-[#dc2626]/30">
       <Navbar />
 
+      {/* Cart Button */}
+      <button
+        onClick={() => setIsCartOpen(true)}
+        className="fixed bottom-8 left-8 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
+      >
+        <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
+        {cartTotal > 0 && (
+          <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
+            {cartTotal}
+          </span>
+        )}
+      </button>
+
+      {/* Cart Modal */}
+      <AnimatePresence>
+        {isCartOpen && (
+          <CartModal
+            cart={cart}
+            onClose={() => setIsCartOpen(false)}
+            onUpdateQty={handleUpdateCartQty}
+            onClear={clearCart}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section className="relative pt-28 md:pt-32 pb-12 md:pb-16 px-4 md:px-6 overflow-hidden">
+        {/* ...existing hero code... */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-64 h-64 md:w-72 md:h-72 bg-[#dc2626] rounded-full blur-[100px] md:blur-[120px] opacity-[0.08]" />
           <div className="absolute bottom-[-10%] right-[-10%] w-64 h-64 md:w-72 md:h-72 bg-[#dc2626] rounded-full blur-[100px] md:blur-[120px] opacity-[0.08]" />
         </div>
-
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -89,7 +161,6 @@ export default function CategoriesPage() {
               قائمة {branch === "middle" ? "فرع الوسطى" : "فرع غزة"}
             </span>
           </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -97,7 +168,6 @@ export default function CategoriesPage() {
           >
             استكشف <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#dc2626] to-[#ef4444]">الأقسام</span>
           </motion.h1>
-
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,7 +195,10 @@ export default function CategoriesPage() {
       {/* Categories Grid */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-24 md:pb-32">
         <motion.div
-          variants={containerVariants}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+          }}
           initial="hidden"
           animate="visible"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
