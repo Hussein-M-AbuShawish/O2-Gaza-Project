@@ -35,7 +35,7 @@ import { getMenuByBranch } from "@/lib/menu-data";
 // ================= CONFIGURATION =================
 const CONFIG = {
   whatsappNumbers: {
-    gaza: "972595201049",
+    gaza: "972599000400",
     middle: "972597111811",
   },
   deliveryLocations: {
@@ -1281,7 +1281,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
 
     } else {
       showToast(
-        "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 12:00 ليلاً."
+        "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 10:00 ليلاً."
       );
       return;
     }
