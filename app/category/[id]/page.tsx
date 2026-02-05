@@ -40,13 +40,31 @@ const CONFIG = {
   },
   deliveryLocations: {
     gaza: [
-      { name: "غزة - المدينة", price: 5 },
-      { name: "غزة - الشمال", price: 8 },
-      { name: "غزة - الرمال", price: 5 },
-      { name: "غزة - الشيخ رضوان", price: 6 },
-      { name: "غزة - النصر", price: 7 },
+      { name: "فوري", price: 0 },
+      { name: "النصر", price: 5 },
+      { name: "الشاطىء ", price: 5 },
+      { name: " الميناء", price: 5 },
+      { name: "الساحة", price: 10 },
+      { name: "الشعبية", price: 10 },
+      { name: "الدرج", price: 10 },
+      { name: "دوار ال 17", price: 10 },
+      { name: "الشاليهات", price: 10 },
+      { name: "الشيخ رضوان", price: 10 },
+      { name: "الكرامة", price: 10 },
+      { name: "الرمال الجنووبي", price: 10 },
+      { name: "تل الهوا", price: 10 },
+      { name: "اليرموك", price: 10 },
+      { name: "النفق", price: 10 },
+      { name: "التفاح", price: 15 },
+      { name: "شارع يافا", price: 15 },
+      { name: "الصبرة", price: 15 },
+      { name: "الزيتون", price: 15 },
+      { name: "الصفطاوي", price: 15 },
+      { name: "دوار ابو شرخ", price: 15 },
     ],
     middle: [
+
+      { name: "فوري", price: 0 },
       { name: "النصيرات", price: 10 },
       { name: "البريج", price: 15 },
       { name: "سوارحة الشرقية", price: 15 },
@@ -934,13 +952,13 @@ function CustomerFormModal({
               <option value="">-- اختر المنطقة --</option>
               {locations.map((loc) => (
                 <option key={loc.name} value={loc.name}>
-                  {loc.name} - رسوم التوصيل: {loc.price} ₪
+                  {loc.name} - : {loc.price} ₪
                 </option>
               ))}
             </select>
             {selectedLocation && (
               <div className="mt-2 p-3 bg-primary/10 border-2 border-primary rounded-xl text-center font-bold text-primary">
-                رسوم التوصيل: {selectedLocation.price} ₪
+                : {selectedLocation.price} ₪
               </div>
             )}
           </div>
