@@ -12,7 +12,7 @@ const branches = [
         id: "gaza",
         name: "O2 - غزة",
         region: "مدينة غزة",
-        phone: "+970599000400",
+        phone: "+970569000400",
         hours: "10:00 - 23:00",
         address: "شارع الشهداء، مدينة غزة",
         description: "الفرع الرئيسي في قلب مدينة غزة",

@@ -35,7 +35,7 @@ import { getMenuByBranch } from "@/lib/menu-data";
 // ================= CONFIGURATION =================
 const CONFIG = {
   whatsappNumbers: {
-    gaza: "972599000400",
+    gaza: "972569000400",
     middle: "972597111811",
   },
   deliveryLocations: {

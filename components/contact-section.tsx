@@ -24,8 +24,8 @@ const branches = [
   {
     name: "فرع غزة",
     address: "شارع النصر، مدينة غزة",
-    phone: "+972 59 900 0400",
-    phoneHref: "tel:+972599000400",
+    phone: "+972 56 900 0400",
+    phoneHref: "tel:+972569000400",
   },
   {
     name: "فرع الوسطى",
