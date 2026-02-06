@@ -1485,7 +1485,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
       </div>
       {/* Cart Button */}
       {cart.length > 0 && (
-        <div className="mt-10 flex justify-center">
+        <div className="mb-10 flex justify-center">
           <button
             onClick={() => setIsCartOpen(true)}
             className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl transition-all"

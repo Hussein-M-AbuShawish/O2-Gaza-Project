@@ -96,7 +96,7 @@ const gazaMenu: MenuData = {
         desc: "شاورما - بطاطا - صوص بيكانتي - جبنة - زيتون اسود",
         image: "/menu/shawarma/19.jpg",
       },
-      { name: "صحن شاورما", price: 30, image: "/menu/shawarma/14.jpg" },
+      { name: " صحن شاورما", price: 30, image: "/menu/shawarma/14.jpg" },
       { name: "صحن شاورما", price: 20, image: "/menu/shawarma/13.jpg" },
     ]),
   },
