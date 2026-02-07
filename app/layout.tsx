@@ -79,6 +79,9 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className={`${_tajawal.variable} ${_geistMono.variable}`}>
       <head>
+        <link rel="preload" as="image" href="/path/to/above-the-fold-image.jpg" fetchPriority="high" />
+        <link rel="preload" as="style" href="/path/to/critical.css" />
+        <link rel="preload" as="font" href="/fonts/your-font.woff2" type="font/woff2" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
