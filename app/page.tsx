@@ -14,7 +14,7 @@ export default function Home() {
     <main className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       <HeroSection />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <ServicesSection />
       <Branches/>
       <ReviewsSection />
