@@ -105,9 +105,15 @@ const gazaMenu: MenuData = {
     items: withDefaultActive([
       {
         name: "كاليزوني دجاج",
-        price: 30,
+        price: 25,
         desc: "صدر دجاج - جبنة - زيتون - رانش",
         image: "/menu/italian/35.jpg",
+      },
+      {
+        name: "كاليزوني دجاج + شيبس",
+        price: 30,
+        desc: "صدر دجاج - جبنة - زيتون - رانش",
+        image: "/menu/italian/91.jpeg",
       },
       {
         name: "كاليزوني خضار",
@@ -183,7 +189,7 @@ const gazaMenu: MenuData = {
         name: "تشكن بيتزا",
         price: 25,
         desc: "صدر دجاج - مشروم - فليفلة - بصل - زيتون اسود - جبنة",
-        image: "/menu/western/45.jpg",
+        image: "/menu/western/94.jpg",
       },
       {
         name: "شيش طاووق",
@@ -242,6 +248,16 @@ const gazaMenu: MenuData = {
         image: "/menu/sweets/84.jpeg",
       },
       { name: "دولمة حلبي", pricePerKg: 130, image: "/menu/sweets/27.jpg" },
+      {
+        name: "بلورية حلبي بالونتيلا",
+        pricePerKg: 130,
+        image: "/menu/sweets/92.jpeg",
+      },
+      {
+        name: "دولمةلهف  شوكولاتة ",
+        pricePerKg: 130,
+        image: "/menu/sweets/74.jpg",
+      },
     ]),
   },
   westernSweets: {
@@ -323,19 +339,19 @@ const gazaMenu: MenuData = {
       {
         name: "ميني بان كيك",
         price: 25,
-        image: "/menu/bar/13.jpg",
+        image: "/menu/bar/76.jpeg",
         desc: "نوتيلا / بيستاشيو / لوتس",
       },
       {
         name: "بان كيك شوكولاتة",
         price: 15,
         image:
-          "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
+          "/menu/bar/13.jpg",
       },
       { name: "مولتن كيك", price: 20, image: "/menu/bar/37.jpg" },
       { name: "هوت كيك", price: 20, image: "/menu/bar/38.jpg" },
       { name: "براونيز", price: 20, image: "/menu/bar/59.jpg" },
-      { name: "تاياكي", price: 25, image: "/menu/bar/38.jpg" },
+      { name: "تاياكي", price: 25, image: "/menu/bar/67.jpeg" },
       {
         name: "ميني فيشز",
         price: 25,
@@ -357,7 +373,7 @@ const gazaMenu: MenuData = {
       {
         name: "جيلاتو نوتيلا",
         price: 15,
-        image: "/menu/Gelato/70.jpeg",
+        image: "/menu/Gelato/93.jpeg",
       },
       {
         name: "جيلاتو بستاشيو",
@@ -372,7 +388,7 @@ const gazaMenu: MenuData = {
       {
         name: "جيلاتو كيندر",
         price: 15,
-        image: "/menu/Gelato/70.jpeg",
+        image: "/menu/Gelato/95.jpeg",
       },
       {
         name: "جيلاتو بلوبيري",
@@ -422,7 +438,7 @@ const gazaMenu: MenuData = {
     items: withDefaultActive([
       {
         name: "سلطات مشكلة",
-        image: "/menu/salad/1.jpeg",
+        image: "/menu/salad/89.jpeg",
         variants: [
           { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
