@@ -16,7 +16,7 @@ const CATEGORY_DISPLAY = [
   { id: "westernSweets", name: "الكيك والحلويات", image: "/menu/Cake/38.jpg" },
   { id: "barSweets", name: "حلويات البار", image: "/menu/bar/14.jpg" },
   { id: "drinks", name: "المشروبات", image: "/menu/drinks/1.jpg" },
-  { id: "salads", name: "السلطات والمقبلات", image: "/menu/salad/20.jpeg" },
+  { id: "salads", name: "السلطات والمقبلات", image: "/menu/salad/89.jpeg" },
   { id: "gelato", name: "الجيلاتو", image: "/menu/Gelato/72.jpeg" },
 ];
 
