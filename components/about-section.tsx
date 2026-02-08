@@ -18,7 +18,7 @@ export function AboutSection() {
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/restaurant-interior.jpg"
+                src="/menu/about.jpeg"
                 alt="داخل مطعم أوتو غزة"
                 fill
                 className="object-cover"

@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/#services", label: "ماذا نقدم" },
   { href: "/select-branch", label: "اطلب الان" },
   { href: "/#reviews", label: "آراء العملاء" },
+  { href: "/#gallery", label: "معرض الصور" },
   { href: "/#contact", label: "تواصل معنا" },
 ];
 

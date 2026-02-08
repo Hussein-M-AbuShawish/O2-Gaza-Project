@@ -215,7 +215,7 @@ const gazaMenu: MenuData = {
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
       { name: "كول واشكر", pricePerKg: 30, image: "/menu/sweets/5.jpg" },
       { name: "سنيورة", pricePerKg: 30, image: "/menu/sweets/8.jpg" },
-      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/11.jpg" },
+      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/17.jpeg" },
       {
         name: "بسبوسة نوتيلا",
         pricePerKg: 40,
@@ -230,9 +230,9 @@ const gazaMenu: MenuData = {
 
         image: "/menu/sweets/19.jpeg",
       },
-      { name: "سرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "وربات", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
+      { name: "صرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
+      { name: "وربات", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
+      { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/4.jpg" },
 
       { name: "بقلاوة عين جمل", pricePerKg: 55, image: "/menu/sweets/41.jpg" },
       { name: "بقلاوة حلبي", pricePerKg: 100, image: "/menu/sweets/10.jpg" },
@@ -249,12 +249,12 @@ const gazaMenu: MenuData = {
       },
       { name: "دولمة حلبي", pricePerKg: 130, image: "/menu/sweets/27.jpg" },
       {
-        name: "بلورية حلبي بالونتيلا",
+        name: "بلورية حلبي نوتيلا",
         pricePerKg: 130,
         image: "/menu/sweets/92.jpeg",
       },
       {
-        name: "دولمةلهف  شوكولاتة ",
+        name: "دولمة شوكولاتة",
         pricePerKg: 130,
         image: "/menu/sweets/74.jpg",
       },
