@@ -345,8 +345,7 @@ const gazaMenu: MenuData = {
       {
         name: "بان كيك شوكولاتة",
         price: 15,
-        image:
-          "/menu/bar/13.jpg",
+        image: "/menu/bar/13.jpg",
       },
       { name: "مولتن كيك", price: 20, image: "/menu/bar/37.jpg" },
       { name: "هوت كيك", price: 20, image: "/menu/bar/38.jpg" },
@@ -440,7 +439,6 @@ const gazaMenu: MenuData = {
         name: "سلطات مشكلة",
         image: "/menu/salad/89.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -449,7 +447,6 @@ const gazaMenu: MenuData = {
         name: "ذرة مايونيز ",
         image: "/menu/salad/5.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -459,7 +456,6 @@ const gazaMenu: MenuData = {
         image: "/menu/salad/1.jpeg",
         desc: "ذرة مايونيز / بيكانتي / تركية / ثومية",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -468,7 +464,6 @@ const gazaMenu: MenuData = {
         name: "تركية",
         image: "/menu/salad/4.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -477,7 +472,6 @@ const gazaMenu: MenuData = {
         name: "ثومية",
         image: "/menu/salad/2.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -486,7 +480,6 @@ const gazaMenu: MenuData = {
         name: "ملفوف",
         image: "/menu/salad/3.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -495,7 +488,6 @@ const gazaMenu: MenuData = {
         name: "كول سلو",
         image: "/menu/salad/6.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
