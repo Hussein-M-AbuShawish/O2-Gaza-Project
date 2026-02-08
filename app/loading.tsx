@@ -2,6 +2,7 @@ export default function Loading() {
   return (
     <div className="loading-screen">
       <div className="loading-figure">
+        {/* Outer rotating ring */}
         <svg
           className="loading-ring"
           viewBox="0 0 200 200"
@@ -23,6 +24,7 @@ export default function Loading() {
           />
         </svg>
 
+        {/* Logo container */}
         <div className="loading-logo-wrap">
           <img
             src="/O2.png"
@@ -33,6 +35,7 @@ export default function Loading() {
           />
         </div>
 
+        {/* Orbiting dots */}
         <div className="loading-orbit">
           <div className="loading-dot loading-dot-1" />
           <div className="loading-dot loading-dot-2" />
@@ -40,6 +43,7 @@ export default function Loading() {
         </div>
       </div>
 
+      {/* Bottom line accent */}
       <div className="loading-line" />
     </div>
   );
