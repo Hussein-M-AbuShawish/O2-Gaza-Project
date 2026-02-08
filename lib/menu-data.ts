@@ -346,6 +346,7 @@ const gazaMenu: MenuData = {
         name: "بان كيك شوكولاتة",
         price: 15,
         image: "/menu/bar/13.jpg",
+        active: false,
       },
       { name: "مولتن كيك", price: 20, image: "/menu/bar/37.jpg" },
       { name: "هوت كيك", price: 20, image: "/menu/bar/38.jpg" },
