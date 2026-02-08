@@ -4,6 +4,7 @@ import { Tajawal, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { BranchProvider } from '@/lib/branch-context'
 import { CartProvider } from "@/lib/cart-context"
+import { AmbientBackground } from "@/components/ambient-background"
 import './globals.css'
 
 const _tajawal = Tajawal({
@@ -90,7 +91,10 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <BranchProvider>
           <CartProvider>
-            {children}
+            <AmbientBackground />
+            <div className="relative z-10">
+              {children}
+            </div>
             <Analytics />
           </CartProvider>
         </BranchProvider>
