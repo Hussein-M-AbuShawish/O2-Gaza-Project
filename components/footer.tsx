@@ -5,8 +5,7 @@ import Link from "next/link";
 import {
   Facebook,
   Instagram,
-  Twitter,
-  Youtube,
+  MessageCircle,
   Phone,
   Mail,
   MapPin,
@@ -14,16 +13,19 @@ import {
 
 const quickLinks = [
   { href: "/about", label: "من نحن" },
-  { href: "/services", label: "خدماتنا" },
+  { href: "/#services", label: "خدماتنا" },
   { href: "/categories", label: "قائمتنا" },
   { href: "#contact", label: "تواصل معنا" },
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "فيسبوك" },
-  { icon: Instagram, href: "#", label: "إنستغرام" },
-  { icon: Twitter, href: "#", label: "تويتر" },
-  { icon: Youtube, href: "#", label: "يوتيوب" },
+  { icon: Facebook, href: "https://www.facebook.com/share/1AuMX1kHQW/", label: "فيسبوك" },
+  { icon: Instagram, href: "https://www.instagram.com/o2gaza1?igsh=MWo2NW1oZ2IydjlqOQ==", label: "إنستغرام" },
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/972597111811",
+    label: "واتساب",
+  }
 ];
 
 export function Footer() {
@@ -59,7 +61,7 @@ export function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground hover:scale-110 hover:-translate-y-1 transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -108,11 +110,18 @@ export function Footer() {
                   </li>
                   <li className="flex items-center gap-2" dir="rtl">
                     <Phone className="w-4 h-4" />{" "}
-                    <span dir="ltr">+972 59 711 1811</span>
+                    <span dir="ltr">+972 56 900 0400</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" /> info@o2gaza.com
+                  <li>
+                    <a
+                      href="mailto:info@o2company.com"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>info@o2company.com</span>
+                    </a>
                   </li>
+
                 </ul>
               </motion.div>
 
@@ -128,8 +137,14 @@ export function Footer() {
                     <Phone className="w-4 h-4" />{" "}
                     <span dir="ltr">+972 59 711 1811</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" /> info@o2gaza.com
+                  <li>
+                    <a
+                      href="mailto:info@o2company.com"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>info@o2company.com</span>
+                    </a>
                   </li>
                 </ul>
               </motion.div>
@@ -149,7 +164,7 @@ export function Footer() {
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex justify-between">
                 <span>جميع أيام الاسبوع</span>
-                <span>10:00 ص - 12:00 م</span>
+                <span>10:00 ص - 10:00 م</span>
               </li>
             </ul>
           </motion.div>

@@ -6,6 +6,9 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { MapPin, Phone, Clock, Utensils } from "lucide-react";
 import { useBranch, BRANCHES } from "@/lib/branch-context";
+import { useEffect } from "react";
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,9 +30,25 @@ const itemVariants = {
     },
 };
 
+import { ReactNode } from "react";
+
+export function BranchProvider({ children }: { children: ReactNode }) {
+    const { setSelectedBranch } = useBranch();
+
+    useEffect(() => {
+        const savedBranch = localStorage.getItem("branch");
+        if (savedBranch) {
+            setSelectedBranch(savedBranch);
+        }
+    }, [setSelectedBranch]);
+
+    return children;
+}
+
 export default function SelectBranchPage() {
     const { setSelectedBranch } = useBranch();
     const branchList = Object.values(BRANCHES);
+    const router = useRouter();
 
     return (
         <main className="min-h-screen bg-background">
@@ -47,7 +66,7 @@ export default function SelectBranchPage() {
                             ابدأ من هنا
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 text-balance">
-                            اختر الفرع المفضل
+                            اختر الفرع الأقرب
                         </h1>
                         <p className="text-muted-foreground text-lg max-w-2xl mx-auto text-pretty">
                             اختر من أحد فروعنا واستمتع بأفضل الأطباق المتنوعة
@@ -67,7 +86,10 @@ export default function SelectBranchPage() {
                                     <motion.div
                                         whileHover={{ y: -12, scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        onClick={() => setSelectedBranch(branch.id)}
+                                        onClick={() => {
+                                            setSelectedBranch(branch.id);
+                                            localStorage.setItem("branch", branch.id); // حفظ الفرع
+                                        }}
                                         className="relative h-full rounded-2xl overflow-hidden bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer group"
                                     >
                                         {/* Background accent line */}
@@ -95,7 +117,7 @@ export default function SelectBranchPage() {
                                                         {branch.name}
                                                     </h2>
                                                     <p className="text-sm text-muted-foreground">
-                                                        {branch.region}
+                                                        {branch.address}
                                                     </p>
                                                 </div>
                                             </div>
@@ -104,33 +126,11 @@ export default function SelectBranchPage() {
                                             <div className="space-y-3 mb-8">
                                                 <motion.div
                                                     whileHover={{ x: -4 }}
-                                                    className="flex items-start gap-3"
-                                                >
-                                                    <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                                                    <span className="text-sm text-foreground">
-                                                        {branch.address}
-                                                    </span>
-                                                </motion.div>
-                                                <motion.div
-                                                    whileHover={{ x: -4 }}
-                                                    className="flex items-center gap-3"
-                                                >
-                                                    <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                                                    <a
-                                                        href={`tel:+${branch.phone}`}
-                                                        className="text-sm text-primary hover:text-primary/80 font-semibold transition-colors"
-                                                    >
-                                                        +{branch.phone}
-                                                    </a>
-                                                </motion.div>
-                                                <motion.div
-                                                    whileHover={{ x: -4 }}
                                                     className="flex items-center gap-3"
                                                 >
                                                     <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                                                     <span className="text-sm text-foreground">
-                                                        10:00 - 23:00
-                                                    </span>
+                                                        10:00 صباحا – 10:00 ليلاً                                                         </span>
                                                 </motion.div>
                                             </div>
 

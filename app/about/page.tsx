@@ -172,11 +172,11 @@ export default function AboutPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(0);
 
   return (
-    <main className="min-h-screen bg-background" dir="rtl">
+    <main className="min-h-screen bg-background overflow-x-hidden" dir="rtl">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/10 via-background to-background">
+      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/10 via-background to-background overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -205,7 +205,7 @@ export default function AboutPage() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 md:py-28">
+      <section className="py-20 md:py-28 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div
@@ -217,7 +217,7 @@ export default function AboutPage() {
             >
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/restaurant-interior.jpg"
+                  src="/menu/about.jpeg"
                   alt="داخل مطعم أوتو غزة"
                   fill
                   className="object-cover"

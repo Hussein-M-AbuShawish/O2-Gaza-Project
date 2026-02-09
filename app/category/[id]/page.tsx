@@ -35,18 +35,36 @@ import { getMenuByBranch } from "@/lib/menu-data";
 // ================= CONFIGURATION =================
 const CONFIG = {
   whatsappNumbers: {
-    gaza: "972595201049",
+    gaza: "972569000400",
     middle: "972597111811",
   },
   deliveryLocations: {
     gaza: [
-      { name: "غزة - المدينة", price: 5 },
-      { name: "غزة - الشمال", price: 8 },
-      { name: "غزة - الرمال", price: 5 },
-      { name: "غزة - الشيخ رضوان", price: 6 },
-      { name: "غزة - النصر", price: 7 },
+      { name: "فوري", price: 0 },
+      { name: "النصر", price: 5 },
+      { name: "الشاطىء ", price: 5 },
+      { name: " الميناء", price: 5 },
+      { name: "الساحة", price: 10 },
+      { name: "الشعبية", price: 10 },
+      { name: "الدرج", price: 10 },
+      { name: "دوار ال 17", price: 10 },
+      { name: "الشاليهات", price: 10 },
+      { name: "الشيخ رضوان", price: 10 },
+      { name: "الكرامة", price: 10 },
+      { name: "الرمال الجنووبي", price: 10 },
+      { name: "تل الهوا", price: 10 },
+      { name: "اليرموك", price: 10 },
+      { name: "النفق", price: 10 },
+      { name: "التفاح", price: 15 },
+      { name: "شارع يافا", price: 15 },
+      { name: "الصبرة", price: 15 },
+      { name: "الزيتون", price: 15 },
+      { name: "الصفطاوي", price: 15 },
+      { name: "دوار ابو شرخ", price: 15 },
     ],
     middle: [
+
+      { name: "فوري", price: 0 },
       { name: "النصيرات", price: 10 },
       { name: "البريج", price: 15 },
       { name: "سوارحة الشرقية", price: 15 },
@@ -62,6 +80,7 @@ interface MenuItem {
   name: string;
   price?: number;
   pricePerKg?: number;
+  variants?: { name: string; price: number }[];
   desc?: string;
   image: string;
   delivery?: boolean;
@@ -387,28 +406,76 @@ const menuData: Record<string, MenuCategory> = {
     title: "السلطات",
     items: [
       {
-        name: "سلطة كبيرة",
-        price: 10,
-        image:
-          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+        name: "سلطات مشكلة",
+        image: "/menu/salad/1.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
       {
-        name: "سلطة صغيرة",
-        price: 5,
-        image:
-          "https://images.unsplash.com/photo-1639024471283-03518883512d?w=800&q=80",
+        name: "ذرة مايونيز ",
+        image: "/menu/salad/5.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
       {
-        name: "بطاطا كبيرة",
-        price: 10,
-        image:
-          "https://images.unsplash.com/photo-1598679253544-2c97992403ea?w=800&q=80",
+        name: "بيكانتي ",
+        image: "/menu/salad/1.jpeg",
+        desc: "ذرة مايونيز / بيكانتي / تركية / ثومية",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
       {
-        name: "بطاطا صغيرة",
-        price: 5,
-        image:
-          "https://images.unsplash.com/photo-1639024471283-03518883512d?w=800&q=80",
+        name: "تركية",
+        image: "/menu/salad/4.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "ثومية",
+        image: "/menu/salad/2.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "ملفوف",
+        image: "/menu/salad/3.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "كول سلو",
+        image: "/menu/salad/6.jpeg",
+        variants: [
+          { name: "كبير", price: 15 },
+          { name: "وسط", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
+      },
+      {
+        name: "بطاطا",
+        image: "/menu/salad/20.jpeg",
+        variants: [
+          { name: "كبير", price: 10 },
+          { name: "صغير", price: 5 },
+        ],
       },
     ],
   },
@@ -462,13 +529,19 @@ function ProductModal({
   const [qty, setQty] = useState(1);
   const [weight, setWeight] = useState(1);
   const [priceInput, setPriceInput] = useState("");
+  const [selectedVariant, setSelectedVariant] = useState(
+    product?.variants ? product.variants[0] : null
+  );
 
   const calculatedPrice = useMemo(() => {
     if (isByWeight && product?.pricePerKg) {
       return weight * product.pricePerKg;
     }
+    if (selectedVariant) {
+      return selectedVariant.price * qty;
+    }
     return (product?.price || 0) * qty;
-  }, [isByWeight, product, weight, qty]);
+  }, [isByWeight, product, weight, qty, selectedVariant]);
 
   const canDeliver = product?.delivery !== false;
 
@@ -496,13 +569,24 @@ function ProductModal({
     if (isByWeight && weight > 0) {
       return `أريد طلب: ${product.name} - وزن ${weight.toFixed(2)} كغ (السعر ${calculatedPrice.toFixed(1)} شيكل)`;
     }
-    return `أريد طلب: ${product.name} × ${qty}`;
-  }, [product, isByWeight, weight, qty, calculatedPrice]);
+    const variantStr = selectedVariant ? ` (${selectedVariant.name})` : "";
+    return `أريد طلب: ${product.name}${variantStr} × ${qty}`;
+  }, [product, isByWeight, weight, qty, calculatedPrice, selectedVariant]);
 
   const handleAddToCart = () => {
     if (!product || !canDeliver) return;
     if (isByWeight && (calculatedPrice <= 0 || weight <= 0)) return;
-    onAddToCart(product, qty, weight, calculatedPrice, isByWeight);
+
+    let finalProduct = product;
+    if (selectedVariant) {
+      finalProduct = {
+        ...product,
+        name: `${product.name} - ${selectedVariant.name}`,
+        price: selectedVariant.price,
+      };
+    }
+
+    onAddToCart(finalProduct, qty, weight, calculatedPrice, isByWeight);
     onClose();
   };
 
@@ -588,6 +672,25 @@ function ProductModal({
             </div>
           )}
 
+          {product.variants && (
+            <div className="bg-primary/10 border-2 border-primary rounded-xl p-4 mb-4">
+              <label className="block text-right mb-2 font-bold text-sm">
+                🏷️ اختر النوع / الحجم
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {product.variants.map((v) => (
+                  <button
+                    key={v.name}
+                    onClick={() => setSelectedVariant(v)}
+                    className={`py-2 px-1 border-2 border-primary rounded-lg font-semibold transition-colors text-xs md:text-sm ${selectedVariant?.name === v.name ? "bg-primary text-primary-foreground" : "bg-transparent text-white"}`}
+                  >
+                    {v.name} ({v.price} ₪)
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {canDeliver && (
             <div className="flex items-center justify-center gap-4 mb-4">
               <button
@@ -617,15 +720,7 @@ function ProductModal({
                 <ShoppingBasket className="w-5 h-5" />
                 أضف إلى السلة
               </button>
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3.5 rounded-xl bg-[#25d366] text-white font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                اطلب الآن
-              </a>
+
             </>
           )}
         </div>
@@ -749,6 +844,7 @@ function CustomerFormModal({
   onSubmit,
   deliveryLocations,
   branch,
+  initialData,
 }: {
   onClose: () => void;
   onBack: () => void;
@@ -761,12 +857,19 @@ function CustomerFormModal({
   }) => void;
   deliveryLocations: typeof CONFIG.deliveryLocations;
   branch: string;
+  initialData?: {
+    name: string;
+    phone: string;
+    address: string;
+    location: DeliveryLocation | null;
+    notes: string;
+  };
 }) {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [locationName, setLocationName] = useState<string>("");
-  const [notes, setNotes] = useState("");
+  const [name, setName] = useState(initialData?.name || "");
+  const [phone, setPhone] = useState(initialData?.phone || "");
+  const [address, setAddress] = useState(initialData?.address || "");
+  const [locationName, setLocationName] = useState<string>(initialData?.location?.name || "");
+  const [notes, setNotes] = useState(initialData?.notes || "");
 
   const locations = deliveryLocations[branch as keyof typeof deliveryLocations] || [];
   const selectedLocation = locations.find((l) => l.name === locationName);
@@ -849,13 +952,13 @@ function CustomerFormModal({
               <option value="">-- اختر المنطقة --</option>
               {locations.map((loc) => (
                 <option key={loc.name} value={loc.name}>
-                  {loc.name} - رسوم التوصيل: {loc.price} ₪
+                  {loc.name} - : {loc.price} ₪
                 </option>
               ))}
             </select>
             {selectedLocation && (
               <div className="mt-2 p-3 bg-primary/10 border-2 border-primary rounded-xl text-center font-bold text-primary">
-                رسوم التوصيل: {selectedLocation.price} ₪
+                : {selectedLocation.price} ₪
               </div>
             )}
           </div>
@@ -1172,13 +1275,13 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
     // التحقق من وقت العمل (من 10 صباحاً حتى 12 ليلاً)
     const now = new Date();
     const currentHour = now.getHours();
-    
+
     // وقت العمل من 10 صباحاً (10) حتى 6 مساءً (18)
-    if (currentHour >= 10 && currentHour < 24) {
-      
+    if (currentHour >= 10 && currentHour < 22) {
+
     } else {
       showToast(
-        "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 12:00 ليلاً."
+        "عذراً، المطعم مغلق حالياً. أوقات العمل من 10:00 صباحاً حتى 10:00 ليلاً."
       );
       return;
     }
@@ -1220,42 +1323,61 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
     const fullAddress = `${provinceName} - ${selectedLocation.name} - ${customerInfo.address}`;
     const targetNumber = getWhatsAppNumber();
 
-    let msg = "🍽️ *طلب جديد من O2 Restaurant*\n━━━━━━━━━━━━━━\n\n";
-    msg += `👤 *بيانات العميل:*\n`;
-    msg += `• الاسم: ${customerInfo.name}\n`;
-    msg += `• الهاتف: ${customerInfo.phone}\n`;
-    msg += `• العنوان: ${fullAddress}\n\n`;
-    msg += "📋 *تفاصيل الطلب:*\n";
-    msg += "┌────────────────────────┐\n";
+    // Helper function for padding to create a table-like look
+    const pad = (text: string, length: number) => {
+      const s = String(text);
+      const spaces = length - s.length;
+      return s + (spaces > 0 ? " ".repeat(spaces) : "");
+    };
+
+    let msg = "🧾 *فاتورة طلب — O2 Restaurant*\n\n";
+    msg += "────────────────────────\n\n";
+
+    msg += "👤 *بيانات العميل*\n";
+    msg += `الاسم: ${customerInfo.name}\n`;
+    msg += `الهاتف: ${customerInfo.phone}\n`;
+    msg += `العنوان: ${fullAddress}\n\n`;
+
+    msg += "────────────────────────\n\n";
+
+    msg += "🍽️ *تفاصيل الطلب*\n";
+    msg += "```\n";
+    msg += "المنتج             الكمية   السعر   المجموع\n";
+    msg += "-------------------------------------------\n";
 
     cart.forEach((i) => {
       const itemTotal = i.price * i.qty;
       itemsTotal += itemTotal;
+
       const displayName = i.isByWeight
-        ? `${i.name} (${i.weight?.toFixed(2)} كغ)`
+        ? `${i.name} (${i.weight?.toFixed(2)}ك)`
         : i.name;
-      const unitPriceDisplay = i.isByWeight
-        ? `${i.unitPrice} ₪/كغ`
-        : `${i.unitPrice} ₪`;
-      msg += `│ ${displayName}\n`;
-      msg += `│   الكمية: ${i.qty} | السعر: ${unitPriceDisplay}\n`;
-      msg += `│   المبلغ: ${itemTotal.toFixed(1)} ₪\n`;
-      msg += `├────────────────────────┤\n`;
+
+      const nameCol = pad(displayName.substring(0, 18), 18);
+      const qtyCol = pad(String(i.qty), 8);
+      const priceCol = pad(i.unitPrice + "₪", 8);
+      const totalCol = pad(itemTotal.toFixed(0) + "₪", 8);
+
+      msg += `${nameCol}${qtyCol}${priceCol}${totalCol}\n`;
     });
 
-    msg += `│ 🚚 رسوم التوصيل: ${selectedLocation.price} ₪\n`;
-    msg += `└────────────────────────┘\n\n`;
+    msg += "-------------------------------------------\n";
+    msg += `رسوم التوصيل                  ${selectedLocation.price}₪\n`;
+    msg += "-------------------------------------------\n";
+    msg += `الإجمالي                     ${(itemsTotal + selectedLocation.price).toFixed(0)}₪\n`;
+    msg += "```\n\n";
 
     if (orderNotes) {
-      msg += `📝 *ملاحظات الطلب:*\n${orderNotes}\n\n`;
+      msg += `📝 *ملاحظات*\n${orderNotes}\n\n`;
     }
 
-    msg += `━━━━━━━━━━━━━━\n`;
-    msg += `💵 *إجمالي الفاتورة: ${(itemsTotal + selectedLocation.price).toFixed(1)} ₪*`;
+    msg += "────────────────────────\n";
+    msg += "شكراً لطلبكم من O2 Restaurant";
 
     window.open(
       `https://wa.me/${targetNumber}?text=${encodeURIComponent(msg)}`
     );
+
 
     // Reset state
     setCustomerInfo({ name: "", phone: "", address: "" });
@@ -1273,7 +1395,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="pt-32 pb-20 text-center">
           <p className="text-xl text-muted-foreground">القسم غير موجود</p>
           <Link href="/categories">
-            <Button className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90 gap-2 bg-transparent">
+            <Button className="fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]">
               <ChevronLeft className="w-4 h-4" />
               الأقسام
             </Button>
@@ -1291,15 +1413,16 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 md:mb-8"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="sticky top-[64px] md:top-[80px] z-[1000] py-3 mb-6"
           >
+
             <Link href="/categories">
               <Button
                 variant="outline"
-                className="text-foreground border-border hover:bg-muted gap-2 bg-transparent"
+                className="text-foreground bg-primary border-primary hover:text-amber-50 hover:bg-primary/90 gap-2 fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]"
               >
                 <ChevronLeft className="w-4 h-4" />
                 الأقسام
@@ -1342,20 +1465,40 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
               />
             ))}
           </motion.div>
+          {/* Cart Button under categories */}
+          <div className="mt-10 flex justify-center">
+            {cart.length > 0 && (
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="fixed bottom-6 left-6 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
+              >
+                <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
+                <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
+                  {cartTotal}
+                </span>
+              </button>
+            )}
+
+          </div>
+
         </div>
       </div>
       {/* Cart Button */}
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="fixed bottom-6 left-6 w-14 h-14 md:w-16 md:h-16 bg-primary rounded-full flex items-center justify-center text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] z-[1500]"
-      >
-        <ShoppingBasket className="w-6 h-6 md:w-7 md:h-7" />
-        {cartTotal > 0 && (
-          <span className="absolute -top-1 -right-1 w-6 h-6 bg-white text-primary rounded-full text-xs font-bold flex items-center justify-center">
-            {cartTotal}
-          </span>
-        )}
-      </button>
+      {cart.length > 0 && (
+        <div className="mb-10 flex justify-center">
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl transition-all"
+          >
+            <ShoppingBasket className="w-6 h-6" />
+            اذهب الى اتمام الطلب
+            <span className="bg-white text-primary px-2 py-0.5 rounded-full text-sm font-extrabold">
+              {cartTotal}
+            </span>
+          </button>
+        </div>
+      )}
+
 
       {/* Product Modal */}
       <AnimatePresence>
@@ -1395,6 +1538,13 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             onSubmit={handleCustomerSubmit}
             deliveryLocations={CONFIG.deliveryLocations}
             branch={defaultBranch}
+            initialData={{
+              name: customerInfo.name,
+              phone: customerInfo.phone,
+              address: customerInfo.address,
+              location: selectedLocation,
+              notes: orderNotes,
+            }}
           />
         )}
       </AnimatePresence>
