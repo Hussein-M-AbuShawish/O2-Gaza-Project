@@ -7,13 +7,13 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const galleryImages = [
-  { src: "/images/main.jpeg", alt: "صالة المطعم الرئيسية" },
-  { src: "/gallery/6.jpeg", alt: "المطبخ المفتوح" },
-  { src: "/gallery/3.jpeg", alt: "التراس الخارجي" },
-  { src: "/menu/italian/35.jpg", alt: "وجبات مميزة" },
-  { src: "/gallery/4.jpeg", alt: "البار" },
-  { src: "/gallery/5.jpeg", alt: "صالة خاصة" },
-  { src: "/gallery/2.jpeg", alt: "الأجواء الداخلية" },
+  { src: "/images/gallery-1.jpg", alt: "صالة المطعم الرئيسية" },
+  { src: "/images/gallery-2.jpg", alt: "المطبخ المفتوح" },
+  { src: "/images/gallery-3.jpg", alt: "التراس الخارجي" },
+  { src: "/images/gallery-4.jpg", alt: "أطباق مميزة" },
+  { src: "/images/gallery-5.jpg", alt: "البار" },
+  { src: "/images/gallery-6.jpg", alt: "صالة خاصة" },
+  { src: "/images/restaurant-interior.jpg", alt: "الأجواء الداخلية" },
   { src: "/images/grilled-meat.jpg", alt: "المشاوي" },
 ];
 
