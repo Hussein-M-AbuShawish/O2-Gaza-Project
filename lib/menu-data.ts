@@ -104,12 +104,6 @@ const gazaMenu: MenuData = {
     title: "الإيطالي",
     items: withDefaultActive([
       {
-        name: "كاليزوني دجاج",
-        price: 25,
-        desc: "صدر دجاج - جبنة - زيتون - رانش",
-        image: "/menu/italian/35.jpg",
-      },
-      {
         name: "كاليزوني دجاج + شيبس",
         price: 30,
         desc: "صدر دجاج - جبنة - زيتون - رانش",
@@ -508,7 +502,70 @@ const gazaMenu: MenuData = {
 // Middle Branch Menu (initially same as Gaza, but can be modified independently)
 const middleMenu: MenuData = {
   shawarma: gazaMenu.shawarma,
-  italian: gazaMenu.italian,
+  italian: {
+    title: "الإيطالي",
+    items: withDefaultActive([
+      {
+        name: "كاليزوني دجاج",
+        price: 25,
+        desc: "صدر دجاج - جبنة - زيتون - رانش",
+        image: "/menu/italian/35.jpg",
+      },
+      {
+        name: "كاليزوني دجاج + شيبس",
+        price: 30,
+        desc: "صدر دجاج - جبنة - زيتون - رانش",
+        image: "/menu/italian/91.jpeg",
+      },
+      {
+        name: "كاليزوني خضار",
+        price: 15,
+        desc: "فليفلة - بصل - ذرة - مشروم - زيتون",
+        image: "/menu/italian/36.jpg",
+      },
+      {
+        name: "بيتزا مكسيكي دجاج",
+        price: 20,
+        desc: "صدر دجاج - جبنة - زيتون",
+        image: "/menu/italian/33.jpg",
+      },
+      {
+        name: "ميجا",
+        price: 30,
+        desc: "صدر دجاج - فليفلة - مشروم - جرادة - بصل - كريمة طعام",
+        image: "/menu/italian/34.jpg",
+      },
+      {
+        name: "بيتزا خضار",
+        price: 15,
+        desc: "خضار - ذرة - زيتون",
+        image: "/menu/italian/32.jpg",
+      },
+      {
+        name: "بيتزا ماما روزا بالاناناس",
+        price: 15,
+        desc: "أناناس",
+        image: "/menu/italian/2.jpg",
+      },
+      {
+        name: "نابولي",
+        price: 15,
+        desc: "بيتزا بالتونة والزيتون",
+        image: "/menu/italian/3.jpg",
+      },
+      {
+        name: "مارجريتا",
+        price: 15,
+        desc: "جبنة",
+        image: "/menu/italian/1.jpg",
+      },
+      {
+        name: "صوص رانش",
+        price: 3,
+        image: "/menu/italian/7.jpeg",
+      },
+    ]),
+  },
   sandwiches: gazaMenu.sandwiches,
   easternSweets: gazaMenu.easternSweets,
   westernSweets: gazaMenu.westernSweets,
