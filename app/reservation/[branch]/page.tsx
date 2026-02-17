@@ -118,7 +118,7 @@ ${orderDetails}
 رمضان كريم 🌙`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappNumber = branch === "gaza" ? "+972 56 900 0400" : "972592722020"; // Replace with actual numbers if different
+    const whatsappNumber = branch === "gaza" ? "972592722020" : "972592722020"; // Replace with actual numbers if different
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
   };
 
