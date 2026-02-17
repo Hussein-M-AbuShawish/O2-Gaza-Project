@@ -47,7 +47,7 @@ const RESERVATION_ITEMS = [
 
 const RAMADAN_PACKAGE = {
   name: "بكج المقبلات الرمضاني ",
-  items: ["تمر", "مياه معدنية", "عصير", "صحن حلو"],
+  items: ["تمر", "مياه معدنية", "عصير", "كنافة عربية"],
   image: "/images/our-images/35.jpg",
   // desc: ""
 };

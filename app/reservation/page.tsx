@@ -72,19 +72,10 @@ export default function ReservationSelectionPage() {
                             <motion.div key={branch.id} variants={itemVariants}>
                                 <Link href={`/reservation/${branch.id}`}>
                                     <motion.div
-<<<<<<< HEAD
                                         whileHover={{ y: -12, scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         className="relative h-full rounded-2xl overflow-hidden bg-[#1a1a1a] border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer group shadow-2xl"
                                     >
-=======
-                                        whileHover={{ y: -8 }}
-                                        transition={{ type: "tween", duration: 0.2 }}
-                                        className="relative h-full rounded-2xl overflow-hidden bg-[#1a1a1a]
-                                        border-2 border-amber-900/30 hover:border-amber-500/50
-                                        transition-all duration-300 p-8 cursor-pointer group shadow-2xl
-                                        will-change-transform"                                    >
->>>>>>> 80de96bba5f2f3dbdcaaaaf4a2953d3bc57a031a
                                         {/* Background accent line */}
                                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/60 via-primary to-transparent" />
 
@@ -106,11 +97,7 @@ export default function ReservationSelectionPage() {
                                             </div>
 
                                             {/* CTA Button */}
-<<<<<<< HEAD
                                             <div className="w-full px-6 py-3 bg-primary text-primary-foreground text-center font-bold rounded-xl hover:bg-primary/90 transition-colors">
-=======
-                                            <div className="w-full px-6 py-3 bg-amber-600 text-white text-center font-bold rounded-xl group-hover:bg-amber-500 transition-colors">
->>>>>>> 80de96bba5f2f3dbdcaaaaf4a2953d3bc57a031a
                                                 احجز الآن
                                             </div>
                                         </div>
