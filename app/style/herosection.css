@@ -84,7 +84,7 @@ body {
 }
 
 .o2-logo-red {
-  color: #dc2626;
+  color: var(--primary);
   display: inline-flex;
   flex-direction: row;
   align-items: baseline;
