@@ -866,16 +866,27 @@ export default function CategoriesPage() {
         <motion.div
           variants={{
             hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+            visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
           }}
           initial="hidden"
           animate="visible"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {categories.map((cat, index) => (
-            <motion.div key={cat.id}>
+            <motion.div
+              key={cat.id}
+              variants={{
+                hidden: { opacity: 0, y: 60, scale: 0.9 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+                },
+              }}
+            >
               <Link href={`/category/${cat.id}`} className="group block relative">
-                <div className="relative h-[350px] md:h-[400px] w-full rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/50 bg-zinc-900 transition-all duration-500 group-hover:border-[#dc2626]/30 group-hover:shadow-[0_0_40px_-10px_rgba(220,38,38,0.2)]">
+                <div className="relative h-[350px] md:h-[400px] w-full rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/50 bg-zinc-900 transition-all duration-500 group-hover:border-[#dc2626]/30 group-hover:shadow-[0_0_40px_-10px_rgba(220,38,38,0.2)] hover-glow">
                   <Image
                     src={cat.image}
                     alt={cat.name}

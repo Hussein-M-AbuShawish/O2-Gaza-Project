@@ -4,6 +4,7 @@ import { Tajawal, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { BranchProvider } from '@/lib/branch-context'
 import { CartProvider } from "@/lib/cart-context"
+import { AmbientBackground } from "@/components/ambient-background"
 import './globals.css'
 
 const _tajawal = Tajawal({
@@ -79,6 +80,9 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className={`${_tajawal.variable} ${_geistMono.variable}`}>
       <head>
+        <link rel="preload" as="image" href="/path/to/above-the-fold-image.jpg" fetchPriority="high" />
+        <link rel="preload" as="style" href="/path/to/critical.css" />
+        <link rel="preload" as="font" href="/fonts/your-font.woff2" type="font/woff2" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -87,7 +91,10 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <BranchProvider>
           <CartProvider>
-            {children}
+            <AmbientBackground />
+            <div className="relative z-10">
+              {children}
+            </div>
             <Analytics />
           </CartProvider>
         </BranchProvider>

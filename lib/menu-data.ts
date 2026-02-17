@@ -104,12 +104,6 @@ const gazaMenu: MenuData = {
     title: "الإيطالي",
     items: withDefaultActive([
       {
-        name: "كاليزوني دجاج",
-        price: 25,
-        desc: "صدر دجاج - جبنة - زيتون - رانش",
-        image: "/menu/italian/35.jpg",
-      },
-      {
         name: "كاليزوني دجاج + شيبس",
         price: 30,
         desc: "صدر دجاج - جبنة - زيتون - رانش",
@@ -215,7 +209,7 @@ const gazaMenu: MenuData = {
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
       { name: "كول واشكر", pricePerKg: 30, image: "/menu/sweets/5.jpg" },
       { name: "سنيورة", pricePerKg: 30, image: "/menu/sweets/8.jpg" },
-      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/11.jpg" },
+      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/17.jpeg" },
       {
         name: "بسبوسة نوتيلا",
         pricePerKg: 40,
@@ -230,9 +224,9 @@ const gazaMenu: MenuData = {
 
         image: "/menu/sweets/19.jpeg",
       },
-      { name: "سرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "وربات", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
-      { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
+      { name: "صرة", pricePerKg: 35, image: "/menu/sweets/2.jpg" },
+      { name: "وربات", pricePerKg: 35, image: "/menu/sweets/26.jpg" },
+      { name: "معكوفة عين جمل", pricePerKg: 35, image: "/menu/sweets/4.jpg" },
 
       { name: "بقلاوة عين جمل", pricePerKg: 55, image: "/menu/sweets/41.jpg" },
       { name: "بقلاوة حلبي", pricePerKg: 100, image: "/menu/sweets/10.jpg" },
@@ -249,12 +243,12 @@ const gazaMenu: MenuData = {
       },
       { name: "دولمة حلبي", pricePerKg: 130, image: "/menu/sweets/27.jpg" },
       {
-        name: "بلورية حلبي بالونتيلا",
+        name: "بلورية حلبي نوتيلا",
         pricePerKg: 130,
         image: "/menu/sweets/92.jpeg",
       },
       {
-        name: "دولمةلهف  شوكولاتة ",
+        name: "دولمة شوكولاتة",
         pricePerKg: 130,
         image: "/menu/sweets/74.jpg",
       },
@@ -345,8 +339,8 @@ const gazaMenu: MenuData = {
       {
         name: "بان كيك شوكولاتة",
         price: 15,
-        image:
-          "/menu/bar/13.jpg",
+        image: "/menu/bar/13.jpg",
+        active: false,
       },
       { name: "مولتن كيك", price: 20, image: "/menu/bar/37.jpg" },
       { name: "هوت كيك", price: 20, image: "/menu/bar/38.jpg" },
@@ -440,7 +434,6 @@ const gazaMenu: MenuData = {
         name: "سلطات مشكلة",
         image: "/menu/salad/89.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -449,7 +442,6 @@ const gazaMenu: MenuData = {
         name: "ذرة مايونيز ",
         image: "/menu/salad/5.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -459,7 +451,6 @@ const gazaMenu: MenuData = {
         image: "/menu/salad/1.jpeg",
         desc: "ذرة مايونيز / بيكانتي / تركية / ثومية",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -468,7 +459,6 @@ const gazaMenu: MenuData = {
         name: "تركية",
         image: "/menu/salad/4.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -477,7 +467,6 @@ const gazaMenu: MenuData = {
         name: "ثومية",
         image: "/menu/salad/2.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -486,7 +475,6 @@ const gazaMenu: MenuData = {
         name: "ملفوف",
         image: "/menu/salad/3.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -495,7 +483,6 @@ const gazaMenu: MenuData = {
         name: "كول سلو",
         image: "/menu/salad/6.jpeg",
         variants: [
-          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
           { name: "صغير", price: 5 },
         ],
@@ -515,7 +502,70 @@ const gazaMenu: MenuData = {
 // Middle Branch Menu (initially same as Gaza, but can be modified independently)
 const middleMenu: MenuData = {
   shawarma: gazaMenu.shawarma,
-  italian: gazaMenu.italian,
+  italian: {
+    title: "الإيطالي",
+    items: withDefaultActive([
+      {
+        name: "كاليزوني دجاج",
+        price: 25,
+        desc: "صدر دجاج - جبنة - زيتون - رانش",
+        image: "/menu/italian/35.jpg",
+      },
+      {
+        name: "كاليزوني دجاج + شيبس",
+        price: 30,
+        desc: "صدر دجاج - جبنة - زيتون - رانش",
+        image: "/menu/italian/91.jpeg",
+      },
+      {
+        name: "كاليزوني خضار",
+        price: 15,
+        desc: "فليفلة - بصل - ذرة - مشروم - زيتون",
+        image: "/menu/italian/36.jpg",
+      },
+      {
+        name: "بيتزا مكسيكي دجاج",
+        price: 20,
+        desc: "صدر دجاج - جبنة - زيتون",
+        image: "/menu/italian/33.jpg",
+      },
+      {
+        name: "ميجا",
+        price: 30,
+        desc: "صدر دجاج - فليفلة - مشروم - جرادة - بصل - كريمة طعام",
+        image: "/menu/italian/34.jpg",
+      },
+      {
+        name: "بيتزا خضار",
+        price: 15,
+        desc: "خضار - ذرة - زيتون",
+        image: "/menu/italian/32.jpg",
+      },
+      {
+        name: "بيتزا ماما روزا بالاناناس",
+        price: 15,
+        desc: "أناناس",
+        image: "/menu/italian/2.jpg",
+      },
+      {
+        name: "نابولي",
+        price: 15,
+        desc: "بيتزا بالتونة والزيتون",
+        image: "/menu/italian/3.jpg",
+      },
+      {
+        name: "مارجريتا",
+        price: 15,
+        desc: "جبنة",
+        image: "/menu/italian/1.jpg",
+      },
+      {
+        name: "صوص رانش",
+        price: 3,
+        image: "/menu/italian/7.jpeg",
+      },
+    ]),
+  },
   sandwiches: gazaMenu.sandwiches,
   easternSweets: gazaMenu.easternSweets,
   westernSweets: gazaMenu.westernSweets,

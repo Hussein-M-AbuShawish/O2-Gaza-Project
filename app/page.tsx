@@ -8,20 +8,29 @@ import { ReviewsSection } from "@/components/reviews-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import Branches from "@/components/branches-section";
+import { SplashScreen } from "@/components/splash-screen";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
-      <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <Branches/>
-      <ReviewsSection />
-      {/* <StatsSection /> */}
-      {/* <GallerySection /> */}
-      <ContactSection />
-      <Footer />
-    </main>
+    <SplashScreen>
+      <main className="min-h-screen bg-background overflow-x-hidden">
+        <Navbar />
+        <HeroSection />
+        <div className="section-red-line" />
+        <AboutSection />
+        <div className="section-red-line" />
+        <ServicesSection />
+        <div className="section-red-line" />
+        <Branches />
+        <div className="section-red-line" />
+        <ReviewsSection />
+        {/* <StatsSection /> */}
+        {/* <GallerySection /> */}
+        <div className="section-red-line" />
+        <ContactSection />
+        <div className="section-red-line" />
+        <Footer />
+      </main>
+    </SplashScreen>
   );
 }
