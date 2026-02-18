@@ -91,6 +91,11 @@ export default function ReservationBranchPage() {
   };
 
   const totalPrice = cart.reduce((sum, i) => sum + (i.item.price * i.quantity), 0);
+  const totalPackages = cart.reduce((sum, i) => sum + i.quantity, 0);
+
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, people: totalPackages.toString() }));
+  }, [totalPackages]);
 
   const handleWhatsApp = () => {
     if (!formData.name || !formData.phone) {
@@ -209,7 +214,7 @@ ${orderDetails}
             onClick={() => setShowCheckout(true)}
             className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-2xl flex items-center justify-between px-8 hover:bg-primary/90 transition-colors"
           >
-            <span className="bg-white/20 px-3 py-1 rounded-lg text-sm">{cart.length} أصناف</span>
+            <span className="bg-white/20 px-3 py-1 rounded-lg text-sm">{totalPackages} بكجات</span>
             <span className="text-lg">فتح السلة وتأكيد الحجز</span>
             <span className="text-lg">{totalPrice} شيكل</span>
           </button>
@@ -305,15 +310,13 @@ ${orderDetails}
                     </div>
                     <div className="space-y-1">
                       <label className="text-xs text-gray-400 mr-2">عدد الأشخاص</label>
-                      <select
+                      <input
+                        type="number"
+                        min="1"
                         className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors"
                         value={formData.people}
                         onChange={(e) => setFormData({ ...formData, people: e.target.value })}
-                      >
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 20].map(n => (
-                          <option key={n} value={n} className="bg-[#1a1a1a]">{n} أشخاص</option>
-                        ))}
-                      </select>
+                      />
                     </div>
                     <div className="space-y-1">
                       <label className="text-xs text-gray-400 mr-2">موعد الحجز</label>
@@ -343,7 +346,8 @@ ${orderDetails}
                 </div>
                 <button
                   onClick={handleWhatsApp}
-                  className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-3 text-lg"
+                  disabled={cart.length === 0}
+                  className="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <CheckCircle2 size={24} />
                   تأكيد الحجز عبر الواتساب
