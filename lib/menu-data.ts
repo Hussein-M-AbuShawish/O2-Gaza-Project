@@ -69,7 +69,6 @@ const gazaMenu: MenuData = {
         name: "فرشوحه دبل دبل",
         price: 30,
         image: "/menu/shawarma/48.jpg",
-        delivery: true,
       },
       { name: "سوري", price: 32, image: "/menu/shawarma/53.jpg" },
       {
@@ -122,21 +121,18 @@ const gazaMenu: MenuData = {
         price: 20,
         desc: "فليفلة - بصل - ذرة - مشروم - زيتون",
         image: "/menu/italian/36.jpg",
-        active: false,
       },
       {
         name: "بيتزا مكسيكي دجاج",
         price: 25,
         desc: "صدر دجاج - جبنة - زيتون",
         image: "/menu/italian/33.jpg",
-        active: false,
       },
       {
         name: "ميجا",
         price: 35,
         desc: "صدر دجاج - فليفلة - مشروم - جرادة - بصل - كريمة طعام",
         image: "/menu/italian/34.jpg",
-        active: false,
       },
       {
         name: "بيتزا خضار",
@@ -150,21 +146,18 @@ const gazaMenu: MenuData = {
         price: 20,
         desc: "أناناس",
         image: "/menu/italian/2.jpg",
-        active: false,
       },
       {
         name: "نابولي",
         price: 20,
         desc: "بيتزا بالتونة والزيتون",
         image: "/menu/italian/3.jpg",
-        active: false,
       },
       {
         name: "مارجريتا",
         price: 20,
         desc: "جبنة",
         image: "/menu/italian/1.jpg",
-        active: false,
       },
       {
         name: "صوص رانش",
@@ -205,14 +198,12 @@ const gazaMenu: MenuData = {
         price: 30,
         desc: "فخد دجاج - جرجير - بندورة -مخلل -صوص بيكانتي",
         image: "/menu/western/47.jpg",
-        active: false,
       },
       {
         name: "فطيرة الذهبية",
         price: 30,
         desc: "صدر دجاج - فليفلة - بصل - زيتون اسود - جبنة - ذرة - كريمة طعام",
         image: "/menu/western/43.jpg",
-        active: false,
       },
     ]),
   },
@@ -286,10 +277,10 @@ const gazaMenu: MenuData = {
         name: "قطع كيك كلاسيكي",
         price: 5,
         image: "/menu/cake/5.jpg",
+        active: false,
       },
-      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg" },
-      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg" },
-
+      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg", active: false},
+      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg", active: false},
       {
         name: "قطع كيك سبيشل",
         price: 10,
@@ -302,11 +293,11 @@ const gazaMenu: MenuData = {
         desc: "لوتس - نوتيلا - بيستاشيو",
         image: "/menu/cake/28.jpg",
       },
-      { name: "كرانش بار", price: 15, image: "/menu/cake/23.jpg" },
+      { name: "كرانش بار", price: 15, image: "/menu/cake/23.jpg", active: false },
 
       {
         name: "موس",
-        price: 15,
+        price: 10,
         desc: "كيندر- لوتس - نوتيلا - بيستاشيو",
         image: "/menu/cake/4.jpg",
       },
@@ -412,6 +403,11 @@ const gazaMenu: MenuData = {
         image: "/menu/Gelato/75.jpeg",
         active: false,
       },
+      {
+        name: "جيلاتو كراميل",
+        price: 15,
+        image: "/menu/Gelato/75.jpeg",
+      }
     ]),
   },
   drinks: {
