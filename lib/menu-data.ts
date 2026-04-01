@@ -279,8 +279,8 @@ const gazaMenu: MenuData = {
         image: "/menu/cake/5.jpg",
         active: false,
       },
-      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg", active: false},
-      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg", active: false},
+      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg", active: false },
+      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg", active: false },
       {
         name: "قطع كيك سبيشل",
         price: 10,
@@ -293,7 +293,12 @@ const gazaMenu: MenuData = {
         desc: "لوتس - نوتيلا - بيستاشيو",
         image: "/menu/cake/28.jpg",
       },
-      { name: "كرانش بار", price: 15, image: "/menu/cake/23.jpg", active: false },
+      {
+        name: "كرانش بار",
+        price: 15,
+        image: "/menu/cake/23.jpg",
+        active: false,
+      },
 
       {
         name: "موس",
@@ -407,7 +412,7 @@ const gazaMenu: MenuData = {
         name: "جيلاتو كراميل",
         price: 15,
         image: "/menu/Gelato/75.jpeg",
-      }
+      },
     ]),
   },
   drinks: {
@@ -524,6 +529,12 @@ const middleMenu: MenuData = {
         name: "كاليزوني دجاج",
         price: 30,
         desc: "صدر دجاج - جبنة - زيتون - رانش",
+        image: "/menu/italian/35.jpg",
+      },
+      {
+        name: "كاليزوني دجاج + شيبس",
+        price: 35,
+        desc: "صدر دجاج - جبنة - زيتون - رانش",
         image: "/menu/italian/91.jpeg",
       },
       {
@@ -582,7 +593,48 @@ const middleMenu: MenuData = {
       },
     ]),
   },
-  sandwiches: gazaMenu.sandwiches,
+  sandwiches: {
+    title: "السندويشات الغربية",
+    items: withDefaultActive([
+      {
+        name: "زينجر",
+        price: 30,
+        desc: "شرائح صدر دجاج متبّلة مع بندورة طازجة، جرجير، حلقات بصل",
+        image: "/menu/western/44.jpg",
+      },
+      {
+        name: "بيف برجر",
+        price: 30,
+        desc: "قطعة لحمة - بصل - بندورة - جبنة - مخلل - صوص بيكانتي",
+        image: "/menu/western/40.jpg",
+      },
+      {
+        name: "بيغ ماك",
+        price: 40,
+        desc: "قطعتين لحمة - بصل - بندورة - جبنة - مخلل - صوص بيكانتي",
+        image: "/menu/western/46.jpg",
+      },
+      {
+        name: "تشكن بيتزا",
+        price: 30,
+        desc: "صدر دجاج - مشروم - فليفلة - بصل - زيتون اسود - جبنة",
+        image: "/menu/western/94.jpg",
+      },
+      {
+        name: "شيش طاووق",
+        price: 30,
+        desc: "فخد دجاج - جرجير - بندورة -مخلل -صوص بيكانتي",
+        image: "/menu/western/47.jpg",
+      },
+      {
+        name: "فطيرة الذهبية",
+        price: 30,
+        desc: "صدر دجاج - فليفلة - بصل - زيتون اسود - جبنة - ذرة - كريمة طعام",
+        image: "/menu/western/43.jpg",
+        active: false,
+      },
+    ]),
+  },
   easternSweets: gazaMenu.easternSweets,
   westernSweets: gazaMenu.westernSweets,
   barSweets: gazaMenu.barSweets,
@@ -625,7 +677,7 @@ export function getMenuByBranch(branch: string): MenuData {
  */
 export function getCategoryByBranch(
   branch: string,
-  categoryId: string,
+  categoryId: string
 ): MenuCategory | null {
   const menu = getMenuByBranch(branch);
   return menu[categoryId] || null;
