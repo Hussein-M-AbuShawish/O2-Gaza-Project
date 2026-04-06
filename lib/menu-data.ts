@@ -82,21 +82,21 @@ const gazaMenu: MenuData = {
         price: 45,
         desc: "خبزة باشكا - شاورما - جبنة - زيتون - صوص بيكانتي",
         image: "/menu/shawarma/18.jpg",
-        active: false,
+        active: true,
       },
       {
         name: "شاورما عربي",
         price: 38,
         desc: "قطع شاورما - جبنة - زيتون اسود",
         image: "/menu/shawarma/17.jpg",
-        active: false,
+        active: true,
       },
       {
         name: "شاورما نابلسي",
         price: 38,
         desc: "شاورما - بطاطا - صوص بيكانتي - جبنة - زيتون اسود",
         image: "/menu/shawarma/19.jpg",
-        active: false,
+        active: true,
       },
       { name: " صحن شاورما", price: 30, image: "/menu/shawarma/14.jpg" },
       {
@@ -453,8 +453,8 @@ const gazaMenu: MenuData = {
         name: "سلطات مشكلة",
         image: "/menu/salad/89.jpeg",
         variants: [
+          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
-          { name: "صغير", price: 5 },
         ],
       },
       {
@@ -677,7 +677,7 @@ export function getMenuByBranch(branch: string): MenuData {
  */
 export function getCategoryByBranch(
   branch: string,
-  categoryId: string
+  categoryId: string,
 ): MenuCategory | null {
   const menu = getMenuByBranch(branch);
   return menu[categoryId] || null;
