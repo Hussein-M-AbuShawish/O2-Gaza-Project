@@ -211,7 +211,7 @@ const gazaMenu: MenuData = {
     title: "الحلويات الشرقية",
     byWeight: true,
     items: withDefaultActive([
-      { name: "نمورة", pricePerKg: 15, image: "/menu/sweets/25.jpeg" },
+      { name: "نمورة", pricePerKg: 20, image: "/menu/sweets/25.jpeg" },
       { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/82.jpeg" },
       { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg" },
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
@@ -508,11 +508,12 @@ const gazaMenu: MenuData = {
       },
       {
         name: "بطاطا",
-        active: false,
+        active: true,
         image: "/menu/salad/20.jpeg",
         variants: [
-          { name: "كبير", price: 10 },
-          { name: "صغير", price: 5 },
+          { name: "وسط", price: 10 },
+          { name: "كبير", price: 15 },
+          // { name: "صغير", price: 5 },
         ],
       },
     ]),
