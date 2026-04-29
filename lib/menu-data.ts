@@ -508,11 +508,11 @@ const gazaMenu: MenuData = {
       },
       {
         name: "بطاطا",
-        active: false,
+        active: true,
         image: "/menu/salad/20.jpeg",
         variants: [
           { name: "كبير", price: 10 },
-          { name: "صغير", price: 5 },
+          // { name: "صغير", price: 5 },
         ],
       },
     ]),
@@ -636,22 +636,87 @@ const middleMenu: MenuData = {
     ]),
   },
   easternSweets: gazaMenu.easternSweets,
-  westernSweets: gazaMenu.westernSweets,
+  westernSweets: {
+    title: "الكيك والحلويات الغربية",
+    items: withDefaultActive([
+      { name: "قالب كيك صغير", price: 60, image: "/menu/cake/9.jpg" },
+      { name: "قالب كيك كبير", price: 80, image: "/menu/cake/10.jpg" },
+      { name: "قالب كيك اسبيسشل صغير", price: 80, image: "/menu/cake/38.jpg" },
+      {
+        name: "قالب كيك اسبيسشل كبير",
+        price: 100,
+        image: "/menu/cake/88.jpeg",
+      },
+      { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg" },
+      {
+        name: "قطع كيك كلاسيكي",
+        price: 5,
+        image: "/menu/cake/5.jpg",
+      },
+      { name: "تريلتشا", price: 10, image: "/menu/cake/21.jpg", active: false },
+      {
+        name: "قطع كيك سبيشل",
+        price: 10,
+        desc: "نوتيلا / بيستاشيو / لوتس",
+        image: "/menu/cake/30.jpg",
+      },
+      {
+        name: "سوبريم",
+        price: 18,
+        desc: "لوتس - نوتيلا - بيستاشيو",
+        image: "/menu/cake/28.jpg",
+      },
+      {
+        name: "كرانش بار",
+        price: 15,
+        image: "/menu/cake/23.jpg",
+        active: false,
+      },
+
+      {
+        name: "موس",
+        price: 10,
+        desc: "كيندر- لوتس - نوتيلا - بيستاشيو",
+        image: "/menu/cake/4.jpg",
+      },
+      { name: "تشيز كيك", price: 15, image: "/menu/cake/7.jpg" },
+      { name: "قالب نص بلاطة", price: 150, image: "/menu/cake/8.1.jpg" },
+    ]),
+  },
   barSweets: gazaMenu.barSweets,
   drinks: {
-    ...gazaMenu.drinks,
+    title: "المشروبات",
     items: withDefaultActive([
+      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg" },
+      { name: "عصير أناناس", price: 10, image: "/menu/drinks/2.jpg" },
+      { name: "ليمون ونعنع", price: 10, image: "/menu/drinks/3.jpg" },
+      { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
+      { name: "شوكو بارد", price: 10, image: "/menu/drinks/7.jpg" },
+      { name: "ايس موكا", price: 10, image: "/menu/drinks/5.jpg" },
+      { name: "آيس كافي", price: 10, image: "/menu/drinks/10.jpg" },
       {
-        name: "آيس كريم",
-        price: 10,
-        image: "/menu/drinks/14.jpg",
-        active: true,
+        name: "ميلك شيك",
+        price: 20,
+        image: "/menu/drinks/8.jpg",
+        desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري",
       },
-      { name: "براد", price: 5, image: "/menu/drinks/15.jpg", active: true },
-      ...gazaMenu.drinks.items,
+      { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
+      { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
+      { name: "كابتشينو", price: 5, image: "/menu/drinks/9.jpg" },
+      { name: "اسبريسو سينجل", price: 5, image: "/menu/drinks/6.jpg" },
+      { name: "اسبريسو دبل", price: 10, image: "/menu/drinks/6.jpg" },
+      { name: " قهوة تركي سينجل", price: 5, image: "/menu/drinks/6.jpg" },
+      { name: "قهوة تركي دبل", price: 10, image: "/menu/drinks/6.jpg" },
+      { name: "شاي", price: 3, image: "/menu/drinks/11.jpg" },
+      { name: "بلو", price: 4, image: "/menu/drinks/17.jpg" },
+      { name: "كوكا كولا", price: 5, image: "/menu/drinks/18.jpg" },
+      { name: "سبرايت", price: 5, image: "/menu/drinks/19.jpg" },
+      { name: "مياه معدنية 200 ملم", price: 1, image: "/menu/drinks/12.jpg" },
+      { name: "مياه معدنية 500 ملم", price: 2, image: "/menu/drinks/13.jpg" },
     ]),
   },
   salads: gazaMenu.salads,
+  gelato: gazaMenu.gelato,
 };
 
 // Main branch-specific menu data export
@@ -677,7 +742,7 @@ export function getMenuByBranch(branch: string): MenuData {
  */
 export function getCategoryByBranch(
   branch: string,
-  categoryId: string
+  categoryId: string,
 ): MenuCategory | null {
   const menu = getMenuByBranch(branch);
   return menu[categoryId] || null;
