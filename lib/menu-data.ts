@@ -509,12 +509,12 @@ const gazaMenu: MenuData = {
       {
         name: "بطاطا",
         active: true,
-        active: true,
         image: "/menu/salad/20.jpeg",
-        variants: [
-          { name: "كبير", price: 10 },
-          // { name: "صغير", price: 5 },
-        ],
+        price: 10,
+        // variants: [
+        //   { name: "كبير", price: 10 },
+        //   { name: "صغير", price: 5 },
+        // ],
       },
     ]),
   },
@@ -689,7 +689,7 @@ const middleMenu: MenuData = {
     title: "المشروبات",
     items: withDefaultActive([
       { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg" },
-      { name: "عصير أناناس", price: 10, image: "/menu/drinks/2.jpg" },
+      { name: "عصير أناناس", price: 12, image: "/menu/drinks/2.jpg" },
       { name: "ليمون ونعنع", price: 10, image: "/menu/drinks/3.jpg" },
       { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
       { name: "شوكو بارد", price: 10, image: "/menu/drinks/7.jpg" },
@@ -699,7 +699,8 @@ const middleMenu: MenuData = {
         name: "ميلك شيك",
         price: 20,
         image: "/menu/drinks/8.jpg",
-        desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري",
+        desc: "نوتيلا / بيستاشيو / لوتس",
+        // desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري",
       },
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
       { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },

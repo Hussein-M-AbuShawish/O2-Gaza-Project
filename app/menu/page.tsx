@@ -17,6 +17,7 @@ const CATEGORIES = [
   { id: "barSweets", name: "حلويات البار", icon: "🍩" },
   { id: "drinks", name: "المشروبات", icon: "🥤" },
   { id: "salads", name: "السلطات", icon: "🥗" },
+  { id: "Gelato", name: "جيلاتو", icon: "🥗" },
 ];
 
 export default function MenuPage() {
