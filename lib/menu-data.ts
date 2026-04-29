@@ -426,10 +426,10 @@ const gazaMenu: MenuData = {
       { name: "ايس موكا", price: 10, image: "/menu/drinks/5.jpg" },
       { name: "آيس كافي", price: 10, image: "/menu/drinks/10.jpg" },
       {
-        name: "ميلك شيك",
-        price: 15,
+        name: "ميلك شيك اسبشل",
+        price: 20,
         image: "/menu/drinks/8.jpg",
-        desc: "شوكولاتة / فانيلا / فراولة / اوريو / بلوبيري",
+        desc: "نوتيلا / بستاشيو / لوتس",
       },
       { name: "موهيتو", price: 20, image: "/menu/drinks/16.jpg" },
       { name: "نسكافيه", price: 5, image: "/menu/drinks/9.jpg" },
@@ -688,10 +688,11 @@ const middleMenu: MenuData = {
   drinks: {
     title: "المشروبات",
     items: withDefaultActive([
-      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg" },
+      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg", desc: "شمام، ليمون ونعناع، فراولة" },
       { name: "عصير أناناس", price: 12, image: "/menu/drinks/2.jpg" },
       { name: "ليمون ونعنع", price: 10, image: "/menu/drinks/3.jpg" },
       { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
+      { name: "عصير مانجا", price: 12, image: "/menu/drinks/2.jpg" },
       { name: "شوكو بارد", price: 10, image: "/menu/drinks/7.jpg" },
       { name: "ايس موكا", price: 10, image: "/menu/drinks/5.jpg" },
       { name: "آيس كافي", price: 10, image: "/menu/drinks/10.jpg" },
