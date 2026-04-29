@@ -82,21 +82,21 @@ const gazaMenu: MenuData = {
         price: 45,
         desc: "خبزة باشكا - شاورما - جبنة - زيتون - صوص بيكانتي",
         image: "/menu/shawarma/18.jpg",
-        active: false,
+        active: true,
       },
       {
         name: "شاورما عربي",
         price: 38,
         desc: "قطع شاورما - جبنة - زيتون اسود",
         image: "/menu/shawarma/17.jpg",
-        active: false,
+        active: true,
       },
       {
         name: "شاورما نابلسي",
         price: 38,
         desc: "شاورما - بطاطا - صوص بيكانتي - جبنة - زيتون اسود",
         image: "/menu/shawarma/19.jpg",
-        active: false,
+        active: true,
       },
       { name: " صحن شاورما", price: 30, image: "/menu/shawarma/14.jpg" },
       {
@@ -211,7 +211,7 @@ const gazaMenu: MenuData = {
     title: "الحلويات الشرقية",
     byWeight: true,
     items: withDefaultActive([
-      { name: "نمورة", pricePerKg: 15, image: "/menu/sweets/25.jpeg" },
+      { name: "نمورة", pricePerKg: 20, image: "/menu/sweets/25.jpeg" },
       { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/82.jpeg" },
       { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg" },
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
@@ -453,8 +453,8 @@ const gazaMenu: MenuData = {
         name: "سلطات مشكلة",
         image: "/menu/salad/89.jpeg",
         variants: [
+          { name: "كبير", price: 15 },
           { name: "وسط", price: 10 },
-          { name: "صغير", price: 5 },
         ],
       },
       {
@@ -508,6 +508,7 @@ const gazaMenu: MenuData = {
       },
       {
         name: "بطاطا",
+        active: true,
         active: true,
         image: "/menu/salad/20.jpeg",
         variants: [
