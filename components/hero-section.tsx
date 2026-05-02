@@ -1,4 +1,5 @@
-import React from 'react';
+import Image from "next/image";
+import React from "react";
 
 const HERO_IMAGES = [
   "/images/our-images/1.jpg",
@@ -16,11 +17,27 @@ const HERO_IMAGES = [
   "/images/our-images/53.jpg",
 ];
 
-const Column = ({ images, animationClass }: { images: string[], animationClass: string }) => (
+const Column = ({
+  images,
+  animationClass,
+  priority = false,
+}: {
+  images: string[];
+  animationClass: string;
+  priority?: boolean;
+}) => (
   <div className={`flex flex-col gap-6 ${animationClass}`}>
     {[...images, ...images].map((src, i) => (
       <div key={i} className="w-full aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl transform transition-all duration-700 hover:scale-[1.03]">
-        <img src={src} className="w-full h-full object-cover" alt="food" fetchPriority='high' />
+        <Image
+          src={src}
+          className="w-full h-full object-cover"
+          alt=""
+          width={360}
+          height={480}
+          priority={priority && i === 0}
+          sizes="(max-width: 1024px) 50vw, 20vw"
+        />
       </div>
     ))}
   </div>
@@ -38,7 +55,7 @@ const HeroSection: React.FC = () => {
 
         {/* Mobile: Col 1 (Down) | Laptop: Col 2 (Down) */}
         <div className="flex-1">
-          <Column images={HERO_IMAGES.slice(3, 6)} animationClass="animate-scroll-down" />
+          <Column images={HERO_IMAGES.slice(3, 6)} animationClass="animate-scroll-down" priority />
         </div>
 
         {/* Laptop: Col 3 | Mobile: Hidden */}

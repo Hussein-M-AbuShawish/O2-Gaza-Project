@@ -6,10 +6,8 @@ export function SplashScreen({ children }: { children: React.ReactNode }) {
   const [phase, setPhase] = useState<"splash" | "exiting" | "done">("splash");
 
   useEffect(() => {
-    // Show splash for 2.8s, then start exit animation
-    const exitTimer = setTimeout(() => setPhase("exiting"), 2800);
-    // Remove splash overlay after exit animation completes
-    const doneTimer = setTimeout(() => setPhase("done"), 3800);
+    const exitTimer = setTimeout(() => setPhase("exiting"), 700);
+    const doneTimer = setTimeout(() => setPhase("done"), 1200);
 
     return () => {
       clearTimeout(exitTimer);

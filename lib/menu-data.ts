@@ -54,7 +54,7 @@ const gazaMenu: MenuData = {
         active: false,
       },
       {
-        name: "شاورما عادي",
+        name: "فرشوحة عادي",
         price: 20,
         image: "/menu/shawarma/48.jpg",
         active: true,
@@ -213,7 +213,7 @@ const gazaMenu: MenuData = {
     items: withDefaultActive([
       { name: "نمورة", pricePerKg: 20, image: "/menu/sweets/25.jpeg" },
       { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/82.jpeg" },
-      { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg" },
+      { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg", desc: 'كلاج - كلاج نوتيلا'},
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
       { name: "كول واشكر", pricePerKg: 30, image: "/menu/sweets/5.jpg" },
       { name: "سنيورة", pricePerKg: 30, image: "/menu/sweets/8.jpg" },
@@ -688,8 +688,12 @@ const middleMenu: MenuData = {
   drinks: {
     title: "المشروبات",
     items: withDefaultActive([
-      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg", desc: "شمام، ليمون ونعناع، فراولة" },
-      { name: "عصير أناناس", price: 12, image: "/menu/drinks/2.jpg" },
+      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg", active: false},
+      { name: "عصير فراولة", price: 12, image: "/menu/drinks/1.jpg"},
+      { name: "عصير برتقال", price: 12, image: "/menu/drinks/2.jpg" },
+      { name: "عصير شمام", price: 12, image: "/menu/drinks/3.jpg" },
+      { name: "عصير اناناس", price: 10, image: "/menu/drinks/2.jpg" },
+      { name: "عصير خوخ", price: 10, image: "/menu/drinks/2.jpg" },
       { name: "ليمون ونعنع", price: 10, image: "/menu/drinks/3.jpg" },
       { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
       { name: "عصير مانجا", price: 12, image: "/menu/drinks/2.jpg" },

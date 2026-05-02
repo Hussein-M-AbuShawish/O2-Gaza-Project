@@ -23,7 +23,6 @@ const nextConfig = {
 
   // ✅ إعدادات الإنتاج
   reactStrictMode: true,
-  swcMinify: true,
   
   // ✅ تحسين الـ Bundle
   compiler: {

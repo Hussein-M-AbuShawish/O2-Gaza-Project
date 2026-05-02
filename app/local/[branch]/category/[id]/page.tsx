@@ -8,15 +8,17 @@ import { getMenuByBranch } from "@/lib/menu-data";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 
-export default function GazaLocalCategoryItems() {
+export default function LocalCategoryItems() {
     const params = useParams();
+    const branch = params.branch as string;
     const categoryId = params.id as string;
-    const branchMenu = getMenuByBranch("gaza");
+    const branchMenu = getMenuByBranch(branch);
     const categoryData = branchMenu[categoryId as keyof typeof branchMenu];
 
     if (!categoryData) return null;
 
     const isByWeight = !!categoryData.byWeight;
+    const branchLabel = branch === "middle" ? "\u0627\u0644\u0648\u0633\u0637\u0649" : "\u063a\u0632\u0629";
 
     return (
         <main className="min-h-screen bg-background">
@@ -29,7 +31,7 @@ export default function GazaLocalCategoryItems() {
                         transition={{ duration: 0.4 }}
                         className="fixed top-[32px] right-4 md:top-[40px] md:right-8 z-[1000]"
                     >
-                        <Link href={`/local/${params.branch}/categories`}>
+                        <Link href={`/local/${branch}/categories`}>
                             <Button
                                 variant="default"
                                 className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
@@ -54,7 +56,7 @@ export default function GazaLocalCategoryItems() {
                             {categoryData.title}
                         </h1>
                         <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-                            تصفح قائمة الطعام - فرع غزة
+                            <span>{"\u062a\u0635\u0641\u062d \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0637\u0639\u0627\u0645 - \u0641\u0631\u0639 "}{branchLabel}</span>
                         </p>
                     </motion.div>
 
