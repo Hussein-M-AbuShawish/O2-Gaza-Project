@@ -420,7 +420,7 @@ const gazaMenu: MenuData = {
     items: withDefaultActive([
       { name: "عصير الموسم", price: 12, image: "/menu/drinks/1.jpg" },
       { name: "عصير أناناس", price: 10, image: "/menu/drinks/2.jpg" },
-      { name: "ليمون ونعنع", price: 10, image: "/menu/drinks/3.jpg" },
+      { name: "ليمون ونعنع", price: 12, image: "/menu/drinks/3.jpg" },
       { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
       { name: "شوكو بارد", price: 10, image: "/menu/drinks/7.jpg" },
       { name: "ايس موكا", price: 10, image: "/menu/drinks/5.jpg" },
