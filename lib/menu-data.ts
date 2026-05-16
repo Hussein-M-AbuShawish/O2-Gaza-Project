@@ -674,7 +674,7 @@ const middleMenu: MenuData = {
         desc: "كيندر- لوتس - نوتيلا - بيستاشيو",
         image: "/menu/cake/4.jpg",
       },
-      { name: "تشيز كيك", price: 15, image: "/menu/cake/7.jpg" },
+      { name: "تشيز كيك", price: 10, image: "/menu/cake/7.jpg" },
       { name: "قالب نص بلاطة", price: 150, image: "/menu/cake/8.1.jpg" },
     ]),
   },
