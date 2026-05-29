@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "../../components/navbar";
+import { Footer } from "../../components/footer";
 import { MapPin, Phone, Clock, Utensils } from "lucide-react";
-import { useBranch, BRANCHES } from "@/lib/branch-context";
+import { useBranch, BRANCHES } from "../../lib/branch-context";
 import { useEffect } from "react";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";

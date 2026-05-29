@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "../../components/navbar";
+import { Footer } from "../../components/footer";
 import {
-  Target,
+  Target
   Eye,
   Heart,
   Award,
@@ -146,9 +146,8 @@ function FAQItem({
       >
         <span className="font-semibold text-foreground">{question}</span>
         <ChevronDown
-          className={`w-5 h-5 text-primary transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={`w-5 h-5 text-primary transition-transform ${isOpen ? "rotate-180" : ""
+            }`}
         />
       </button>
       <motion.div

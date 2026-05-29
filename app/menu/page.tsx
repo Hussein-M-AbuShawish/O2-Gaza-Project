@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { RotatingCategories } from "@/components/rotating-categories";
-import { useBranch } from "@/lib/branch-context";
+import { Navbar } from "../../components/navbar";
+import { Footer } from "../../components/footer";
+import { RotatingCategories } from "../../components/rotating-categories";
+import { useBranch } from "../../lib/branch-context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

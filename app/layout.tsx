@@ -2,10 +2,10 @@ import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Tajawal, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { BranchProvider } from '@/lib/branch-context'
-import { CartProvider } from "@/lib/cart-context"
-import { AmbientBackground } from "@/components/ambient-background"
-import './globals.css'
+import { BranchProvider } from '../lib/branch-context'
+import { CartProvider } from "../lib/cart-context"
+import { AmbientBackground } from "../components/ambient-background";
+import "./globals.css"
 
 const _tajawal = Tajawal({
   subsets: ["arabic", "latin"],
@@ -13,7 +13,7 @@ const _tajawal = Tajawal({
   variable: '--font-tajawal',
 });
 
-const _geistMono = Geist_Mono({ 
+const _geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: '--font-geist-mono',
 });
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: '%s | مطعم أوتو غزة'
   },
   description: 'مطعم أوتو غزة (O2) - نكهة تجمع بين الأصالة والحداثة. استكشف المنيو واطلب الآن.',
-  
+
   // إعدادات الـ OpenGraph (التي يستخدمها Instagram و Facebook)
   openGraph: {
     title: 'مطعم أوتو غزة | O2 Gaza Resturant',

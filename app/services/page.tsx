@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { Button } from "@/components/ui/button";
+import { Navbar } from "../../components/navbar";
+import { Footer } from "../../components/footer";
+import { Button } from "../../components/ui/button";
 import {
   UtensilsCrossed,
   Truck,
@@ -286,11 +286,10 @@ export default function ServicesPage() {
                   key={service.id}
                   type="button"
                   onClick={() => goToSlide(index)}
-                  className={`relative h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? "w-10 bg-primary"
-                      : "w-3 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                  }`}
+                  className={`relative h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                    ? "w-10 bg-primary"
+                    : "w-3 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    }`}
                   aria-label={`انتقل إلى ${service.title}`}
                 />
               ))}
@@ -326,25 +325,22 @@ export default function ServicesPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 onClick={() => goToSlide(index)}
-                className={`group cursor-pointer relative p-6 rounded-2xl border transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-primary/10 border-primary/50 shadow-lg shadow-primary/10"
-                    : "bg-card border-border/50 hover:border-primary/30 hover:shadow-lg"
-                }`}
+                className={`group cursor-pointer relative p-6 rounded-2xl border transition-all duration-300 ${index === currentIndex
+                  ? "bg-primary/10 border-primary/50 shadow-lg shadow-primary/10"
+                  : "bg-card border-border/50 hover:border-primary/30 hover:shadow-lg"
+                  }`}
               >
                 <div
-                  className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-colors ${
-                    index === currentIndex
-                      ? "bg-primary/20"
-                      : "bg-primary/10 group-hover:bg-primary/20"
-                  }`}
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-colors ${index === currentIndex
+                    ? "bg-primary/20"
+                    : "bg-primary/10 group-hover:bg-primary/20"
+                    }`}
                 >
                   <service.icon
-                    className={`w-7 h-7 ${
-                      index === currentIndex
-                        ? "text-primary"
-                        : "text-primary/70 group-hover:text-primary"
-                    }`}
+                    className={`w-7 h-7 ${index === currentIndex
+                      ? "text-primary"
+                      : "text-primary/70 group-hover:text-primary"
+                      }`}
                   />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">

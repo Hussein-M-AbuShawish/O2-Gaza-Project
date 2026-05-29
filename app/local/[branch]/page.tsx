@@ -4,12 +4,12 @@ import React, { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BRANCHES } from "@/lib/branch-context";
-import { 
-  Facebook, 
-  Instagram, 
-  MessageCircle, 
-  Globe, 
+import { BRANCHES } from "../../../lib/branch-context";
+import {
+  Facebook,
+  Instagram,
+  MessageCircle,
+  Globe,
   UtensilsCrossed,
   Phone,
   MapPin,
@@ -96,33 +96,33 @@ export default function BranchLinkTreePage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 py-12 relative overflow-hidden font-sans">
       {/* Animated background elements */}
-      <motion.div 
-        animate={{ 
+      <motion.div
+        animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary/10 to-transparent -z-10" 
+        className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary/10 to-transparent -z-10"
       />
-      <motion.div 
-        animate={{ 
+      <motion.div
+        animate={{
           x: [0, 50, 0],
           y: [0, 30, 0],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" 
+        className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"
       />
-      <motion.div 
-        animate={{ 
+      <motion.div
+        animate={{
           x: [0, -50, 0],
           y: [0, -30, 0],
         }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" 
+        className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"
       />
 
       {/* Header Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -151,7 +151,7 @@ export default function BranchLinkTreePage({ params }: PageProps) {
       </motion.div>
 
       {/* Links Section */}
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -164,20 +164,20 @@ export default function BranchLinkTreePage({ params }: PageProps) {
               className={`
                 group relative flex items-center gap-4 p-4 rounded-2xl border border-border/50 
                 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5
-                ${link.primary 
-                  ? "bg-primary text-primary-foreground border-none shadow-lg shadow-primary/20" 
+                ${link.primary
+                  ? "bg-primary text-primary-foreground border-none shadow-lg shadow-primary/20"
                   : "bg-card/80 backdrop-blur-md hover:border-primary/30 hover:bg-card"}
               `}
             >
               <div className={`
                 w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300
-                ${link.primary 
-                  ? "bg-white/20 group-hover:scale-110" 
+                ${link.primary
+                  ? "bg-white/20 group-hover:scale-110"
                   : `bg-secondary text-foreground group-hover:bg-primary/10 group-hover:text-primary ${link.color}`}
               `}>
                 {link.icon}
               </div>
-              
+
               <div className="flex-1 text-right">
                 <h3 className="font-bold text-lg leading-tight">{link.name}</h3>
                 <p className={`text-xs mt-0.5 ${link.primary ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
@@ -201,7 +201,7 @@ export default function BranchLinkTreePage({ params }: PageProps) {
       </motion.div>
 
       {/* Branch Info Card */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
@@ -233,7 +233,7 @@ export default function BranchLinkTreePage({ params }: PageProps) {
       </motion.div>
 
       {/* Footer */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}

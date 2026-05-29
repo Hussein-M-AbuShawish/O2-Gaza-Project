@@ -21,16 +21,16 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/product-card";
+import { Button } from "../../../components/ui/button";
+import { ProductCard } from "../../../components/product-card";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { useBranch } from "@/lib/branch-context";
-import { useCart } from "@/lib/cart-context";
+import { Navbar } from "../../../components/navbar";
+import { Footer } from "../../../components/footer";
+import { useBranch } from "../../../lib/branch-context";
+import { useCart } from "../../../lib/cart-context";
 import { useRouter } from "next/navigation";
-import { getMenuByBranch } from "@/lib/menu-data";
+import { getMenuByBranch } from "../../../lib/menu-data";
 
 // ================= CONFIGURATION =================
 const CONFIG = {

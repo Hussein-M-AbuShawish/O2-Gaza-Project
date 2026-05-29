@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "../../components/navbar";
+import { Footer } from "../../components/footer";
 import { MapPin, Utensils, Moon, Star } from "lucide-react";
-import { BRANCHES } from "@/lib/branch-context";
+import { BRANCHES } from "../../lib/branch-context";
 
 const containerVariants = {
     hidden: { opacity: 0 },

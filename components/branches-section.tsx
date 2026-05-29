@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MapPin, Phone, Clock, Utensils } from "lucide-react";
-import { useBranch, BRANCHES } from "@/lib/branch-context";
+import { useBranch, BRANCHES } from "../lib/branch-context";
 
 const containerVariants = {
     hidden: { opacity: 0 },

@@ -23,10 +23,10 @@ import {
   ChevronLeft
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { getMenuByBranch } from "@/lib/menu-data";
-import { useCart } from "@/lib/cart-context";
+import { Navbar } from "../../components/navbar";
+import { Footer } from "../../components/footer";
+import { getMenuByBranch } from "../../lib/menu-data";
+import { useCart } from "../../lib/cart-context";
 
 const CATEGORY_DISPLAY = [
   { id: "shawarma", name: "الشاورما", image: "/menu/shawarma/53.jpg" },

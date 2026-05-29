@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
-import { getMenuByBranch } from "@/lib/menu-data";
+import { getMenuByBranch } from "../../../../lib/menu-data";
 
 const CATEGORY_DISPLAY = [
   { id: "shawarma", name: "الشاورما", image: "/menu/shawarma/53.jpg" },
@@ -24,7 +24,7 @@ export default function LocalCategoriesPage({ forcedBranch }: { forcedBranch?: s
   const params = useParams();
   const branch = forcedBranch || (params.branch as string) || "gaza";
   const branchMenu = getMenuByBranch(branch);
-  
+
   const categories = useMemo(
     () => CATEGORY_DISPLAY.filter((c) => branchMenu[c.id as keyof typeof branchMenu]),
     [branchMenu]
@@ -79,7 +79,7 @@ export default function LocalCategoriesPage({ forcedBranch }: { forcedBranch?: s
         >
           {categories.map((cat, index) => (
             <motion.div key={cat.id}>
-              <Link 
+              <Link
                 href={`/local/${branch}/category/${cat.id}`}
                 className="group block relative"
               >

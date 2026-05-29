@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 import { ExternalLink } from "lucide-react";
 import { Button } from "./ui/button";
 
