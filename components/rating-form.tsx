@@ -3,8 +3,23 @@
 import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Phone, User, Star, CheckCircle2, Frown, Meh, Smile, Loader2 } from "lucide-react";
+import {
+    MapPin,
+    Phone,
+    User,
+    Star,
+    CheckCircle2,
+    Frown,
+    Meh,
+    Smile,
+    Loader2,
+    Share2,
+    UtensilsCrossed,
+    ThumbsUp,
+    MessageSquare,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { BRANCHES } from "@/lib/branch-context";
 import { submitRating, type RatingFormState } from "@/app/actions/ratings";
@@ -16,6 +31,59 @@ const RATING_OPTIONS = [
     { label: "جيدة", value: 4, icon: Smile, color: "text-lime-500", activeBg: "bg-lime-500" },
     { label: "ممتازة", value: 5, icon: Star, color: "text-green-500", activeBg: "bg-green-500" },
 ];
+
+const ASPECTS = [
+    { name: "foodQuality", label: "جودة الطعام" },
+    { name: "variety", label: "تنوع الأصناف" },
+    { name: "prices", label: "الأسعار" },
+    { name: "service", label: "الخدمة والموظفين" },
+    { name: "cleanliness", label: "النظافة" },
+    { name: "atmosphere", label: "الأجواء والمكان" },
+];
+
+// Increasing-size scale: small = worst, large = excellent
+const SCALE_SIZES = ["w-6 h-6", "w-7 h-7", "w-8 h-8", "w-9 h-9", "w-10 h-10"];
+
+function AspectRating({
+    name,
+    label,
+    value,
+    onChange,
+}: {
+    name: string;
+    label: string;
+    value: number;
+    onChange: (v: number) => void;
+}) {
+    return (
+        <div className="rounded-xl border border-border p-4">
+            <div className="mb-3 font-bold text-foreground">{label}</div>
+            <div className="flex items-end justify-between gap-2">
+                <span className="text-xs text-muted-foreground shrink-0">سيء</span>
+                <div className="flex items-end gap-1.5">
+                    {[1, 2, 3, 4, 5].map((v) => {
+                        const active = value >= v;
+                        return (
+                            <button
+                                type="button"
+                                key={v}
+                                onClick={() => onChange(v)}
+                                aria-label={`${label}: ${v} من 5`}
+                                aria-pressed={value === v}
+                                className={`${SCALE_SIZES[v - 1]} rounded-full border-2 transition-all duration-200 ${active
+                                    ? "border-primary bg-primary"
+                                    : "border-border bg-transparent hover:border-primary/50"
+                                    }`}
+                            />
+                        );
+                    })}
+                </div>
+                <span className="text-xs text-muted-foreground shrink-0">ممتاز</span>
+            </div>
+            <input type="hidden" name={name} value={value || ""} />
+        </div>
+    );
+}
 
 function SubmitButton({ disabled }: { disabled: boolean }) {
     const { pending } = useFormStatus();
@@ -38,12 +106,69 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
     );
 }
 
+function ShareButton() {
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = async () => {
+        const url = typeof window !== "undefined" ? window.location.href : "";
+        const shareData = {
+            title: "قيّم تجربتك في مطعم O2",
+            text: "شاركنا رأيك في تجربتك بمطعم O2 من خلال هذا الرابط:",
+            url,
+        };
+        if (typeof navigator !== "undefined" && navigator.share) {
+            try {
+                await navigator.share(shareData);
+                return;
+            } catch {
+                // user cancelled or unsupported, fall through to copy
+            }
+        }
+        try {
+            await navigator.clipboard.writeText(url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2500);
+        } catch {
+            // ignore
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center gap-3">
+            <Button
+                type="button"
+                onClick={handleShare}
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 text-base font-bold"
+            >
+                <Share2 className="w-5 h-5" />
+                شارك صفحة التقييم
+            </Button>
+            <AnimatePresence>
+                {copied && (
+                    <motion.span
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="text-sm font-medium text-primary"
+                    >
+                        تم نسخ الرابط!
+                    </motion.span>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
+
 export function RatingForm() {
     const branchList = Object.values(BRANCHES);
     const [selectedBranch, setSelectedBranch] = useState<string>("");
     const [selectedRating, setSelectedRating] = useState<string>("");
+    const [aspects, setAspects] = useState<Record<string, number>>({});
 
     const [state, formAction] = useActionState<RatingFormState, FormData>(submitRating, null);
+
+    const setAspect = (name: string, v: number) => setAspects((prev) => ({ ...prev, [name]: v }));
 
     if (state?.success) {
         return (
@@ -56,7 +181,8 @@ export function RatingForm() {
                     <CheckCircle2 className="h-10 w-10 text-primary" />
                 </div>
                 <h2 className="text-2xl font-bold text-foreground mb-2">{state.message}</h2>
-                <p className="text-muted-foreground">رأيك يساعدنا على تقديم خدمة أفضل دائماً.</p>
+                <p className="text-muted-foreground mb-8">رأيك يساعدنا على تقديم خدمة أفضل دائماً.</p>
+                <ShareButton />
             </motion.div>
         );
     }
@@ -157,6 +283,55 @@ export function RatingForm() {
                 </div>
                 <input type="hidden" name="rating" value={selectedRating} />
             </fieldset>
+
+            {/* Aspect ratings */}
+            <fieldset className="mb-8">
+                <legend className="flex items-center gap-2 text-lg font-bold text-foreground mb-4">
+                    <UtensilsCrossed className="w-5 h-5 text-primary" />
+                    تقييم الجوانب
+                </legend>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {ASPECTS.map((aspect) => (
+                        <AspectRating
+                            key={aspect.name}
+                            name={aspect.name}
+                            label={aspect.label}
+                            value={aspects[aspect.name] || 0}
+                            onChange={(v) => setAspect(aspect.name, v)}
+                        />
+                    ))}
+                </div>
+            </fieldset>
+
+            {/* Liked most */}
+            <div className="mb-6">
+                <label htmlFor="likedMost" className="flex items-center gap-2 text-sm font-medium text-foreground mb-2">
+                    <ThumbsUp className="w-4 h-4 text-primary" />
+                    أكثر ما أعجبك
+                </label>
+                <Textarea
+                    id="likedMost"
+                    name="likedMost"
+                    rows={3}
+                    placeholder="أخبرنا بأكثر ما أعجبك في تجربتك..."
+                    className="resize-none"
+                />
+            </div>
+
+            {/* Notes */}
+            <div className="mb-8">
+                <label htmlFor="notes" className="flex items-center gap-2 text-sm font-medium text-foreground mb-2">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    ملاحظات أو اقتراحات
+                </label>
+                <Textarea
+                    id="notes"
+                    name="notes"
+                    rows={3}
+                    placeholder="شاركنا ملاحظاتك أو اقتراحاتك لتحسين الخدمة..."
+                    className="resize-none"
+                />
+            </div>
 
             <AnimatePresence>
                 {state && !state.success && (

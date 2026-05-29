@@ -40,6 +40,18 @@ export async function submitRating(_prevState: RatingFormState, formData: FormDa
     return { success: false, message: "الرجاء اختيار التقييم العام." }
   }
 
+  // Aspect ratings are optional 1-5 scales
+  const parseAspect = (key: string): number | null => {
+    const raw = String(formData.get(key) || "").trim()
+    if (!raw) return null
+    const num = Number.parseInt(raw, 10)
+    if (Number.isNaN(num) || num < 1 || num > 5) return null
+    return num
+  }
+
+  const likedMost = String(formData.get("likedMost") || "").trim() || null
+  const notes = String(formData.get("notes") || "").trim() || null
+
   try {
     await db.insert(restaurantRatings).values({
       branch,
@@ -47,6 +59,14 @@ export async function submitRating(_prevState: RatingFormState, formData: FormDa
       phone,
       rating,
       ratingValue,
+      foodQuality: parseAspect("foodQuality"),
+      variety: parseAspect("variety"),
+      prices: parseAspect("prices"),
+      service: parseAspect("service"),
+      cleanliness: parseAspect("cleanliness"),
+      atmosphere: parseAspect("atmosphere"),
+      likedMost,
+      notes,
     })
     return { success: true, message: "شكراً لك! تم استلام تقييمك بنجاح." }
   } catch (error) {
