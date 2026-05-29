@@ -1,0 +1,123 @@
+{
+  "id": "e3466245-5c6a-4d90-8bf0-0031effcd202",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.restaurant_ratings": {
+      "name": "restaurant_ratings",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "branch": {
+          "name": "branch",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_name": {
+          "name": "customer_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone": {
+          "name": "phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating": {
+          "name": "rating",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rating_value": {
+          "name": "rating_value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "food_quality": {
+          "name": "food_quality",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "variety": {
+          "name": "variety",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prices": {
+          "name": "prices",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "service": {
+          "name": "service",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cleanliness": {
+          "name": "cleanliness",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "atmosphere": {
+          "name": "atmosphere",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "liked_most": {
+          "name": "liked_most",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
