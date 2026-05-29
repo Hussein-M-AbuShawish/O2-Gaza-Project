@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Navbar } from "../../components/navbar";
-import { Footer } from "../../components/footer";
+import { Footer } from "../../components/Footer";
 import { MapPin, Utensils, Moon, Star } from "lucide-react";
 import { BRANCHES } from "../../lib/branch-context";
 

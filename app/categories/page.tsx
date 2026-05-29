@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Navbar } from "../../components/navbar";
-import { Footer } from "../../components/footer";
+import { Footer } from "../../components/Footer";
 import { getMenuByBranch } from "../../lib/menu-data";
 import { useCart } from "../../lib/cart-context";
 

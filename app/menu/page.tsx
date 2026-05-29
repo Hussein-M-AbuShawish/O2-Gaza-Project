@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Navbar } from "../../components/navbar";
-import { Footer } from "../../components/footer";
+import { Footer } from "../../components/Footer";
 import { RotatingCategories } from "../../components/rotating-categories";
 import { useBranch } from "../../lib/branch-context";
 import { useRouter } from "next/navigation";

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/Footer";
 import { useParams, useRouter } from "next/navigation";
 import {
   ShoppingBag,

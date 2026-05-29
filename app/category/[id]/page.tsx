@@ -26,7 +26,7 @@ import { ProductCard } from "../../../components/product-card";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Navbar } from "../../../components/navbar";
-import { Footer } from "../../../components/footer";
+import { Footer } from "../../../components/Footer";
 import { useBranch } from "../../../lib/branch-context";
 import { useCart } from "../../../lib/cart-context";
 import { useRouter } from "next/navigation";

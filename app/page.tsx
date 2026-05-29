@@ -6,7 +6,7 @@ import { ReviewsSection } from "../components/reviews-section";
 // import { StatsSection } from "../components/stats-section";
 // import { GallerySection } from "../components/gallery-section";
 import { ContactSection } from "../components/contact-section";
-import { Footer } from "../components/footer";
+import { Footer } from "../components/Footer";
 import Branches from "../components/branches-section";
 import { SplashScreen } from "../components/splash-screen";
 
