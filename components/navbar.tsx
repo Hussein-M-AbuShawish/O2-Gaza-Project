@@ -2,17 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "../components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/about", label: "من نحن" },
-  { href: "/#services", label: "ماذا نقدم" },
+  { href: "#services", label: "أنشطتنا" },
   { href: "/select-branch", label: "اطلب الان" },
-  { href: "/#reviews", label: "آراء العملاء" },
-  { href: "/#gallery", label: "معرض الصور" },
-  { href: "/#contact", label: "تواصل معنا" },
+  { href: "#reviews", label: "آراء العملاء" },
+  { href: "/rate", label: "قيّم تجربتك" },
+  // { href: "#gallery", label: "معرض الصور" },
+  { href: "#contact", label: "تواصل معنا" },
 ];
 
 export function Navbar() {
@@ -30,11 +31,11 @@ export function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-lg shadow-primary/5"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-lg"
           : "bg-transparent"
           }`}
       >
@@ -56,7 +57,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2 text-muted-foreground hover:text-foreground transition-all duration-300 text-sm font-medium red-underline"
+                  className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
                 >
                   {link.label}
                 </Link>
@@ -98,11 +99,11 @@ export function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
             <div
-              className="absolute inset-0 bg-background/95 backdrop-blur-xl"
+              className="absolute inset-0 bg-background/95 backdrop-blur-lg"
               onClick={() => setIsMobileMenuOpen(false)}
               onKeyDown={(e) =>
                 e.key === "Escape" && setIsMobileMenuOpen(false)
@@ -117,13 +118,13 @@ export function Navbar() {
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
+                  transition={{ delay: index * 0.05 }}
                 >
                   <Link
                     href={link.href}
-                    className="block py-3 text-xl text-foreground hover:text-primary hover:pr-2 transition-all duration-300 border-b border-border/50"
+                    className="block py-3 text-xl text-foreground hover:text-primary transition-colors border-b border-border/50"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
