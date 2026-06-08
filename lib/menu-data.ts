@@ -205,6 +205,12 @@ const gazaMenu: MenuData = {
         desc: "صدر دجاج - فليفلة - بصل - زيتون اسود - جبنة - ذرة - كريمة طعام",
         image: "/menu/western/43.jpg",
       },
+      {
+        name: "تشكن فرايز",
+        price: 30,
+
+        image: "/menu/western/100.png",
+      },
     ]),
   },
   easternSweets: {
@@ -213,7 +219,12 @@ const gazaMenu: MenuData = {
     items: withDefaultActive([
       { name: "نمورة", pricePerKg: 20, image: "/menu/sweets/25.jpeg" },
       { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/82.jpeg" },
-      { name: "كلاج", pricePerKg: 20, image: "/menu/sweets/3.1.jpg", desc: 'كلاج - كلاج نوتيلا'},
+      {
+        name: "كلاج",
+        pricePerKg: 20,
+        image: "/menu/sweets/3.1.jpg",
+        desc: "كلاج - كلاج نوتيلا",
+      },
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
       { name: "كول واشكر", pricePerKg: 30, image: "/menu/sweets/5.jpg" },
       { name: "سنيورة", pricePerKg: 30, image: "/menu/sweets/8.jpg" },
@@ -626,7 +637,6 @@ const middleMenu: MenuData = {
         price: 30,
         desc: "صدر دجاج - فليفلة - بصل - زيتون اسود - جبنة - ذرة - كريمة طعام",
         image: "/menu/western/43.jpg",
-        
       },
     ]),
   },
@@ -682,8 +692,13 @@ const middleMenu: MenuData = {
   drinks: {
     title: "المشروبات",
     items: withDefaultActive([
-      { name: "عصير الموسم", price: 10, image: "/menu/drinks/1.jpg", active: false},
-      { name: "عصير فراولة", price: 12, image: "/menu/drinks/1.jpg"},
+      {
+        name: "عصير الموسم",
+        price: 10,
+        image: "/menu/drinks/1.jpg",
+        active: false,
+      },
+      { name: "عصير فراولة", price: 12, image: "/menu/drinks/1.jpg" },
       { name: "عصير برتقال", price: 12, image: "/menu/drinks/2.jpg" },
       { name: "عصير شمام", price: 12, image: "/menu/drinks/3.jpg" },
       { name: "عصير اناناس", price: 10, image: "/menu/drinks/2.jpg" },
