@@ -65,13 +65,13 @@ const CONFIG = {
     middle: [
 
       { name: "فوري", price: 0 },
-      { name: "النصيرات", price: 10 },
-      { name: "البريج", price: 15 },
-      { name: "سوارحة الشرقية", price: 15 },
-      { name: "سوارحة الغربية", price: 15 },
-      { name: "الزوايدة", price: 20 },
-      { name: "المغازي", price: 25 },
-      { name: "دير البلح", price: 30 },
+      { name: "النصيرات", price: 5 },
+      { name: "البريج", price: 5 },
+      { name: "سوارحة الشرقية", price: 5 },
+      { name: "سوارحة الغربية", price: 5 },
+      { name: "الزوايدة", price: 10 },
+      { name: "المغازي", price: 10 },
+      { name: "دير البلح", price: 15 },
     ],
   },
 };
