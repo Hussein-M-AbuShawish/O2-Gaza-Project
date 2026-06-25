@@ -55,19 +55,19 @@ const gazaMenu: MenuData = {
       },
       {
         name: "فرشوحة عادي",
-        price: 20,
+        price: 15,
         image: "/menu/shawarma/48.jpg",
         active: true,
       },
-      { name: "فرشوحه دبل", price: 22, image: "/menu/shawarma/49.jpg" },
+      { name: "فرشوحه دبل", price: 17, image: "/menu/shawarma/49.jpg" },
       {
         name: "فرشوحه دبل لحمة",
-        price: 28,
+        price: 25,
         image: "/menu/shawarma/48.jpg",
       },
       {
         name: "فرشوحه دبل دبل",
-        price: 30,
+        price: 27,
         image: "/menu/shawarma/48.jpg",
       },
       { name: "سوري", price: 32, image: "/menu/shawarma/53.jpg" },
