@@ -79,15 +79,18 @@ const CONFIG = {
       { name: "النابلسي", price: 5 },
     ],
     middle: [
-
-      { name: "فوري", price: 0 },
+ { name: "فوري", price: 0 },
       { name: "النصيرات", price: 5 },
       { name: "البريج", price: 5 },
       { name: "سوارحة الشرقية", price: 5 },
       { name: "سوارحة الغربية", price: 5 },
       { name: "الزوايدة", price: 5 },
+      { name: "التعابين", price: 15 },
       { name: "المغازي", price: 5 },
       { name: "دير البلح", price: 15 },
+      { name: "ابو سمرة", price: 15 },
+      { name: "مستشفى الاقصى", price: 15 },
+      { name: "مدفع ", price: 15 },
     ],
   },
 };
