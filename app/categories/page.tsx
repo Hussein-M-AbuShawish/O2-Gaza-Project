@@ -93,8 +93,14 @@ const CONFIG = {
       { name: "سوارحة الشرقية", price: 5 },
       { name: "سوارحة الغربية", price: 5 },
       { name: "الزوايدة", price: 5 },
+      { name: "التعابين", price: 15 },
       { name: "المغازي", price: 5 },
       { name: "دير البلح", price: 15 },
+      { name: "ابو سمرة", price: 15 },
+      { name: "مستشفى الاقصى", price: 15 },
+      { name: "مدفع ", price: 15 },
+      
+      
     ],
   },
 };
