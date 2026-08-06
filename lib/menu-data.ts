@@ -637,6 +637,12 @@ const middleMenu: MenuData = {
         price: 30,
         desc: "صدر دجاج - فليفلة - بصل - زيتون اسود - جبنة - ذرة - كريمة طعام",
         image: "/menu/western/43.jpg",
+         {
+        name: "تشكن فرايز",
+        price: 30,
+
+        image: "/menu/western/100.png",
+      },
       },
     ]),
   },
