@@ -228,14 +228,14 @@ const gazaMenu: MenuData = {
       { name: "عش البلبل", pricePerKg: 30, image: "/menu/sweets/7.jpg" },
       { name: "كول واشكر", pricePerKg: 30, image: "/menu/sweets/5.jpg" },
       { name: "سنيورة", pricePerKg: 30, image: "/menu/sweets/8.jpg" },
-      { name: "كنافة عربية", pricePerKg: 40, image: "/menu/sweets/17.jpeg" },
+      { name: "كنافة عربية", pricePerKg: 35, image: "/menu/sweets/17.jpeg" },
       {
         name: "بسبوسة نوتيلا",
         pricePerKg: 40,
         image: "/menu/sweets/18.jpeg",
       },
       { name: "بقلاوة لوز", pricePerKg: 48, image: "/menu/sweets/9.jpg" },
-      { name: "نابلسية", pricePerKg: 60, image: "/menu/sweets/23.jpg" },
+      { name: "نابلسية", pricePerKg: 40, image: "/menu/sweets/23.jpg" },
       { name: "معكوفة لوز", pricePerKg: 35, image: "/menu/sweets/6.jpg" },
       {
         name: "أساور لوز",
