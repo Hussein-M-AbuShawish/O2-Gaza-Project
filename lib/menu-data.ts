@@ -236,7 +236,7 @@ const gazaMenu: MenuData = {
       },
       { name: "بقلاوة لوز", pricePerKg: 48, image: "/menu/sweets/9.jpg" },
       { name: "نابلسية", pricePerKg: 40, image: "/menu/sweets/23.jpg" },
-      { name: "معكوفة لوز", pricePerKg: 35, image: "/menu/sweets/6.jpg" },
+      { name: "معكوفة لوز", pricePerKg: 45, image: "/menu/sweets/6.jpg" },
       {
         name: "أساور لوز",
         pricePerKg: 48,
