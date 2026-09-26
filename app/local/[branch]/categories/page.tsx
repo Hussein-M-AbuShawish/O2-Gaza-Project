@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
+import { imgSrc } from "../../../../lib/img";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
-import { getMenuByBranch } from "../../../../lib/menu-data";
+import { useLiveMenu } from "../../../../lib/live-menu";
 
 const CATEGORY_DISPLAY = [
   { id: "shawarma", name: "الشاورما", image: "/menu/shawarma/53.jpg" },
@@ -20,17 +21,48 @@ const CATEGORY_DISPLAY = [
   { id: "gelato", name: "الجيلاتو", image: "/menu/Gelato/72.jpeg" },
 ];
 
+/**
+ * يبني قائمة الأقسام من المنيو الفعلي لا من ثابتة.
+ * CATEGORY_DISPLAY يبقى مصدر الصور والأسماء المصمَّمة للأقسام
+ * الأصلية؛ وأي قسم جديد من لوحة التحكم يُضاف بعنوانه وبصورة
+ * مأخوذة من أول صنف فيه.
+ */
+function buildCategories(menu: any, display: {id:string;name:string;image:string}[]) {
+  const known = new Set(display.map((c) => c.id));
+  // القسم الفارغ لا يُعرض في شبكة الأقسام — لا معنى لبطاقة بلا أصناف
+  const has = (c: any) => c && (c.items || []).some((i: any) => i.active !== false);
+  const out = display.filter((c) => has(menu[c.id]));
+  for (const [id, cat] of Object.entries<any>(menu)) {
+    if (known.has(id) || !has(cat)) continue;
+    const firstImg = (cat.items || []).find((i: any) => i.image);
+    out.push({
+      id,
+      name: String(cat.title || id).replace(/^\p{Extended_Pictographic}+\s*/u, ""),
+      image: firstImg ? firstImg.image : "/placeholder.svg",
+    });
+  }
+  return out;
+}
+
 export default function LocalCategoriesPage({ forcedBranch }: { forcedBranch?: string }) {
   const params = useParams();
   const branch = forcedBranch || (params.branch as string) || "gaza";
-  const branchMenu = getMenuByBranch(branch);
+  const { menu: branchMenu } = useLiveMenu(branch);
 
   const categories = useMemo(
-    () => CATEGORY_DISPLAY.filter((c) => branchMenu[c.id as keyof typeof branchMenu]),
+    () => buildCategories(branchMenu, CATEGORY_DISPLAY),
     [branchMenu]
   );
 
-  if (!categories.length) return null;
+  // لا نُخفي الصفحة قبل وصول بيانات اللوحة
+  if (!categories.length) {
+    return (
+      <div className="pt-32 pb-20 text-center">
+        <div className="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="mt-4 text-muted-foreground">جاري تحميل الأقسام…</p>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#050505] text-white selection:bg-[#dc2626]/30">
@@ -85,7 +117,7 @@ export default function LocalCategoriesPage({ forcedBranch }: { forcedBranch?: s
               >
                 <div className="relative h-[350px] md:h-[400px] w-full rounded-2xl md:rounded-3xl overflow-hidden border border-zinc-800/50 bg-zinc-900 transition-all duration-500 group-hover:border-[#dc2626]/30 group-hover:shadow-[0_0_40px_-10px_rgba(220,38,38,0.2)]">
                   <Image
-                    src={cat.image}
+                    src={imgSrc(cat.image)}
                     alt={cat.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

@@ -16,6 +16,8 @@ export interface MenuCategory {
   title: string;
   byWeight?: boolean;
   items: MenuItem[];
+  /** عدد الأصناف المتوفرة في كل فرع (يأتي من لوحة التحكم) */
+  counts?: Record<string, number>;
 }
 
 export type MenuData = Record<string, MenuCategory>;
@@ -236,7 +238,7 @@ const gazaMenu: MenuData = {
       },
       { name: "بقلاوة لوز", pricePerKg: 48, image: "/menu/sweets/9.jpg" },
       { name: "نابلسية", pricePerKg: 40, image: "/menu/sweets/23.jpg" },
-      { name: "معكوفة لوز", pricePerKg: 45, image: "/menu/sweets/6.jpg" },
+      { name: "معكوفة لوز", pricePerKg: 35, image: "/menu/sweets/6.jpg" },
       {
         name: "أساور لوز",
         pricePerKg: 48,
@@ -706,10 +708,10 @@ const middleMenu: MenuData = {
         active: false,
       },
       { name: "عصير فراولة", price: 12, image: "/menu/drinks/1.jpg" },
-      { name: "عصير برتقال", price: 12, image: "/menu/drinks/2.jpg", active: false, },
-      { name: "عصير شمام", price: 12, image: "/menu/drinks/3.jpg", active: false, },
+      { name: "عصير برتقال", price: 12, image: "/menu/drinks/2.jpg" },
+      { name: "عصير شمام", price: 12, image: "/menu/drinks/3.jpg" },
       { name: "عصير اناناس", price: 10, image: "/menu/drinks/2.jpg" },
-      { name: "عصير خوخ", price: 10, image: "/menu/drinks/2.jpg", active: false, },
+      { name: "عصير خوخ", price: 10, image: "/menu/drinks/2.jpg" },
       { name: "ليمون ونعنع", price: 12, image: "/menu/drinks/3.jpg" },
       { name: "أفوكادو", price: 15, image: "/menu/drinks/4.jpg" },
       { name: "عصير مانجا", price: 12, image: "/menu/drinks/2.jpg" },

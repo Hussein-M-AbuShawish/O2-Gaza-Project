@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useCallback, Suspense } from "react";
+import { imgSrc } from "../../../lib/img";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -30,7 +31,7 @@ import { Footer } from "../../../components/Footer";
 import { useBranch } from "../../../lib/branch-context";
 import { useCart } from "../../../lib/cart-context";
 import { useRouter } from "next/navigation";
-import { getMenuByBranch } from "../../../lib/menu-data";
+import { useLiveMenu } from "../../../lib/live-menu";
 
 // ================= CONFIGURATION =================
 const CONFIG = {
@@ -632,7 +633,7 @@ function ProductModal({
       >
         <div className="relative h-48 md:h-64">
           <Image
-            src={product.image || "/placeholder.svg"}
+            src={imgSrc(product.image) || "/placeholder.svg"}
             alt={product.name}
             fill
             className="object-cover"
@@ -1215,6 +1216,7 @@ function ConfirmationModal({
 }
 
 function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
+  const { setSelectedBranch } = useBranch();
   const params = useParams();
   const categoryId = params.id as string;
   const router = useRouter();
@@ -1234,7 +1236,9 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
   const [orderNotes, setOrderNotes] = useState("");
 
   // Get menu data for the current branch - each branch has independent menu
-  const branchMenu = getMenuByBranch(defaultBranch);
+  // التوفّر يأتي حيّاً من لوحة التحكم — الإغلاق يظهر خلال ثوانٍ
+  const { menu: branchMenu, status: liveStatus, settled: liveSettled } =
+    useLiveMenu(defaultBranch);
   const categoryData = branchMenu[categoryId];
   const isByWeight = categoryData?.byWeight || false;
 
@@ -1411,12 +1415,37 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
   const cartTotal = cart.reduce((acc, item) => acc + item.qty, 0);
   const currentProvince = defaultBranch;
 
-  if (!categoryData) {
+  if (!categoryData && !liveSettled) {
     return (
       <main className="min-h-screen bg-background">
         <Navbar />
         <div className="pt-32 pb-20 text-center">
+          <div className="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          <p className="mt-4 text-muted-foreground">جاري تحميل القسم…</p>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
+
+  // ملاحظة: لا نعترض الصفحة هنا عند خلوّ القسم.
+  // الاعتراض المبكر كان يمنع الرسم كاملاً — بلا ترويسة ولا تذييل ولا
+  // زر رجوع — ويظهر حتى أثناء وصول البيانات. حالة الخلوّ تُعرض داخل
+  // الشبكة نفسها أسفل الصفحة.
+
+  if (!categoryData) {
+    // نشخّص السبب بدل رسالة صامتة: هل فشل الاتصال بلوحة التحكم،
+    // أم أنه معطّل، أم أن القسم فعلاً غير موجود؟
+    const reason =
+      liveStatus === "static"
+        ? "تعذّر الاتصال بلوحة التحكم — قد تكون الخدمة نائمة. أعد المحاولة بعد دقيقة."
+        : `لا يوجد قسم بالمعرّف "${categoryId}" في منيو هذا الفرع.`;
+    return (
+      <main className="min-h-screen bg-background">
+        <Navbar />
+        <div className="pt-32 pb-20 text-center px-4">
           <p className="text-xl text-muted-foreground">القسم غير موجود</p>
+          <p className="mt-3 text-sm text-muted-foreground/70 max-w-md mx-auto">{reason}</p>
           <Link href="/categories">
             <Button className="fixed top-[72px] right-4 md:top-[90px] md:right-8 z-[1000]">
               <ChevronLeft className="w-4 h-4" />
@@ -1478,6 +1507,43 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6"
           >
+            {categoryData.items.filter((i: any) => i.active !== false).length === 0 && (
+              <div className="col-span-full text-center py-16">
+                {liveSettled ? (
+                  (() => {
+                    // القسم متوفر في فرع آخر؟ نقولها للزبون بدل رسالة صمّاء
+                    const counts = (categoryData as any).counts || {};
+                    const other = Object.entries(counts).find(
+                      ([b, n]) => b !== defaultBranch && Number(n) > 0,
+                    );
+                    const names: Record<string, string> = { gaza: "فرع غزة", middle: "الفرع الأوسط" };
+                    return (
+                      <>
+                        <p className="text-muted-foreground">لا توجد أصناف متوفرة في هذا القسم حالياً</p>
+                        {other && (
+                          <div className="mt-3">
+                            <p className="text-sm text-muted-foreground/70">
+                              هذا القسم متوفر في {names[other[0]] || other[0]}
+                            </p>
+                            <Button
+                              className="mt-3"
+                              onClick={() => setSelectedBranch(other[0])}
+                            >
+                              الانتقال إلى {names[other[0]] || other[0]}
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()
+                ) : (
+                  <>
+                    <div className="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                    <p className="mt-4 text-muted-foreground">جاري تحميل الأصناف…</p>
+                  </>
+                )}
+              </div>
+            )}
             {categoryData.items.map((item, index) => (
               <ProductCard
                 key={item.name}

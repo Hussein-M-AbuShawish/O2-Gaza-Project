@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { getMenuByBranch } from "@/lib/menu-data";
+import { useLiveMenu } from "@/lib/live-menu";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 
@@ -12,10 +12,27 @@ export default function LocalCategoryItems() {
     const params = useParams();
     const branch = params.branch as string;
     const categoryId = params.id as string;
-    const branchMenu = getMenuByBranch(branch);
+    const { menu: branchMenu, settled: liveSettled } = useLiveMenu(branch);
     const categoryData = branchMenu[categoryId as keyof typeof branchMenu];
 
-    if (!categoryData) return null;
+    // انتظر بيانات البوت قبل الحكم — الأقسام المضافة من اللوحة
+    // ليست في المنيو الثابت وتصل بعد أول رسم.
+    if (!categoryData && !liveSettled) {
+        return (
+            <div className="pt-32 pb-20 text-center">
+                <div className="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                <p className="mt-4 text-muted-foreground">جاري تحميل القسم…</p>
+            </div>
+        );
+    }
+
+    if (!categoryData) {
+        return (
+            <div className="pt-32 pb-20 text-center">
+                <p className="text-xl text-muted-foreground">القسم غير موجود</p>
+            </div>
+        );
+    }
 
     const isByWeight = !!categoryData.byWeight;
     const branchLabel = branch === "middle" ? "\u0627\u0644\u0648\u0633\u0637\u0649" : "\u063a\u0632\u0629";
@@ -67,6 +84,11 @@ export default function LocalCategoryItems() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6"
                     >
+                        {categoryData.items.filter((i: any) => i.active !== false).length === 0 && (
+                          <div className="col-span-full text-center py-16">
+                            <p className="text-muted-foreground">لا توجد أصناف متوفرة في هذا القسم حالياً</p>
+                          </div>
+                        )}
                         {categoryData.items.map((item, index) => (
                             <ProductCard
                                 key={item.name + index}
