@@ -35,7 +35,7 @@ const ENDPOINT = USE_PROXY
   ? `${DIRECT_URL}/api/public/menu`
   : "/api/public/menu";
 
-const REFRESH_MS = 45_000;
+const REFRESH_MS = 8_000;
 const CACHE_KEY = "o2-menu-cache-v3";
 /**
  * أقصى عمر للنسخة المحفوظة قبل أن تُعتبر مجرد عرض مؤقت.
