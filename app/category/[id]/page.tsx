@@ -621,21 +621,27 @@ function ProductModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/90 z-[2000] flex items-center justify-center p-3 overflow-y-auto"
+      transition={{ duration: 0.15 }}
+      className="fixed inset-0 bg-black/90 z-[2000] flex items-center justify-center p-3 overflow-y-auto overflow-x-hidden"
       onClick={onClose}
     >
+      {/* بلا تحجيم (scale): تحجيم الصورة أثناء الحركة كان يُعيد رسمها
+          بدقة منخفضة ثم عالية فتبدو «مشتّتة» يميناً ويساراً ثم تستقر */}
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 16 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         className="bg-card rounded-2xl w-full max-w-md overflow-hidden max-h-[90vh] overflow-y-auto my-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative h-48 md:h-64">
+        <div className="relative h-48 md:h-64 bg-black">
           <Image
             src={imgSrc(product.image) || "/placeholder.svg"}
             alt={product.name}
             fill
+            priority
+            sizes="(max-width: 480px) 100vw, 448px"
             className="object-cover"
           />
         </div>

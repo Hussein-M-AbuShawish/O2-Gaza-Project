@@ -67,8 +67,8 @@ export function ProductCard({
           src={imgSrc(item.image) || "/placeholder.svg"}
           alt={item.name}
           fill
-          className={`object-cover transition-transform duration-700 ease-out ${
-            !isUnavailable && "group-hover:scale-110"
+          className={`object-cover transition-transform duration-500 ease-out ${
+            !isUnavailable && "group-hover:scale-105"
           }`}
           sizes="(max-width: 500px) 50vw, (max-width: 768px) 33vw, 25vw"
         />
