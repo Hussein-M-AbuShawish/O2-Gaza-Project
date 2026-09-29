@@ -37,8 +37,7 @@ const ENDPOINT = USE_PROXY
 
 const REFRESH_MS = 20_000;
 // const REFRESH_MS = 45_000;
-/** v4: النسخ القديمة قد تحوي منيو الفرع الآخر (بسبب كاش Netlify) — تُهمل */
-const CACHE_KEY = "o2-menu-cache-v4";
+const CACHE_KEY = "o2-menu-cache-v3";
 /**
  * أقصى عمر للنسخة المحفوظة قبل أن تُعتبر مجرد عرض مؤقت.
  * بعده نُبقي عرضها (أفضل من شاشة فارغة) لكن لا نعتبر الحالة
@@ -176,24 +175,17 @@ export function useLiveMenu(branch: string) {
   const fetchLive = useCallback(
     async (signal?: AbortSignal) => {
       try {
-        // الفرع في المسار وليس فقط بعد '?': كاش Netlify قد يتجاهل الاستعلام
-        // فيعطي غزة والأوسط نفس الرد — وهذا ما كان يجعل الإغلاق يظهر بالفرعين.
-        // t= يكسر أي كاش متبقٍّ في المتصفح أو الوسيط.
-        const b = encodeURIComponent(branch);
         const r = await fetch(
-          `${ENDPOINT}/${b}?branch=${b}&t=${Date.now()}`,
+          `${ENDPOINT}?branch=${encodeURIComponent(branch)}`,
           { signal, cache: "no-store" },
         );
         if (!r.ok) throw new Error(String(r.status));
         const d = await r.json();
         if (!d.ok || !Array.isArray(d.items)) throw new Error("رد غير متوقع");
-        // رد لفرع آخر؟ لا نعرضه أبداً
-        if (d.branch !== undefined && d.branch !== branch) throw new Error("رد لفرع آخر");
 
         const p: Payload = {
           categories: Array.isArray(d.categories) ? d.categories : [],
-          // حماية إضافية: أصناف هذا الفرع فقط
-          items: d.items.filter((i: LiveItem) => !i.branch || i.branch === branch),
+          items: d.items,
           at: Date.now(),
           rev: d.rev,
         };
