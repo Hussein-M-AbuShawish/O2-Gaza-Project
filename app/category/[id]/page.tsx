@@ -1544,9 +1544,11 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
                 )}
               </div>
             )}
-            {categoryData.items.map((item, index) => (
+            {categoryData.items
+              .filter((i: any) => i.active !== false)
+              .map((item: any, index: number) => (
               <ProductCard
-                key={item.name}
+                key={item.id ?? `${item.name}-${index}`}
                 item={item}
                 index={index}
                 onClick={() => setSelectedProduct(item)}

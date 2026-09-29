@@ -9,6 +9,7 @@ export interface MenuItem {
   desc?: string;
   image: string;
   delivery?: boolean;
+  id?: number | string;
   active?: boolean;
 }
 

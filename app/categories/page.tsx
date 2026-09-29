@@ -623,7 +623,7 @@ export default function CategoriesPage() {
     searchParams.get("branch") ||
     (typeof window !== "undefined" ? localStorage.getItem("branch") : null) ||
     "gaza";
-  const { menu: branchMenu } = useLiveMenu(branch);
+  const { menu: branchMenu, status: liveStatus } = useLiveMenu(branch);
   const categories = useMemo(
     () => buildCategories(branchMenu, CATEGORY_DISPLAY),
     [branchMenu]
@@ -781,6 +781,9 @@ export default function CategoriesPage() {
       <div className="pt-32 pb-20 text-center">
         <div className="inline-block w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
         <p className="mt-4 text-muted-foreground">جاري تحميل الأقسام…</p>
+        {liveStatus === "loading" && (
+          <p className="mt-2 text-xs text-muted-foreground/70">أول فتح بعد فترة هدوء قد يستغرق دقيقة</p>
+        )}
       </div>
     );
   }

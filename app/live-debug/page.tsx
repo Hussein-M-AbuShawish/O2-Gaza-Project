@@ -21,7 +21,7 @@ export default function LiveDebugPage() {
   // طلب مباشر لنرى الرد الخام
   useEffect(() => {
     if (!LIVE_CONFIG.configured) return;
-    const url = `${LIVE_CONFIG.endpoint}?branch=${branch}`;
+    const url = `${LIVE_CONFIG.endpoint}/${branch}?branch=${branch}&t=${Date.now()}`;
     fetch(url, { cache: "no-store" })
       .then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);

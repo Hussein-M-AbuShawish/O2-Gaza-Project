@@ -43,17 +43,18 @@ export function ProductCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
+      // ظهور خفيف بلا تحجيم: التحجيم مع تأخير كل بطاقة كان يبدو كتكرار
+      // للصور ثم انضمامها. التأخير محدود بأول 8 بطاقات فقط.
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.06,
-        ease: [0.25, 0.1, 0.25, 1],
+        duration: 0.3,
+        delay: Math.min(index, 8) * 0.04,
+        ease: "easeOut",
       }}
       onClick={onClick}
       className={`group relative bg-card rounded-lg ${
-        item.active ? "" : "hidden"
+        item.active === false ? "hidden" : ""
       } overflow-hidden aspect-[3/4] cursor-pointer transition-all duration-500 ${
         isUnavailable
           ? "opacity-60"

@@ -20,7 +20,7 @@
  * فلا تظهر صفحة فارغة في أي حال.
  */
 
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { getMenuByBranch, type MenuData, type MenuItem } from "./menu-data";
 import { imgSrc } from "./img";
 
@@ -36,8 +36,13 @@ const ENDPOINT = USE_PROXY
   : "/api/public/menu";
 
 const REFRESH_MS = 20_000;
+/** مهلة الطلب: خادم Render المجاني قد يكون نائماً — لا ننتظره للأبد */
+const FETCH_TIMEOUT_MS = 12_000;
+/** إعادة المحاولة السريعة ما دام الخادم لم يرد بعد */
+const RETRY_MS = 5_000;
 // const REFRESH_MS = 45_000;
-const CACHE_KEY = "o2-menu-cache-v3";
+/** v4: النسخ القديمة قد تحوي منيو الفرع الآخر (بسبب كاش Netlify) — تُهمل */
+const CACHE_KEY = "o2-menu-cache-v4";
 /**
  * أقصى عمر للنسخة المحفوظة قبل أن تُعتبر مجرد عرض مؤقت.
  * بعده نُبقي عرضها (أفضل من شاشة فارغة) لكن لا نعتبر الحالة
@@ -134,6 +139,7 @@ export function buildMenu(payload: Payload): MenuData {
       out[i.cat] = { title: i.cat, byWeight: false, items: [] } as MenuData[string];
     }
     out[i.cat].items.push({
+      id: i.id,   // مفتاح ثابت للبطاقة (الاسم قد يتكرر)
       name: i.name,
       desc: i.desc || "",
       image: imgSrc(i.image),
@@ -172,20 +178,40 @@ export function useLiveMenu(branch: string) {
   const [status, setStatus] = useState<LiveStatus>(() => cacheState(readCache(branch)));
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
+  const inFlight = useRef(false);
+  const lastOk = useRef(0);
+
   const fetchLive = useCallback(
-    async (signal?: AbortSignal) => {
+    async (outer?: AbortSignal) => {
+      // طلب واحد في كل وقت — كانت نوافذ التركيز والمؤقت تكدّس طلبات
+      // متوازية على خادم نائم فيزداد البطء
+      if (inFlight.current) return;
+      inFlight.current = true;
+      const ctrl = new AbortController();
+      const onOuter = () => ctrl.abort();
+      outer?.addEventListener("abort", onOuter);
+      let timedOut = false;
+      const t = setTimeout(() => { timedOut = true; ctrl.abort(); }, FETCH_TIMEOUT_MS);
+      const signal = ctrl.signal;
       try {
+        // الفرع في المسار وليس فقط بعد '?': كاش Netlify قد يتجاهل الاستعلام
+        // فيعطي غزة والأوسط نفس الرد — وهذا ما كان يجعل الإغلاق يظهر بالفرعين.
+        // t= يكسر أي كاش متبقٍّ في المتصفح أو الوسيط.
+        const b = encodeURIComponent(branch);
         const r = await fetch(
-          `${ENDPOINT}?branch=${encodeURIComponent(branch)}`,
+          `${ENDPOINT}/${b}?branch=${b}&t=${Date.now()}`,
           { signal, cache: "no-store" },
         );
         if (!r.ok) throw new Error(String(r.status));
         const d = await r.json();
         if (!d.ok || !Array.isArray(d.items)) throw new Error("رد غير متوقع");
+        // رد لفرع آخر؟ لا نعرضه أبداً
+        if (d.branch !== undefined && d.branch !== branch) throw new Error("رد لفرع آخر");
 
         const p: Payload = {
           categories: Array.isArray(d.categories) ? d.categories : [],
-          items: d.items,
+          // حماية إضافية: أصناف هذا الفرع فقط
+          items: d.items.filter((i: LiveItem) => !i.branch || i.branch === branch),
           at: Date.now(),
           rev: d.rev,
         };
@@ -193,11 +219,16 @@ export function useLiveMenu(branch: string) {
         writeCache(branch, p);
         setLastUpdated(new Date());
         setStatus("live");
+        lastOk.current = Date.now();
       } catch (e) {
-        if ((e as Error).name === "AbortError") return;
+        if ((e as Error).name === "AbortError" && !timedOut) return; // مغادرة الصفحة
         // نُبقي ما لدينا: نسخة محفوظة أو الملف الثابت
         // الفشل يُنهي الانتظار: نعرض ما لدينا ونسمح بالحكم
         setStatus((prev) => (prev === "live" ? "live" : readCache(branch) ? "cached" : "static"));
+      } finally {
+        clearTimeout(t);
+        outer?.removeEventListener("abort", onOuter);
+        inFlight.current = false;
       }
     },
     [branch],
@@ -209,10 +240,17 @@ export function useLiveMenu(branch: string) {
     setStatus(cacheState(cached));
 
     const ctrl = new AbortController();
+    lastOk.current = 0;
     fetchLive(ctrl.signal);
 
-    const timer = setInterval(() => fetchLive(), REFRESH_MS);
-    const onFocus = () => fetchLive();
+    // كل 5 ثوانٍ نقرر: لم يصل رد حيّ بعد ← نعيد المحاولة الآن،
+    // وإلا نحدّث كل 20 ثانية كالمعتاد
+    const timer = setInterval(() => {
+      if (!lastOk.current || Date.now() - lastOk.current >= REFRESH_MS) fetchLive(ctrl.signal);
+    }, RETRY_MS);
+    const onFocus = () => {
+      if (document.visibilityState === "visible") fetchLive(ctrl.signal);
+    };
     window.addEventListener("focus", onFocus);
     document.addEventListener("visibilitychange", onFocus);
 
@@ -224,10 +262,16 @@ export function useLiveMenu(branch: string) {
     };
   }, [branch, fetchLive]);
 
+  /**
+   * لا نرسم الملف الثابت أثناء انتظار الرد الأول: كان يُرسم ثم يُستبدل
+   * بالمنيو الحقيقي فتتكرر البطاقات وتتبدل الصور ثم «تنضم».
+   * الثابت يظهر فقط إذا فشل الاتصال فعلاً ولا توجد نسخة محفوظة.
+   */
   const menu = useMemo(() => {
     if (payload) return buildMenu(payload);
-    return normalizeStatic(getMenuByBranch(branch));
-  }, [payload, branch]);
+    if (status === "static") return normalizeStatic(getMenuByBranch(branch));
+    return {} as MenuData;
+  }, [payload, branch, status]);
 
   /**
    * true متى صار الحكم بعدم وجود قسم أو خلوّه آمناً.
