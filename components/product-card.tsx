@@ -74,13 +74,15 @@ export function ProductCard({
           alt={item.name}
           fill
           className={`object-cover transition-transform duration-500 ease-out ${
-            isOut ? "grayscale" : !isUnavailable ? "group-hover:scale-105" : ""
+            isOut ? "grayscale opacity-60" : !isUnavailable ? "group-hover:scale-105" : ""
           }`}
           sizes="(max-width: 500px) 50vw, (max-width: 768px) 33vw, 25vw"
         />
+        {/* «غير متوفر حالياً»: شريط مرتب أعلى الصورة — الصنف يبقى في مكانه */}
         {isOut && (
-          <div className="absolute inset-0 bg-black/45 flex items-center justify-center">
-            <span className="px-3 py-1.5 rounded-full bg-black/80 border border-white/20 text-white text-xs md:text-sm font-bold">
+          <div className="absolute top-2 inset-x-2 flex justify-center pointer-events-none">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-sm border border-primary/60 text-white text-[11px] md:text-xs font-bold shadow-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
               غير متوفر حالياً
             </span>
           </div>
@@ -92,17 +94,19 @@ export function ProductCard({
 
       {/* Info Section */}
       <div className="p-3 md:p-4 h-1/3 flex flex-col justify-between bg-card">
-        <h3 className="text-sm md:text-base font-semibold text-foreground leading-tight line-clamp-2">
+        <h3 className={`text-sm md:text-base font-semibold leading-tight line-clamp-2 ${isOut ? "text-muted-foreground" : "text-foreground"}`}>
           {item.name}
         </h3>
 
         <div className="flex items-center justify-between pt-2">
-          <span className="text-primary font-bold text-sm md:text-base">
+          <span
+            className={`font-bold text-sm md:text-base ${
+              isOut ? "text-muted-foreground line-through decoration-1" : "text-primary"
+            }`}
+          >
             {displayPrice}
           </span>
-          {isOut ? (
-            <span className="text-xs text-muted-foreground font-medium">غير متوفر</span>
-          ) : isUnavailable ? (
+          {isOut ? null : isUnavailable ? (
             <span className="text-xs text-muted-foreground font-medium">غير متاح</span>
           ) : null}
         </div>
