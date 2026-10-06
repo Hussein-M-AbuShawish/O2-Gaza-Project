@@ -84,12 +84,14 @@ export default function LocalCategoryItems() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6"
                     >
-                        {categoryData.items.filter((i: any) => i.active !== false).length === 0 && (
+                        {categoryData.items.length === 0 && (
                           <div className="col-span-full text-center py-16">
                             <p className="text-muted-foreground">لا توجد أصناف متوفرة في هذا القسم حالياً</p>
                           </div>
                         )}
-                        {categoryData.items.map((item, index) => (
+                        {[...categoryData.items]
+                          .sort((a: any, b: any) => Number(a.active === false) - Number(b.active === false))
+                          .map((item: any, index: number) => (
                             <ProductCard
                                 key={item.name + index}
                                 item={item}

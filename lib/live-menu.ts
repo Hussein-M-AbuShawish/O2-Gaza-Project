@@ -42,7 +42,7 @@ const FETCH_TIMEOUT_MS = 12_000;
 const RETRY_MS = 5_000;
 // const REFRESH_MS = 45_000;
 /** v4: النسخ القديمة قد تحوي منيو الفرع الآخر (بسبب كاش Netlify) — تُهمل */
-const CACHE_KEY = "o2-menu-cache-v4";
+const CACHE_KEY = "o2-menu-cache-v5"; // v5: الأصناف المخفية لم تعد تُرسل
 /**
  * أقصى عمر للنسخة المحفوظة قبل أن تُعتبر مجرد عرض مؤقت.
  * بعده نُبقي عرضها (أفضل من شاشة فارغة) لكن لا نعتبر الحالة
@@ -160,7 +160,13 @@ export function buildMenu(payload: Payload): MenuData {
 function normalizeStatic(menu: MenuData): MenuData {
   const out: MenuData = {};
   for (const [k, c] of Object.entries(menu)) {
-    out[k] = { ...c, items: c.items.map((i) => ({ ...i, image: imgSrc(i.image) })) };
+    // في الملف الثابت active:false كان يعني «مخفي» — نُسقطها
+    out[k] = {
+      ...c,
+      items: c.items
+        .filter((i) => i.active !== false)
+        .map((i) => ({ ...i, image: imgSrc(i.image) })),
+    };
   }
   return out;
 }

@@ -30,7 +30,7 @@ const CATEGORY_DISPLAY = [
 function buildCategories(menu: any, display: {id:string;name:string;image:string}[]) {
   const known = new Set(display.map((c) => c.id));
   // القسم الفارغ لا يُعرض في شبكة الأقسام — لا معنى لبطاقة بلا أصناف
-  const has = (c: any) => c && (c.items || []).some((i: any) => i.active !== false);
+  const has = (c: any) => c && (c.items || []).length > 0;
   const out = display.filter((c) => has(menu[c.id]));
   for (const [id, cat] of Object.entries<any>(menu)) {
     if (known.has(id) || !has(cat)) continue;

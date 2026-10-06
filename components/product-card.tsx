@@ -39,7 +39,10 @@ export function ProductCard({
 
   const displayPrice = getDisplayPrice();
 
-  const isUnavailable = item.delivery === false;
+  // غير متوفر حالياً (من لوحة التحكم): يظهر ولا يُطلب
+  const isOut = item.active === false;
+  // لا توصيل: يظهر ويُطلب من المطعم فقط
+  const isUnavailable = item.delivery === false || isOut;
 
   return (
     <motion.div
@@ -52,26 +55,36 @@ export function ProductCard({
         delay: Math.min(index, 8) * 0.04,
         ease: "easeOut",
       }}
+      // الرفع عند المرور عبر framer-motion نفسه — كان transition-all في CSS
+      // يلاحق كل إطار من حركة الظهور فتتأخر البطاقة وتهتز يميناً ويساراً
+      whileHover={isUnavailable ? undefined : { y: -4 }}
+      whileTap={isUnavailable ? undefined : { scale: 0.98 }}
       onClick={onClick}
-      className={`group relative bg-card rounded-lg ${
-        item.active === false ? "hidden" : ""
-      } overflow-hidden aspect-[3/4] cursor-pointer transition-all duration-500 ${
-        isUnavailable
-          ? "opacity-60"
-          : "hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 active:scale-[0.98]"
+      aria-disabled={isOut || undefined}
+      className={`group relative bg-card rounded-lg overflow-hidden aspect-[3/4] ${
+        isOut ? "cursor-not-allowed" : "cursor-pointer"
+      } transition-shadow duration-300 ${
+        isUnavailable ? "" : "hover:shadow-lg hover:shadow-primary/10"
       }`}
     >
       {/* Image Container */}
-      <div className="relative w-full h-2/3 overflow-hidden">
+      <div className={`relative w-full h-2/3 overflow-hidden ${isUnavailable && !isOut ? "opacity-60" : ""}`}>
         <Image
           src={imgSrc(item.image) || "/placeholder.svg"}
           alt={item.name}
           fill
           className={`object-cover transition-transform duration-500 ease-out ${
-            !isUnavailable && "group-hover:scale-105"
+            isOut ? "grayscale" : !isUnavailable ? "group-hover:scale-105" : ""
           }`}
           sizes="(max-width: 500px) 50vw, (max-width: 768px) 33vw, 25vw"
         />
+        {isOut && (
+          <div className="absolute inset-0 bg-black/45 flex items-center justify-center">
+            <span className="px-3 py-1.5 rounded-full bg-black/80 border border-white/20 text-white text-xs md:text-sm font-bold">
+              غير متوفر حالياً
+            </span>
+          </div>
+        )}
         {!isUnavailable && (
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         )}
@@ -87,11 +100,11 @@ export function ProductCard({
           <span className="text-primary font-bold text-sm md:text-base">
             {displayPrice}
           </span>
-          {isUnavailable && (
-            <span className="text-xs text-muted-foreground font-medium">
-              غير متاح
-            </span>
-          )}
+          {isOut ? (
+            <span className="text-xs text-muted-foreground font-medium">غير متوفر</span>
+          ) : isUnavailable ? (
+            <span className="text-xs text-muted-foreground font-medium">غير متاح</span>
+          ) : null}
         </div>
       </div>
     </motion.div>

@@ -598,7 +598,7 @@ function ProductModal({
   }, [product, isByWeight, weight, qty, calculatedPrice, selectedVariant]);
 
   const handleAddToCart = () => {
-    if (!product || !canDeliver) return;
+    if (!product || !canDeliver || product.active === false) return;
     if (isByWeight && (calculatedPrice <= 0 || weight <= 0)) return;
 
     let finalProduct = product;
@@ -1506,14 +1506,10 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
             </p>
           </motion.div>
 
-          {/* Products Grid */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6"
-          >
-            {categoryData.items.filter((i: any) => i.active !== false).length === 0 && (
+          {/* Products Grid — بلا حركة على الحاوية: البطاقات تظهر بنفسها،
+              والحركتان معاً كانتا تضاعفان التأخير والاهتزاز */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
+            {categoryData.items.length === 0 && (
               <div className="col-span-full text-center py-16">
                 {liveSettled ? (
                   (() => {
@@ -1550,18 +1546,23 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
                 )}
               </div>
             )}
-            {categoryData.items
-              .filter((i: any) => i.active !== false)
+            {/* المتوفر أولاً ثم غير المتوفر (المخفي لا يصل أصلاً) */}
+            {[...categoryData.items]
+              .sort((a: any, b: any) => Number(a.active === false) - Number(b.active === false))
               .map((item: any, index: number) => (
               <ProductCard
                 key={item.id ?? `${item.name}-${index}`}
                 item={item}
                 index={index}
-                onClick={() => setSelectedProduct(item)}
+                onClick={() =>
+                  item.active === false
+                    ? showToast(`${item.name} غير متوفر حالياً`)
+                    : setSelectedProduct(item)
+                }
                 byWeight={isByWeight}
               />
             ))}
-          </motion.div>
+          </div>
           {/* Cart Button under categories */}
           <div className="mt-10 flex justify-center">
             {cart.length > 0 && (
