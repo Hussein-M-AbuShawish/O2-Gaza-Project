@@ -1600,7 +1600,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
                     ? showToast(`${item.name} غير متوفر حالياً`)
                     : setSelectedProduct(item)
                 }
-                byWeight={isByWeight || !!item.pricePerKg}
+                byWeight={!!item.pricePerKg}
               />
             ))}
           </div>

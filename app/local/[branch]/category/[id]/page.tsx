@@ -97,7 +97,7 @@ export default function LocalCategoryItems() {
                                 item={item}
                                 index={index}
                                 onClick={() => { }} // Disabled ordering
-                                byWeight={isByWeight}
+                                byWeight={!!(item as any).pricePerKg}
                             />
                         ))}
                     </motion.div>
