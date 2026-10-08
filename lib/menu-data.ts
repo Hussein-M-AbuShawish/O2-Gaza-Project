@@ -5,6 +5,8 @@ export interface MenuItem {
   name: string;
   price?: number;
   pricePerKg?: number;
+  /** أقل وزن يُطلب (كغ) للأصناف بالكيلو */
+  minKg?: number;
   variants?: { name: string; price: number }[];
   desc?: string;
   image: string;

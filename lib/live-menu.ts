@@ -66,6 +66,7 @@ type LiveItem = {
   active: boolean;
   price?: number;
   pricePerKg?: number;
+  minKg?: number;
   variants?: { name: string; price: number }[];
   desc?: string;
   image?: string;
@@ -145,6 +146,7 @@ export function buildMenu(payload: Payload): MenuData {
       image: imgSrc(i.image),
       active: i.active,
       ...(i.pricePerKg ? { pricePerKg: i.pricePerKg } : {}),
+      ...(i.pricePerKg && i.minKg ? { minKg: i.minKg } : {}),
       ...(i.variants && i.variants.length ? { variants: i.variants } : {}),
       ...(!i.pricePerKg &&
       !(i.variants && i.variants.length) &&

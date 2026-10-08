@@ -119,6 +119,7 @@ interface MenuItem {
   name: string;
   price?: number;
   pricePerKg?: number;
+  minKg?: number;
   variants?: { name: string; price: number }[];
   desc?: string;
   image: string;
@@ -570,7 +571,17 @@ function ProductModal({
   // «يُباع بالكيلو» وحده داخل قسم عادي (وجبة بالكيلو). سابقاً كان الشرط
   // على القسم فقط، فيبقى سعر الوجبة ثابتاً بلا اختيار وزن.
   const byW = !!product?.pricePerKg;
-  const [weight, setWeight] = useState(1);
+  // الحد الأدنى للطلب (من الداشبورد): لا يُقبل وزن أقل منه
+  const minKg = byW && product?.minKg && product.minKg > 0 ? product.minKg : 0;
+  const [weight, setWeight] = useState(() => Math.max(1, minKg));
+  const belowMin = byW && minKg > 0 && weight < minKg - 1e-9;
+  const presets = useMemo(() => {
+    const list = WEIGHT_PRESETS.filter((p) => p.w >= minKg - 1e-9);
+    if (minKg > 0 && !list.some((p) => Math.abs(p.w - minKg) < 1e-9)) {
+      list.unshift({ w: minKg, label: formatWeight(minKg) });
+    }
+    return list;
+  }, [minKg]);
   const [priceInput, setPriceInput] = useState("");
   const [selectedVariant, setSelectedVariant] = useState(
     product?.variants ? product.variants[0] : null
@@ -602,7 +613,7 @@ function ProductModal({
   };
 
   const adjustWeight = (delta: number) => {
-    const newWeight = Math.max(WEIGHT_STEP, parseFloat((weight + delta).toFixed(3)));
+    const newWeight = Math.max(minKg || WEIGHT_STEP, parseFloat((weight + delta).toFixed(3)));
     setWeight(newWeight);
     setPriceInput("");
   };
@@ -618,7 +629,7 @@ function ProductModal({
 
   const handleAddToCart = () => {
     if (!product || !canDeliver || product.active === false) return;
-    if (byW && (calculatedPrice <= 0 || weight <= 0)) return;
+    if (byW && (calculatedPrice <= 0 || weight <= 0 || belowMin)) return;
 
     let finalProduct = product;
     if (selectedVariant) {
@@ -684,6 +695,11 @@ function ProductModal({
                 ({formatWeight(weight)} × {product.pricePerKg} ₪/كغ)
               </span>
             )}
+            {minKg > 0 && (
+              <span className="text-xs text-muted-foreground font-normal block mt-1">
+                أقل كمية للطلب: {formatWeight(minKg)}
+              </span>
+            )}
           </div>
 
           {!canDeliver && (
@@ -707,8 +723,13 @@ function ProductModal({
                 placeholder="أدخل السعر"
                 className="w-full p-3 bg-white text-black rounded-lg text-center text-xl font-bold shadow-inner focus:outline-none focus:ring-2 focus:ring-primary"
               />
+              {belowMin && (
+                <p className="text-xs text-red-400 font-semibold mt-2 text-center">
+                  أقل طلب {formatWeight(minKg)} = {(minKg * (product.pricePerKg || 0)).toFixed(1)} ₪
+                </p>
+              )}
               <div className="grid grid-cols-3 gap-2 mt-4">
-                {WEIGHT_PRESETS.map(({ w, label }) => (
+                {presets.map(({ w, label }) => (
                   <button
                     key={w}
                     onClick={() => handleWeightPreset(w)}
@@ -764,7 +785,8 @@ function ProductModal({
             <>
               <button
                 onClick={handleAddToCart}
-                className="w-full py-3.5 rounded-xl bg-primary text-primary-foreground font-bold mb-3 transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center justify-center gap-2"
+                disabled={belowMin}
+                className="w-full py-3.5 rounded-xl bg-primary text-primary-foreground font-bold mb-3 transition-all hover:-translate-y-0.5 hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
                 <ShoppingBasket className="w-5 h-5" />
                 أضف إلى السلة
