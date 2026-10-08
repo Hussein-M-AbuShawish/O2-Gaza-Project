@@ -64,8 +64,8 @@ export function GallerySection() {
           {galleryImages.map((image, index) => (
             <motion.div
               key={image.src}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               viewport={{ once: true }}
               className={`${
@@ -144,9 +144,9 @@ export function GallerySection() {
             {/* Image */}
             <motion.div
               key={selectedImage}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
               className="relative w-full max-w-4xl aspect-video"
               onClick={(e) => e.stopPropagation()}
             >

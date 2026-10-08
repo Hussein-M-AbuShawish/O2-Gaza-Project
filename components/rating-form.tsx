@@ -173,8 +173,8 @@ export function RatingForm() {
     if (state?.success) {
         return (
             <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
                 className="rounded-2xl bg-card border-2 border-primary/30 p-10 text-center"
             >
                 <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">

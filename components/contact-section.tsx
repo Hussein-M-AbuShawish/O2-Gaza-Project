@@ -123,7 +123,7 @@ export function ContactSection() {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.02, x: 5 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`flex items-center gap-4 p-5 rounded-2xl text-white font-medium transition-all ${social.color}`}
+                    className={`flex items-center gap-4 p-5 rounded-2xl text-white font-medium transition-[color,background-color,border-color,box-shadow,opacity] ${social.color}`}
                   >
                     <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                       {social.icon}
@@ -160,7 +160,7 @@ export function ContactSection() {
                   viewport={{ once: true }}
                   className="p-5 rounded-xl bg-card border border-border/50 
                             hover:border-primary/30 hover:shadow-md
-                            transition-all cursor-pointer"
+                            transition-[color,background-color,border-color,box-shadow,opacity] cursor-pointer"
                   onClick={() => window.location.href = branch.phoneHref}
                 >
                   <div className="flex items-start gap-4">

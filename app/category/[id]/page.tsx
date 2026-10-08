@@ -100,6 +100,21 @@ const CONFIG = {
   },
 };
 
+/** خطوة زر +/− في الأصناف بالكيلو: ربع كيلو (كانت كيلو كامل) */
+const WEIGHT_STEP = 0.25;
+const WEIGHT_PRESETS = [
+  { w: 0.25, label: "ربع كيلو" },
+  { w: 0.5, label: "نص كيلو" },
+  { w: 0.75, label: "¾ كيلو" },
+  { w: 1, label: "كيلو" },
+  { w: 1.5, label: "كيلو ونص" },
+  { w: 2, label: "2 كيلو" },
+];
+/** 0.5 ← «500 غ» ، 1.25 ← «1.25 كغ» */
+function formatWeight(w: number) {
+  return w < 1 ? `${Math.round(w * 1000)} غ` : `${parseFloat(w.toFixed(3))} كغ`;
+}
+
 interface MenuItem {
   name: string;
   price?: number;
@@ -551,6 +566,10 @@ function ProductModal({
   whatsappNumber: string;
 }) {
   const [qty, setQty] = useState(1);
+  // الصنف بالكيلو إن كان له سعر كيلو — سواء كان قسمه بالكيلو أو عُلِّم
+  // «يُباع بالكيلو» وحده داخل قسم عادي (وجبة بالكيلو). سابقاً كان الشرط
+  // على القسم فقط، فيبقى سعر الوجبة ثابتاً بلا اختيار وزن.
+  const byW = !!product?.pricePerKg;
   const [weight, setWeight] = useState(1);
   const [priceInput, setPriceInput] = useState("");
   const [selectedVariant, setSelectedVariant] = useState(
@@ -558,14 +577,14 @@ function ProductModal({
   );
 
   const calculatedPrice = useMemo(() => {
-    if (isByWeight && product?.pricePerKg) {
+    if (byW && product?.pricePerKg) {
       return weight * product.pricePerKg;
     }
     if (selectedVariant) {
       return selectedVariant.price * qty;
     }
     return (product?.price || 0) * qty;
-  }, [isByWeight, product, weight, qty, selectedVariant]);
+  }, [byW, product, weight, qty, selectedVariant]);
 
   const canDeliver = product?.delivery !== false;
 
@@ -583,23 +602,23 @@ function ProductModal({
   };
 
   const adjustWeight = (delta: number) => {
-    const newWeight = Math.max(0.25, parseFloat((weight + delta).toFixed(2)));
+    const newWeight = Math.max(WEIGHT_STEP, parseFloat((weight + delta).toFixed(3)));
     setWeight(newWeight);
     setPriceInput("");
   };
 
   const whatsappText = useMemo(() => {
     if (!product) return "";
-    if (isByWeight && weight > 0) {
-      return `أريد طلب: ${product.name} - وزن ${weight.toFixed(2)} كغ (السعر ${calculatedPrice.toFixed(1)} شيكل)`;
+    if (byW && weight > 0) {
+      return `أريد طلب: ${product.name} - وزن ${formatWeight(weight)} (السعر ${calculatedPrice.toFixed(1)} شيكل)`;
     }
     const variantStr = selectedVariant ? ` (${selectedVariant.name})` : "";
     return `أريد طلب: ${product.name}${variantStr} × ${qty}`;
-  }, [product, isByWeight, weight, qty, calculatedPrice, selectedVariant]);
+  }, [product, byW, weight, qty, calculatedPrice, selectedVariant]);
 
   const handleAddToCart = () => {
     if (!product || !canDeliver || product.active === false) return;
-    if (isByWeight && (calculatedPrice <= 0 || weight <= 0)) return;
+    if (byW && (calculatedPrice <= 0 || weight <= 0)) return;
 
     let finalProduct = product;
     if (selectedVariant) {
@@ -610,7 +629,7 @@ function ProductModal({
       };
     }
 
-    onAddToCart(finalProduct, qty, weight, calculatedPrice, isByWeight);
+    onAddToCart(finalProduct, qty, weight, calculatedPrice, byW);
     onClose();
   };
 
@@ -660,9 +679,9 @@ function ProductModal({
 
           <div className="text-2xl md:text-3xl font-extrabold text-primary mb-4">
             {calculatedPrice.toFixed(1)} ₪
-            {isByWeight && (
+            {byW && (
               <span className="text-sm text-muted-foreground font-normal block">
-                ({weight.toFixed(2)} كغ × {product.pricePerKg} ₪/كغ)
+                ({formatWeight(weight)} × {product.pricePerKg} ₪/كغ)
               </span>
             )}
           </div>
@@ -676,7 +695,7 @@ function ProductModal({
             </div>
           )}
 
-          {isByWeight && canDeliver && (
+          {byW && canDeliver && (
             <div className="bg-primary/10 border-2 border-primary rounded-xl p-4 mb-4">
               <label className="block text-right mb-2 font-bold text-sm">
                 💰 أدخل المبلغ الذي تريد دفعه (شيكل)
@@ -688,14 +707,14 @@ function ProductModal({
                 placeholder="أدخل السعر"
                 className="w-full p-3 bg-white text-black rounded-lg text-center text-xl font-bold shadow-inner focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              <div className="grid grid-cols-4 gap-2 mt-4">
-                {[0.25, 0.5, 0.75, 1].map((w) => (
+              <div className="grid grid-cols-3 gap-2 mt-4">
+                {WEIGHT_PRESETS.map(({ w, label }) => (
                   <button
                     key={w}
                     onClick={() => handleWeightPreset(w)}
-                    className={`py-2 px-3 border-2 border-primary rounded-lg font-semibold transition-colors ${weight === w && !priceInput ? "bg-primary text-primary-foreground" : "bg-transparent text-white"}`}
+                    className={`py-2 px-1 border-2 border-primary rounded-lg font-semibold text-xs md:text-sm transition-colors ${Math.abs(weight - w) < 0.001 && !priceInput ? "bg-primary text-primary-foreground" : "bg-transparent text-white"}`}
                   >
-                    {w} كغ
+                    {label}
                   </button>
                 ))}
               </div>
@@ -724,16 +743,16 @@ function ProductModal({
           {canDeliver && (
             <div className="flex items-center justify-center gap-4 mb-4">
               <button
-                onClick={() => (isByWeight ? adjustWeight(-1) : setQty(Math.max(1, qty - 1)))}
+                onClick={() => (byW ? adjustWeight(-WEIGHT_STEP) : setQty(Math.max(1, qty - 1)))}
                 className="w-11 h-11 rounded-xl border-2 border-primary bg-transparent text-white flex items-center justify-center transition-all active:bg-primary active:scale-90"
               >
                 <Minus className="w-5 h-5" />
               </button>
               <span className="text-xl font-extrabold min-w-[80px] text-center">
-                {isByWeight ? `${weight.toFixed(2)} كغ` : qty}
+                {byW ? formatWeight(weight) : qty}
               </span>
               <button
-                onClick={() => (isByWeight ? adjustWeight(1) : setQty(qty + 1))}
+                onClick={() => (byW ? adjustWeight(WEIGHT_STEP) : setQty(qty + 1))}
                 className="w-11 h-11 rounded-xl border-2 border-primary bg-transparent text-white flex items-center justify-center transition-all active:bg-primary active:scale-90"
               >
                 <Plus className="w-5 h-5" />
@@ -784,9 +803,9 @@ function CartModal({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ y: 16, opacity: 0 }}
         className="bg-card rounded-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -806,7 +825,7 @@ function CartModal({
                 <div className="flex-1 text-right text-sm">
                   <b>
                     {item.name}
-                    {item.isByWeight && ` (${item.weight?.toFixed(2)} كغ)`}
+                    {item.isByWeight && ` (${formatWeight(item.weight || 0)})`}
                   </b>
                   <div className="text-muted-foreground text-xs">
                     السعر: {item.price.toFixed(1)}₪
@@ -925,9 +944,9 @@ function CustomerFormModal({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ y: 16, opacity: 0 }}
         className="bg-card rounded-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -1079,9 +1098,9 @@ function ConfirmationModal({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ y: 16, opacity: 0 }}
         className="bg-card rounded-2xl w-full max-w-lg p-4 max-h-[90vh] overflow-y-auto border-2 border-primary"
         onClick={(e) => e.stopPropagation()}
       >
@@ -1148,7 +1167,7 @@ function ConfirmationModal({
                     {item.name}
                     {item.isByWeight && (
                       <span className="block text-gray-500 text-xs">
-                        ({item.weight?.toFixed(2)} كغ)
+                        ({formatWeight(item.weight || 0)})
                       </span>
                     )}
                   </td>
@@ -1383,7 +1402,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
       itemsTotal += itemTotal;
 
       const displayName = i.isByWeight
-        ? `${i.name} (${i.weight?.toFixed(2)}ك)`
+        ? `${i.name} (${formatWeight(i.weight || 0)})`
         : i.name;
 
       const nameCol = pad(displayName.substring(0, 18), 18);
@@ -1559,7 +1578,7 @@ function CategoryPageContent({ defaultBranch }: { defaultBranch: string }) {
                     ? showToast(`${item.name} غير متوفر حالياً`)
                     : setSelectedProduct(item)
                 }
-                byWeight={isByWeight}
+                byWeight={isByWeight || !!item.pricePerKg}
               />
             ))}
           </div>

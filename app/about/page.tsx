@@ -341,7 +341,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group bg-card p-6 rounded-2xl border border-border/50 hover:border-primary/50 transition-all hover:shadow-lg"
+                className="group bg-card p-6 rounded-2xl border border-border/50 hover:border-primary/50 transition-[color,background-color,border-color,box-shadow,opacity] hover:shadow-lg"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors">
                   <value.icon className="w-7 h-7 text-primary" />
@@ -435,8 +435,8 @@ export default function AboutPage() {
             {whyO2.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="flex items-start gap-4 bg-card p-6 rounded-xl border border-border/50 hover:border-primary/30 transition-colors"

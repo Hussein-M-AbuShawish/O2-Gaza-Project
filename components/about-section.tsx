@@ -10,8 +10,8 @@ export function AboutSection() {
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -80, scale: 0.9 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            initial={{ opacity: 0, x: -80, y: 16 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
             viewport={{ once: true, margin: "-80px" }}
             className="relative order-2 md:order-1"
@@ -27,15 +27,15 @@ export function AboutSection() {
             </div>
             {/* Decorative elements */}
             <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
               className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/20 rounded-2xl -z-10"
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
               className="absolute -top-6 -right-6 w-24 h-24 border-2 border-primary/30 rounded-2xl -z-10"
@@ -102,8 +102,8 @@ export function AboutSection() {
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.5,
                     delay: 0.6 + index * 0.15,

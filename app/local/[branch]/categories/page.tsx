@@ -76,8 +76,8 @@ export default function LocalCategoriesPage({ forcedBranch }: { forcedBranch?: s
       <section className="relative pt-28 md:pt-32 pb-12 md:pb-16 px-4 md:px-6 overflow-hidden z-10">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 mb-4 md:mb-6"
           >
             <span className="relative flex h-2 w-2">

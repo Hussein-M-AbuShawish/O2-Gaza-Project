@@ -66,7 +66,7 @@ export function MenuSection() {
                 <motion.div
                   whileHover={{ y: -8 }}
                   transition={{ duration: 0.3 }}
-                  className={`relative h-48 md:h-56 rounded-2xl overflow-hidden bg-gradient-to-br ${category.color} border-2 border-border/50 hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center p-6 cursor-pointer group`}
+                  className={`relative h-48 md:h-56 rounded-2xl overflow-hidden bg-gradient-to-br ${category.color} border-2 border-border/50 hover:border-primary/50 transition-[color,background-color,border-color,box-shadow,opacity] duration-300 flex flex-col items-center justify-center p-6 cursor-pointer group`}
                 >
                   {/* Background animated elements */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-primary transition-opacity duration-300" />

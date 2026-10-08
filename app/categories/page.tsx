@@ -29,6 +29,12 @@ import { Footer } from "../../components/Footer";
 import { useLiveMenu } from "../../lib/live-menu";
 import { useCart } from "../../lib/cart-context";
 
+/** 0.5 ← «500 غ» ، 1.25 ← «1.25 كغ» */
+function formatWeight(w: number) {
+  return w < 1 ? `${Math.round(w * 1000)} غ` : `${parseFloat(w.toFixed(3))} كغ`;
+}
+
+
 const CATEGORY_DISPLAY = [
   { id: "shawarma", name: "الشاورما", image: "/menu/shawarma/53.jpg" },
   { id: "italian", name: "الإيطالي", image: "/menu/italian/35.jpg" },
@@ -182,9 +188,9 @@ function CartModal({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ y: 16, opacity: 0 }}
         className="bg-card rounded-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -204,7 +210,7 @@ function CartModal({
                 <div className="flex-1 text-right text-sm">
                   <b>
                     {item.name}
-                    {item.isByWeight && ` (${item.weight?.toFixed(2)} كغ)`}
+                    {item.isByWeight && ` (${formatWeight(item.weight || 0)})`}
                   </b>
                   <div className="text-muted-foreground text-xs">
                     السعر: {item.price.toFixed(1)}₪
@@ -323,9 +329,9 @@ function CustomerFormModal({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ y: 16, opacity: 0 }}
         className="bg-card rounded-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
@@ -475,9 +481,9 @@ function ConfirmationModal({
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ y: 16, opacity: 0 }}
         className="bg-card rounded-2xl w-full max-w-lg p-4 max-h-[90vh] overflow-y-auto border-2 border-primary"
         onClick={(e) => e.stopPropagation()}
       >
@@ -544,7 +550,7 @@ function ConfirmationModal({
                     {item.name}
                     {item.isByWeight && (
                       <span className="block text-gray-500 text-xs">
-                        ({item.weight?.toFixed(2)} كغ)
+                        ({formatWeight(item.weight || 0)})
                       </span>
                     )}
                   </td>
@@ -742,7 +748,7 @@ export default function CategoriesPage() {
       itemsTotal += itemTotal;
 
       const displayName = i.isByWeight
-        ? `${i.name} (${i.weight?.toFixed(2)}ك)`
+        ? `${i.name} (${formatWeight(i.weight || 0)})`
         : i.name;
 
       const nameCol = pad(displayName.substring(0, 18), 18);
@@ -879,8 +885,8 @@ export default function CategoriesPage() {
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full bg-zinc-900/50 border border-zinc-800 mb-4 md:mb-6"
           >
             <span className="relative flex h-2 w-2">

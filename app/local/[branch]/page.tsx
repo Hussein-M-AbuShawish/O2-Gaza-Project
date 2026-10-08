@@ -202,8 +202,8 @@ export default function BranchLinkTreePage({ params }: PageProps) {
 
       {/* Branch Info Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
         className="w-full max-w-md mt-12 p-6 rounded-[2rem] bg-secondary/30 border border-border/40 backdrop-blur-sm relative"
       >

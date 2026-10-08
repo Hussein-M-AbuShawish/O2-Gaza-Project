@@ -74,7 +74,7 @@ export default function ReservationSelectionPage() {
                                     <motion.div
                                         whileHover={{ y: -12, scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="relative h-full rounded-2xl overflow-hidden bg-[#1a1a1a] border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer group shadow-2xl"
+                                        className="relative h-full rounded-2xl overflow-hidden bg-[#1a1a1a] border-2 border-primary/20 hover:border-primary/50 transition-[color,background-color,border-color,box-shadow,opacity] duration-300 p-8 cursor-pointer group shadow-2xl"
                                     >
                                         {/* Background accent line */}
                                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/60 via-primary to-transparent" />

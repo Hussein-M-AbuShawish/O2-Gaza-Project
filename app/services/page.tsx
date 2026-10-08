@@ -172,8 +172,8 @@ export default function ServicesPage() {
                     <div className="flex flex-col justify-center order-2 md:order-1">
                       {/* Icon */}
                       <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
+                        initial={{ y: 16 }}
+                        animate={{ y: 0 }}
                         transition={{ delay: 0.2, type: "spring" }}
                         className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6"
                       >
@@ -241,8 +241,8 @@ export default function ServicesPage() {
 
                     {/* Image Side */}
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
                       className="relative order-1 md:order-2 h-64 md:h-full"
                     >

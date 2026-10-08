@@ -125,7 +125,7 @@ export function Footer() {
                 </ul>
               </motion.div>
 
-              <motion.div className="lg:col-span-1 lg:ms-20 :ml-30 xl:ms-32 transition-all">
+              <motion.div className="lg:col-span-1 lg:ms-20 :ml-30 xl:ms-32 transition-[color,background-color,border-color,box-shadow,opacity]">
                 <h3 className="text-lg font-bold mb-4 text-primary">
                   فرع النصيرات
                 </h3>

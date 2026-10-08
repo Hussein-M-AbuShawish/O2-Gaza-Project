@@ -146,8 +146,8 @@ ${orderDetails}
 
           {/* Ramadan Package Section */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto mb-16 bg-card rounded-3xl overflow-hidden border-2 border-primary/20 shadow-2xl shadow-primary/10"
           >
             <div className="md:flex">
@@ -178,7 +178,7 @@ ${orderDetails}
               <motion.div
                 key={item.id}
                 whileHover={{ y: -10 }}
-                className="bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-all shadow-xl"
+                className="bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/30 transition-[color,background-color,border-color,box-shadow,opacity] shadow-xl"
               >
                 <div className="h-56 relative">
                   <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -233,9 +233,9 @@ ${orderDetails}
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               className="relative w-full max-w-2xl bg-card rounded-3xl overflow-hidden border border-border/50 shadow-2xl max-h-[90vh] flex flex-col"
             >
               {/* Checkout Header */}
