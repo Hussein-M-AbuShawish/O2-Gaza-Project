@@ -67,12 +67,12 @@ const gazaMenu: MenuData = {
       { name: "فرشوحه دبل", price: 17, image: "/menu/shawarma/49.jpg" },
       {
         name: "فرشوحه دبل لحمة",
-        price: 25,
+        price: 22,
         image: "/menu/shawarma/48.jpg",
       },
       {
         name: "فرشوحه دبل دبل",
-        price: 27,
+        price: 25,
         image: "/menu/shawarma/48.jpg",
       },
       { name: "سوري", price: 30, image: "/menu/shawarma/53.jpg" },
