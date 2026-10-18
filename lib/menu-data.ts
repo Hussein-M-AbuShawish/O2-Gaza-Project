@@ -87,7 +87,7 @@ const gazaMenu: MenuData = {
         price: 40,
         desc: "خبزة باشكا - شاورما - جبنة - زيتون - صوص بيكانتي",
         image: "/menu/shawarma/18.jpg",
-        active: true,
+        active: false,
       },
       {
         name: "شاورما عربي",
@@ -108,7 +108,14 @@ const gazaMenu: MenuData = {
         name: "صحن شاورما",
         price: 20,
         image: "/menu/shawarma/13.jpg",
-        active: false,
+        active: true,
+      },
+      {
+        name: "وجبة ببجي",
+        price: 30,
+        image: "/menu/shawarma/55s.jpg",
+        desc: "شاورما  - صوص بيكانتي - جبنة - زيتون اسود",
+        active: true,
       },
     ]),
   },
@@ -151,12 +158,14 @@ const gazaMenu: MenuData = {
         price: 20,
         desc: "أناناس",
         image: "/menu/italian/2.jpg",
+        active: false,
       },
       {
         name: "نابولي",
         price: 20,
         desc: "بيتزا بالتونة والزيتون",
         image: "/menu/italian/3.jpg",
+        active: false,
       },
       {
         name: "مارجريتا",
@@ -213,8 +222,22 @@ const gazaMenu: MenuData = {
       {
         name: "تشكن فرايز",
         price: 30,
-
         image: "/menu/western/100.png",
+      },
+      {
+        name: "تشيز بوم",
+        price: 35,
+        image: "/menu/western/101.jpg",
+      },
+      {
+        name: "باربيكو",
+        price: 30,
+        image: "/menu/western/102.jpg",
+      },
+      {
+        name: "زينجر صاج",
+        price: 30,
+        image: "/menu/western/103.jpg",
       },
     ]),
   },
@@ -222,8 +245,18 @@ const gazaMenu: MenuData = {
     title: "الحلويات الشرقية",
     byWeight: true,
     items: withDefaultActive([
-      { name: "نمورة", pricePerKg: 20, image: "/menu/sweets/25.jpeg" },
-      { name: "بسبوسة", pricePerKg: 20, image: "/menu/sweets/82.jpeg" },
+      {
+        name: "نمورة",
+        pricePerKg: 20,
+        image: "/menu/sweets/25.jpeg",
+        active: false,
+      },
+      {
+        name: "بسبوسة",
+        pricePerKg: 20,
+        image: "/menu/sweets/82.jpeg",
+        active: false,
+      },
       {
         name: "كلاج",
         pricePerKg: 20,
@@ -244,7 +277,7 @@ const gazaMenu: MenuData = {
       { name: "معكوفة لوز", pricePerKg: 35, image: "/menu/sweets/6.jpg" },
       {
         name: "أساور لوز",
-        pricePerKg: 48,
+        pricePerKg: 45,
 
         image: "/menu/sweets/19.jpeg",
       },
@@ -341,7 +374,7 @@ const gazaMenu: MenuData = {
         image: "/menu/bar/64.jpg",
       },
       { name: "كريب دبي", price: 30, image: "/menu/bar/14.jpg" },
-      { name: "رينجز", price: 25, image: "/menu/bar/56.jpg" },
+      { name: "رينجز", price: 25, image: "/menu/bar/56.jpg", active: false },
       {
         name: "لقيمات شوكولاتة",
         price: 15,
@@ -604,59 +637,13 @@ const middleMenu: MenuData = {
       },
     ]),
   },
-  sandwiches: {
-    title: "السندويشات الغربية",
-    items: withDefaultActive([
-      {
-        name: "زينجر",
-        price: 30,
-        desc: "شرائح صدر دجاج متبّلة مع بندورة طازجة، جرجير، حلقات بصل",
-        image: "/menu/western/44.jpg",
-      },
-      {
-        name: "بيف برجر",
-        price: 30,
-        desc: "قطعة لحمة - بصل - بندورة - جبنة - مخلل - صوص بيكانتي",
-        image: "/menu/western/40.jpg",
-      },
-      {
-        name: "بيغ ماك",
-        price: 40,
-        desc: "قطعتين لحمة - بصل - بندورة - جبنة - مخلل - صوص بيكانتي",
-        image: "/menu/western/46.jpg",
-      },
-      {
-        name: "تشكن بيتزا",
-        price: 30,
-        desc: "صدر دجاج - مشروم - فليفلة - بصل - زيتون اسود - جبنة",
-        image: "/menu/western/94.jpg",
-      },
-      {
-        name: "شيش طاووق",
-        price: 30,
-        desc: "فخد دجاج - جرجير - بندورة -مخلل -صوص بيكانتي",
-        image: "/menu/western/47.jpg",
-      },
-      {
-        name: "فطيرة الذهبية",
-        price: 30,
-        desc: "صدر دجاج - فليفلة - بصل - زيتون اسود - جبنة - ذرة - كريمة طعام",
-        image: "/menu/western/43.jpg",
-    
-      },
-        {
-        name: "تشكن فرايز",
-        price: 30,
+  sandwiches: gazaMenu.sandwiches,
 
-        image: "/menu/western/100.png",
-      },
-    ]),
-  },
   easternSweets: gazaMenu.easternSweets,
   westernSweets: {
     title: "الكيك والحلويات الغربية",
     items: withDefaultActive([
-      { name: "قالب كيك صغير", price: 60, image: "/menu/cake/9.jpg" },
+      { name: "قالب كيك صغير", price: 60, image: "/menu/cake/12.jpg" },
       { name: "قالب كيك كبير", price: 80, image: "/menu/cake/10.jpg" },
       { name: "قالب كيك اسبيسشل صغير", price: 80, image: "/menu/cake/38.jpg" },
       {
