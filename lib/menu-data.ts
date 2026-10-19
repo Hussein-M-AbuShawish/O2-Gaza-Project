@@ -557,7 +557,7 @@ const gazaMenu: MenuData = {
       },
       {
         name: "بطاطا",
-        active: true,
+        active: false,
         image: "/menu/salad/20.jpeg",
         price: 10,
         // variants: [
