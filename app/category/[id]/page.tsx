@@ -75,8 +75,8 @@ const CONFIG = {
       { name: "ارض الشنطي", price: 5 },
       { name: "صالة الحلو", price: 5 },
       { name: "المخابرات", price: 5 },
-      { name: "دوار ابو شرخ", price: 5 },
-      { name: "الفالوجا", price: 5 },
+      // { name: "دوار ابو شرخ", price: 5 },
+      // { name: "الفالوجا", price: 5 },
       { name: "النابلسي", price: 5 },
     ],
     middle: [
