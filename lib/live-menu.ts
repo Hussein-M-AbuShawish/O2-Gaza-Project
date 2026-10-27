@@ -35,6 +35,16 @@ const ENDPOINT = USE_PROXY
   ? `${DIRECT_URL}/api/public/menu`
   : "/api/public/menu";
 
+/**
+ * مصدر المنيو:
+ *   static (الافتراضي) ← المنيو من lib/menu-data.ts فقط، بلا أي اتصال بلوحة التحكم
+ *   live               ← المنيو حيّ من البوت (اضبط NEXT_PUBLIC_MENU_SOURCE=live في Netlify)
+ * في الوضع الثابت تُمسح أيضاً نسخ المنيو المحفوظة في متصفحات الزبائن، لأنها
+ * آخر ما وصل من لوحة التحكم وكانت تبقى معروضة حتى بعد إيقافها.
+ */
+export const MENU_SOURCE = (process.env.NEXT_PUBLIC_MENU_SOURCE || "static").trim().toLowerCase();
+export const LIVE_ENABLED = MENU_SOURCE === "live";
+
 const REFRESH_MS = 20_000;
 /** مهلة الطلب: خادم Render المجاني قد يكون نائماً — لا ننتظره للأبد */
 const FETCH_TIMEOUT_MS = 12_000;
@@ -55,7 +65,7 @@ export const LIVE_CONFIG = {
   directUrl: DIRECT_URL,
   resolvedBase: BOT_URL,
   endpoint: ENDPOINT,
-  configured: true, // يعمل دائماً: نطاق صريح أو وسيط أو مسار نسبي
+  configured: LIVE_ENABLED, // في الوضع الثابت لا اتصال بالبوت إطلاقاً
 };
 
 type LiveItem = {
@@ -178,7 +188,7 @@ function normalizeStatic(menu: MenuData): MenuData {
  *
  *   const { menu, status, lastUpdated, refresh } = useLiveMenu(branch);
  */
-export function useLiveMenu(branch: string) {
+function useLiveMenuFromBot(branch: string) {
   const cacheState = (p: Payload | null): LiveStatus =>
     !p ? "loading" : Date.now() - p.at < CACHE_TRUST_MS ? "cached" : "stale";
 
@@ -296,3 +306,38 @@ export function countActive(menu: MenuData, catId: string): number {
   if (!c) return 0;
   return c.items.filter((i) => i.active !== false).length;
 }
+
+
+/** يمسح كل نسخ المنيو المحفوظة من لوحة التحكم (كل الإصدارات وكل الفروع) */
+function clearSavedMenus() {
+  if (typeof window === "undefined") return;
+  try {
+    const ls = window.localStorage;
+    for (let i = ls.length - 1; i >= 0; i--) {
+      const k = ls.key(i);
+      if (k && k.startsWith("o2-menu-cache")) ls.removeItem(k);
+    }
+  } catch {
+    /* التخزين معطّل — لا شيء لمسحه */
+  }
+}
+
+/** المنيو الثابت من lib/menu-data.ts — لا يتصل بأي خادم */
+function useStaticMenu(branch: string) {
+  useEffect(() => { clearSavedMenus(); }, []);
+  const menu = useMemo(() => normalizeStatic(getMenuByBranch(branch)), [branch]);
+  return {
+    menu,
+    status: "static" as LiveStatus,
+    settled: true,
+    lastUpdated: null as Date | null,
+    refresh: () => {},
+  };
+}
+
+/**
+ * منيو الفرع.
+ *   const { menu, status, settled, lastUpdated, refresh } = useLiveMenu(branch);
+ * الاختيار ثابت وقت البناء، فترتيب الـ hooks لا يتغيّر بين مرّات العرض.
+ */
+export const useLiveMenu = LIVE_ENABLED ? useLiveMenuFromBot : useStaticMenu;
