@@ -654,11 +654,7 @@ const middleMenu: MenuData = {
         price: 120,
         image: "/menu/cake/88.jpeg",
       },
-      {
-        name: "قالب كيك اسبيسشل كبير",
-        price: 100,
-        image: "/menu/cake/88.jpeg",
-      },
+    
       { name: "سويس رول", price: 8, image: "/menu/cake/31.jpg" },
       {
         name: "قطع كيك كلاسيكي",
