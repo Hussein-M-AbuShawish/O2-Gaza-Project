@@ -316,7 +316,8 @@ const gazaMenu: MenuData = {
     items: withDefaultActive([
       { name: "قالب كيك صغير", price: 70, image: "/menu/cake/9.jpg" },
       { name: "قالب كيك كبير", price: 100, image: "/menu/cake/10.jpg" },
-      { name: "قالب كيك اسبيسشل صغير", price: 100, image: "/menu/cake/38.jpg" },
+       { name: "قالب كيك اسبيسشل صغير", price: 100, image: "/menu/cake/38.jpg",
+      active: false},
       {
         name: "قالب كيك اسبيسشل كبير",
         price: 120,
@@ -357,7 +358,6 @@ const gazaMenu: MenuData = {
       },
       { name: "تشيز كيك", price: 10, image: "/menu/cake/7.jpg" },
       { name: "قالب نص بلاطة كلاسيك", price: 200, image: "/menu/cake/8.1.jpg" },
-      { name: "قالب بلاطة كلاسيك", price: 400, image: "/menu/cake/8.2.jpg" },
      
     ]),
   },
@@ -645,9 +645,15 @@ const middleMenu: MenuData = {
   westernSweets: {
     title: "الكيك والحلويات الغربية",
     items: withDefaultActive([
-      { name: "قالب كيك صغير", price: 60, image: "/menu/cake/12.jpg" },
-      { name: "قالب كيك كبير", price: 80, image: "/menu/cake/10.jpg" },
-      { name: "قالب كيك اسبيسشل صغير", price: 80, image: "/menu/cake/38.jpg" },
+      { name: "قالب كيك صغير", price: 70, image: "/menu/cake/9.jpg" },
+      { name: "قالب كيك كبير", price: 100, image: "/menu/cake/10.jpg" },
+      { name: "قالب كيك اسبيسشل صغير", price: 100, image: "/menu/cake/38.jpg",
+      active: false},
+      {
+        name: "قالب كيك اسبيسشل كبير",
+        price: 120,
+        image: "/menu/cake/88.jpeg",
+      },
       {
         name: "قالب كيك اسبيسشل كبير",
         price: 100,
@@ -686,7 +692,7 @@ const middleMenu: MenuData = {
         image: "/menu/cake/4.jpg",
       },
       { name: "تشيز كيك", price: 10, image: "/menu/cake/7.jpg" },
-      { name: "قالب نص بلاطة", price: 150, image: "/menu/cake/8.1.jpg" },
+      { name: "قالب نص بلاطة كلاسيك", price: 200, image: "/menu/cake/8.1.jpg" },
     ]),
   },
   barSweets: gazaMenu.barSweets,
